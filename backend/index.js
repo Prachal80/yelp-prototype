@@ -1,12 +1,13 @@
 //import the require dependencies
 var express = require("express");
+var cors = require("cors");
 var app = express();
 var mysql = require("mysql");
 var path = require("path");
 var dotenv = require("dotenv").config({
   path: "../.env",
 });
-
+app.use(cors());
 // dotenv.config({ path: "./.env" });
 var bodyParser = require("body-parser");
 // var session = require("express-session");
@@ -71,8 +72,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-var loginBasePath = require("./src/routes/customer/account");
+var loginBasePath = require("./src/routes/login/account");
 app.use("/login", loginBasePath);
+
+var signUpPath = require("./src/routes/signup/customer/signup");
+app.use("/signup", signUpPath);
 
 exports.db = db;
 app.listen(5001);

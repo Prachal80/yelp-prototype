@@ -4,6 +4,7 @@ import axios from "axios";
 // import cookie from "react-cookies";
 
 import logo from "../../img/signup_illustration.png";
+
 import { Redirect } from "react-router";
 
 const options = [
@@ -98,45 +99,56 @@ class Login extends Component {
       redirectVar = <Redirect to="/" />;
     }
     return (
-      <div>
-        <nav
-          style={{
-            background: "#D32323",
-            width: "100%",
-            height: "60px",
-          }}
-        ></nav>
+      <div class="outer">
         <div className="container">
           <form
             id="myForm"
             style={{
-              margin: "20%",
+              margin: "15% 13% 20%",
               width: "25%",
               float: "left",
-              marginTop: "300px",
             }}
             onSubmit={this.submitLogin}
           >
-            <label for="myForm">
-              <span
-                style={{
-                  color: "#D32323",
-                  fontSize: "15pt",
-                  fontWeight: "bold",
-                }}
-              >
-                Sign in to Yelp:
-              </span>
+            <div style={{ textAlign: "center" }}>
+              <label for="myForm">
+                <span
+                  style={
+                    {
+                      // color: "#D32323",
+                      // fontSize: "15pt",
+                      // fontWeight: "bold",
+                    }
+                  }
+                >
+                  <l
+                    style={{
+                      color: "#D32323",
+                      fontSize: "15pt",
+                      fontWeight: "bold",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    Sign in to Yelp
+                  </l>
+                </span>
 
-              <p
-                style={{
-                  fontSize: "12pt",
-                  fontWeight: "bold",
-                }}
-              >
-                New to yelp ? <l>Signup</l>
-              </p>
-            </label>
+                <p
+                  style={{
+                    fontSize: "12pt",
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <l> New to yelp ? </l>
+                  <l>
+                    <a href="/signup">Sign up</a>
+                  </l>
+                </p>
+              </label>
+            </div>
             <div class="form-group">
               <input
                 placeholder="Email"
@@ -194,7 +206,7 @@ class Login extends Component {
             className="image-work"
             src={logo}
             alt="Signup Illustration"
-            style={{ marginTop: "200px" }}
+            style={{ marginTop: "140px", PaddingRight: "60%" }}
           />
         </div>
       </div>

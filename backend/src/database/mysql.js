@@ -8,7 +8,7 @@ function executeQuery(query, callback) {
     else {
       if (res.length) {
         console.log("Query executed");
-        callback(true);
+        callback(true, res);
       } else {
         callback(false);
       }
