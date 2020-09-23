@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
+import Image from "react-bootstrap/Image";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class CustomerDashboard extends Component {
   constructor(props) {
@@ -24,7 +28,19 @@ class CustomerDashboard extends Component {
     console.log("hi");
     return (
       <div>
-        <p>Customer Dashboard</p>
+        <Container>
+          <Row>
+            <Col xs={6} md={4}>
+              <Image src="frontend/src/img/captain.jpg/171x180" rounded />
+            </Col>
+            <Col xs={6} md={4}>
+              <Image src="frontend/src/img/captain.jpg/171x180" roundedCircle />
+            </Col>
+            <Col xs={6} md={4}>
+              <Image src="frontend/src/img/captain.jpg/171x180" thumbnail />
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

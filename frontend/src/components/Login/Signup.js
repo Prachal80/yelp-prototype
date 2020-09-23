@@ -24,7 +24,7 @@ class Signup extends Component {
       email: "",
       location: "",
       userType: "customer",
-      isRestaurant: "false",
+      isRestaurant: false,
       ErrorMessage: "",
     };
     //Bind the handlers to this class
@@ -67,7 +67,7 @@ class Signup extends Component {
     console.log("user type: ", e.target.value);
     if (e.target.value === "restaurant") {
       this.setState({
-        isRestaurant: "true",
+        isRestaurant: true,
       });
     }
     this.setState({
@@ -107,7 +107,8 @@ class Signup extends Component {
       });
   };
 
-  userRestaurant() {
+  UserRestaurant = () => {
+    console.log("Res location");
     if (this.state.isRestaurant) {
       console.log("Res location");
       return (
@@ -126,13 +127,27 @@ class Signup extends Component {
     } else {
       console.log("In else");
     }
-  }
+  };
 
   render() {
     let redirectVar = null;
     if (localStorage.getItem("id")) {
       redirectVar = <Redirect to="/" />;
     }
+
+    // const userRestaurant = (
+    //   <div class="form-group">
+    //     <input
+    //       placeholder="Location"
+    //       type="text"
+    //       className="form-control"
+    //       id="Location"
+    //       aria-describedby="Location"
+    //       required
+    //       onChange={this.LocationChangeHandler}
+    //     />
+    //   </div>
+    // );
     return (
       <div class="outer">
         <div className="container">
@@ -197,7 +212,6 @@ class Signup extends Component {
                 onChange={this.emailChangeHandler}
               />
             </div>
-
             <div class="form-group">
               <input
                 placeholder="Password"
@@ -208,14 +222,27 @@ class Signup extends Component {
                 onChange={this.passwordChangeHandler}
               />
             </div>
-
-            <render userRestaurant />
+            {/* {this.state.isRestaurant && (
+              <div class="form-group">
+                <input
+                  placeholder="Location"
+                  type="text"
+                  className="form-control"
+                  id="Location"
+                  aria-describedby="Location"
+                  required
+                  onChange={this.LocationChangeHandler}
+                />
+              </div>
+            )} */}
+            {this.UserRestaurant()}
+            {/* <UserRestaurant /> */}
             <div class="form-group">
               <label for="inputState">User Type:</label>
               <select
                 id="userType"
                 class="form-control"
-                onChange={(this.userTypeChangeHandler, this.userRestaurant)}
+                onChange={this.userTypeChangeHandler}
                 value={this.state.value}
                 isSearchable
                 required

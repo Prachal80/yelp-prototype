@@ -59,7 +59,7 @@ class Login extends Component {
   };
   //submit Login handler to send a request to the node backend
   submitLogin = (e) => {
-    var headers = new Headers();
+    // var headers = new Headers();
     //prevent page from refresh
     e.preventDefault();
     const data = {
@@ -75,12 +75,16 @@ class Login extends Component {
       .post("http://localhost:5001/login", data)
       .then((response) => {
         console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
+        console.log("response, ", response.data);
         if (response.data.success) {
+          localStorage.setItem("CID", response.data.res[0].id);
+          localStorage.setItem("Cname", response.data.res[0].name);
+          localStorage.setItem("Cemail", response.data.res[0].email);
           if (this.state.userType === "customer") {
-            window.location.assign("/customer/dashboard");
+            window.location.assign("/customer/profile");
           } else {
-            window.location.assign("/restaurant/dashboard");
+            localStorage.setItem("RID", response.data.RID);
+            window.location.assign("/restaurant/profile");
           }
         }
       })
@@ -156,8 +160,8 @@ class Login extends Component {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                required
                 onChange={this.usernameChangeHandler}
+                required
               />
             </div>
             <div class="form-group">
@@ -166,8 +170,8 @@ class Login extends Component {
                 type="password"
                 class="form-control"
                 id="exampleInputPassword1"
-                required
                 onChange={this.passwordChangeHandler}
+                required
               />
             </div>
             <div class="form-group">
@@ -190,6 +194,7 @@ class Login extends Component {
               {/* <select options={options} required /> */}
             </div>
             <button
+              onClick={this.submitLogin}
               type="submit"
               class="btn "
               style={{

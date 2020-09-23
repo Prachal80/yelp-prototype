@@ -1,16 +1,17 @@
 const db = require("../../index");
 // const mysql = require("mysql");
 
-function executeQuery(query, callback) {
+function executeQuery(query, args, callback) {
   //   console.log("db", db);
-  db.db.query(query, (err, res) => {
+  db.db.query(query, args, (err, res) => {
     if (err) console.log("err,", err);
     else {
-      if (res.length) {
+      console.log("response ", res);
+      if (res) {
         console.log("Query executed");
         callback(true, res);
       } else {
-        callback(false);
+        callback(false, null);
       }
     }
   });

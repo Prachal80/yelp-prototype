@@ -81,6 +81,15 @@ class Navbar extends Component {
                 <a
                   class="nav-link"
                   style={{ color: "white", fontWeight: "bold" }}
+                  href="/customer/dashboard"
+                >
+                  Dashboard <span class="sr-only"></span>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a
+                  class="nav-link"
+                  style={{ color: "white", fontWeight: "bold" }}
                   href="/logout"
                 >
                   Logout <span class="sr-only"></span>
