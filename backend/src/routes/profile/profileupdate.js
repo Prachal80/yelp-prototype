@@ -32,17 +32,58 @@ router.post("/updateProfilePic", upload.single("profilePic"), function (
   console.log("protocol ", req.protocol);
   var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
   console.log("imagepath ", imagepath);
-  //   UPDATE `yelp`.`customer` SET `profilePic` = 'http://localhost:5001/uploads/profilePic-1600788593610.jpg' WHERE (`id` = '1');
-  //   query = `update yelp.customer set profilePic = "${imagepath}" where (id = ${req.body.CID})`;
-  // `update owner set name='${name}',email='${email}',restaurantname='${restaurant}',phone='${phone}',cuisine='${cuisine}' where email='${email}'`
 
-  let query = "update customer set profilePic = ? where id = ?";
+  let query = "update customer set profilepic = ? where id = ?";
   let args = [imagepath, req.body.CID];
   executeQuery(query, args, (flag, result) => {
     // console.log(flag, result);
     if (!flag) console.log("err", flag);
     else {
       res.redirect("http://localhost:3000/customer/profile");
+    }
+  });
+});
+
+router.get("/getCustomerProfile", (req, res) => {
+  console.log("req data ", req.query);
+  let query = "select * from customer where id = ?";
+  let args = [req.query.CID];
+
+  executeQuery(query, args, (flag, result) => {
+    if (!flag) console.log("user not found");
+    else {
+      console.log("result ", result);
+      res.send({ profileData: result });
+    }
+  });
+});
+
+router.post("/updateProfile", (req, res) => {
+  console.log("update profile req data ", req.body);
+  let query =
+    "update customer set name = ?, birthdate = ?, city = ?, state = ?, country = ?, nickname = ?, headline = ?, phone = ?, email = ?, blog = ?, yelpingsince = ?, thingsilove = ?, findmein = ? where id = ?";
+  let args = [
+    req.body.name,
+    req.body.dob,
+    req.body.city,
+    req.body.state,
+    req.body.country,
+    req.body.nickname,
+    req.body.headline,
+    req.body.phone,
+    req.body.emailid,
+    req.body.blog,
+    req.body.yelpingSince,
+    req.body.thingsIlove,
+    req.body.findMeIn,
+    req.body.CID,
+  ];
+
+  executeQuery(query, args, (flag, result) => {
+    if (!flag) console.log("user not found");
+    else {
+      console.log("result ", result);
+      res.send({ profileData: result });
     }
   });
 });

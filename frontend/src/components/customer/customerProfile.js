@@ -26,14 +26,44 @@ class CustomerDashboard extends Component {
       findMeIn: "",
       imagePath: "",
       ErrorMessage: "",
-      CID: "",
     };
 
     //Bind the handlers to this class
     this.ChangeHandler = this.ChangeHandler.bind(this);
     this.submitUpdate = this.submitUpdate.bind(this);
   }
+  componentDidMount() {
+    axios.defaults.withCredentials = true;
+    //make a post request with the user data
+    let data = {
+      CID: localStorage.getItem("CID"),
+    };
+    axios({
+      url: "http://localhost:5001/customerProfile/getCustomerProfile",
+      method: "GET",
+      params: data,
+    }).then((response) => {
+      // console.log("profile details", response.data.profileData[0]);
 
+      let customerData = response.data.profileData[0];
+      this.setState({
+        name: customerData.name,
+        dob: customerData.birthdate,
+        city: customerData.city,
+        state: customerData.state,
+        country: customerData.country,
+        nickname: customerData.nickname,
+        headline: customerData.headline,
+        phone: customerData.phone,
+        emailid: customerData.email,
+        blog: customerData.blog,
+        yelpingSince: customerData.yelpingsince,
+        thingsIlove: customerData.thingsilove,
+        findMeIn: customerData.findmein,
+        imagePath: customerData.profilepic,
+      });
+    });
+  }
   // change handlers to update state variable with the text entered by the user
   ChangeHandler = (e) => {
     this.setState({
@@ -43,11 +73,10 @@ class CustomerDashboard extends Component {
 
   //submit Login handler to send a request to the node backend
   submitUpdate = (e) => {
-    // var headers = new Headers();
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      name: this.state.rname,
+      name: this.state.name,
       dob: this.state.dob,
       emailid: this.state.emailid,
       city: this.state.city,
@@ -56,19 +85,18 @@ class CustomerDashboard extends Component {
       nickname: this.state.nickname,
       headline: this.state.headline,
       phone: this.state.phone,
-      emailid: this.state.emailid,
-      bolg: this.state.blog,
+      blog: this.state.blog,
       yelpingSince: this.state.yelpingSince,
       thingsIlove: this.state.thingsIlove,
       findMeIn: this.state.findMeIn,
-      ErrorMessage: this.state.ErrorMessage,
+      CID: localStorage.getItem("CID"),
     };
     console.log(data);
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post("http://localhost:5001/login", data)
+      .post("http://localhost:5001/customerProfile/updateProfile", data)
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
@@ -92,15 +120,15 @@ class CustomerDashboard extends Component {
     return (
       <div>
         <div>
-          <div class="row">
+          <div class="row" style={{ backgroundColor: "#e6e6e6" }}>
             <img
-              src="http://localhost:5001/uploads/profilePic-1600810353854.jpg"
+              src={this.state.imagePath}
               alt="Profile Pic"
               style={{
                 width: "200px",
                 height: "200px",
                 borderRadius: "50%",
-                margin: "2% 0 0 3%",
+                margin: "2% 0 2% 3%",
               }}
             ></img>
             <div
@@ -117,8 +145,10 @@ class CustomerDashboard extends Component {
                 textAlign: "center",
               }}
             >
-              <p>City, State, Country</p>
-              <p>Headline</p>
+              <p>
+                {this.state.city}, {this.state.state}, {this.state.country}
+              </p>
+              <p>{this.state.headline}</p>
             </div>
             <div
               class="topHeadline"
@@ -143,7 +173,7 @@ class CustomerDashboard extends Component {
           <br />
           <br />
           <form
-            action="http://localhost:5001/profilepic/updateProfilePic"
+            action="http://localhost:5001/customerProfile/updateProfilePic"
             method="POST"
             encType="multipart/form-data"
             style={{
@@ -171,7 +201,6 @@ class CustomerDashboard extends Component {
                   fontWeight: "bold",
                   borderBlockColor: "white",
                   border: "1px #D32323",
-                  //   width: "10%",
                 }}
               >
                 Update Picture
@@ -189,7 +218,9 @@ class CustomerDashboard extends Component {
                 left: "2%",
               }}
             >
+              <br />
               <p>Name : {this.state.name}</p>
+              <p>Nick Name : {this.state.nickname}</p>
               <p>Email : {this.state.emailid}</p>
               <p>Phone : {this.state.phone}</p>
               <p>DOB : {this.state.dob}</p>
@@ -197,6 +228,7 @@ class CustomerDashboard extends Component {
             </div>
             <div id="formContent">
               <form
+                onSubmit={this.submitUpdate}
                 style={{
                   position: "absolute",
                   background: "#ffe6e6",
@@ -216,7 +248,7 @@ class CustomerDashboard extends Component {
                     Update your Details
                   </p>
                   <Row>
-                    <Col xs lg="3">
+                    <Col xs={3}>
                       <input
                         type="taxt"
                         name="name"
@@ -226,7 +258,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={3}>
+                    <Col xs={3}>
                       <input
                         type="date"
                         name="dob"
@@ -236,7 +268,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={4}>
+                    <Col xs={6}>
                       <input
                         type="text"
                         name="headline"
@@ -249,7 +281,7 @@ class CustomerDashboard extends Component {
                   </Row>
                   <br />
                   <Row>
-                    <Col xs lg="2">
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="city"
@@ -259,7 +291,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg="2">
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="state"
@@ -269,7 +301,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={2}>
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="country"
@@ -279,7 +311,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={2}>
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="nickname"
@@ -292,7 +324,7 @@ class CustomerDashboard extends Component {
                   </Row>
                   <br />
                   <Row>
-                    <Col md lg={2}>
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="yelpingSince"
@@ -302,7 +334,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg="2">
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="things I Love"
@@ -312,7 +344,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={2}>
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="findMeIn"
@@ -322,7 +354,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={2}>
+                    <Col xs={3}>
                       <input
                         type="text"
                         name="blog"
@@ -335,7 +367,7 @@ class CustomerDashboard extends Component {
                   </Row>
                   <br />
                   <Row>
-                    <Col xs lg={2}>
+                    <Col xs={5}>
                       <input
                         type="email"
                         name="emailid"
@@ -345,7 +377,7 @@ class CustomerDashboard extends Component {
                         onChange={this.ChangeHandler}
                       />
                     </Col>
-                    <Col xs lg={2}>
+                    <Col xs={5}>
                       <input
                         type="text"
                         name="phone"

@@ -76,16 +76,18 @@ class Login extends Component {
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data);
-        if (response.data.success) {
+        if (response.data.success && data.userType == "customer") {
+          localStorage.setItem("user", "customer");
           localStorage.setItem("CID", response.data.res[0].id);
           localStorage.setItem("Cname", response.data.res[0].name);
           localStorage.setItem("Cemail", response.data.res[0].email);
-          if (this.state.userType === "customer") {
-            window.location.assign("/customer/profile");
-          } else {
-            localStorage.setItem("RID", response.data.RID);
-            window.location.assign("/restaurant/profile");
-          }
+          window.location.assign("/customer/profile");
+        } else if (response.data.success && data.userType == "restaurant") {
+          localStorage.setItem("user", "restaurant");
+          localStorage.setItem("RID", response.data.id);
+          localStorage.setItem("Rname", response.data.res[0].name);
+          localStorage.setItem("Remail", response.data.res[0].email);
+          window.location.assign("/restaurant/profile");
         }
       })
       .catch((response) => {
@@ -99,9 +101,12 @@ class Login extends Component {
   render() {
     //redirect based on successful login
     let redirectVar = null;
-    if (localStorage.getItem("id")) {
-      redirectVar = <Redirect to="/" />;
+    if (localStorage.getItem("CID")) {
+      redirectVar = <Redirect to="/customer/dashboard" />;
+    } else if (localStorage.getItem("RID")) {
+      redirectVar = <Redirect to="/restaurant/dashboard" />;
     }
+
     return (
       <div class="outer">
         <div className="container">
@@ -116,15 +121,7 @@ class Login extends Component {
           >
             <div style={{ textAlign: "center" }}>
               <label for="myForm">
-                <span
-                  style={
-                    {
-                      // color: "#D32323",
-                      // fontSize: "15pt",
-                      // fontWeight: "bold",
-                    }
-                  }
-                >
+                <span style={{}}>
                   <l
                     style={{
                       color: "#D32323",

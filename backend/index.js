@@ -72,11 +72,12 @@ db.connect((error) => {
 var loginBasePath = require("./src/routes/login/account");
 app.use("/login", loginBasePath);
 
-var signUpPath = require("./src/routes/signup/customer/signup");
+var signUpPath = require("./src/routes/signup/signup");
 app.use("/signup", signUpPath);
 
-var profilePic = require("./src/routes/profilepic/profileUpload");
-app.use("/profilepic", profilePic);
+// var profilePic = require("./src/routes/profilepic/profileUpload");
+var cusotmerProfile = require("./src/routes/profile/profileupdate");
+app.use("/customerProfile", cusotmerProfile);
 
 exports.db = db;
 app.listen(5001);

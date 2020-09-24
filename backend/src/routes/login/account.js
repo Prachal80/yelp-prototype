@@ -6,8 +6,8 @@ router.post("/", (req, res) => {
   console.log("login api ");
 
   let query = `select * from ${req.body.userType} where email= "${req.body.username}" and password = "${req.body.password}"`;
-
-  executeQuery(query, (flag, result) => {
+  args = [];
+  executeQuery(query, args, (flag, result) => {
     res.send({ success: flag, res: result });
   });
 });
