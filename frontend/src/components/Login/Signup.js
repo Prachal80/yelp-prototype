@@ -68,6 +68,12 @@ class Signup extends Component {
     if (e.target.value === "restaurant") {
       this.setState({
         isRestaurant: true,
+        userType: "restaurant",
+      });
+    } else if (e.target.value === "customer") {
+      this.setState({
+        isRestaurant: false,
+        userType: "customer",
       });
     }
     this.setState({
@@ -96,7 +102,7 @@ class Signup extends Component {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
         if (response.data.success) {
-          window.location.assign("/login");
+          // window.location.assign("/login");
         }
       })
       .catch((response) => {
@@ -135,19 +141,6 @@ class Signup extends Component {
       redirectVar = <Redirect to="/" />;
     }
 
-    // const userRestaurant = (
-    //   <div class="form-group">
-    //     <input
-    //       placeholder="Location"
-    //       type="text"
-    //       className="form-control"
-    //       id="Location"
-    //       aria-describedby="Location"
-    //       required
-    //       onChange={this.LocationChangeHandler}
-    //     />
-    //   </div>
-    // );
     return (
       <div class="outer">
         <div className="container">
@@ -222,19 +215,7 @@ class Signup extends Component {
                 onChange={this.passwordChangeHandler}
               />
             </div>
-            {/* {this.state.isRestaurant && (
-              <div class="form-group">
-                <input
-                  placeholder="Location"
-                  type="text"
-                  className="form-control"
-                  id="Location"
-                  aria-describedby="Location"
-                  required
-                  onChange={this.LocationChangeHandler}
-                />
-              </div>
-            )} */}
+
             {this.UserRestaurant()}
             {/* <UserRestaurant /> */}
             <div class="form-group">
@@ -243,11 +224,11 @@ class Signup extends Component {
                 id="userType"
                 class="form-control"
                 onChange={this.userTypeChangeHandler}
-                value={this.state.value}
+                value={this.state.userType}
                 isSearchable
                 required
               >
-                <option value="select" selected disabled>
+                <option value="select" disabled>
                   Select
                 </option>
                 <option value="customer" selected>
