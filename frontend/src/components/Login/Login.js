@@ -76,15 +76,15 @@ class Login extends Component {
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data);
-        if (response.data.success && data.userType == "customer") {
+        if (response.data.success && data.userType === "customer") {
           localStorage.setItem("user", "customer");
           localStorage.setItem("CID", response.data.res[0].id);
           localStorage.setItem("Cname", response.data.res[0].name);
           localStorage.setItem("Cemail", response.data.res[0].email);
           window.location.assign("/customer/profile");
-        } else if (response.data.success && data.userType == "restaurant") {
+        } else if (response.data.success && data.userType === "restaurant") {
           localStorage.setItem("user", "restaurant");
-          localStorage.setItem("RID", response.data.id);
+          localStorage.setItem("RID", response.data.res[0].id);
           localStorage.setItem("Rname", response.data.res[0].name);
           localStorage.setItem("Remail", response.data.res[0].email);
           window.location.assign("/restaurant/profile");
@@ -158,7 +158,7 @@ class Login extends Component {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 onChange={this.usernameChangeHandler}
-                required
+                required="required"
               />
             </div>
             <div class="form-group">
@@ -203,6 +203,8 @@ class Login extends Component {
             >
               Sign In
             </button>
+            <br />
+            {/* <p>{this.state.ErrorMessage}</p> */}
           </form>
           <img
             className="image-work"

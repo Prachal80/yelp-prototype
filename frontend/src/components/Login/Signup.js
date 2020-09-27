@@ -102,7 +102,7 @@ class Signup extends Component {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
         if (response.data.success) {
-          // window.location.assign("/login");
+          window.location.assign("/login");
         }
       })
       .catch((response) => {

@@ -5,8 +5,8 @@ import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import pic from "../../img/captain.jpg";
-class CustomerDashboard extends Component {
+
+class CustomerProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -74,7 +74,7 @@ class CustomerDashboard extends Component {
   //submit Login handler to send a request to the node backend
   submitUpdate = (e) => {
     //prevent page from refresh
-    e.preventDefault();
+    // e.preventDefault();
     const data = {
       name: this.state.name,
       dob: this.state.dob,
@@ -96,7 +96,7 @@ class CustomerDashboard extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post("http://localhost:5001/customerProfile/updateProfile", data)
+      .post("http://localhost:5001/customerProfile/updateCustomerProfile", data)
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
@@ -173,7 +173,7 @@ class CustomerDashboard extends Component {
           <br />
           <br />
           <form
-            action="http://localhost:5001/customerProfile/updateProfilePic"
+            action="http://localhost:5001/customerProfile/updateCustomerProfilePic"
             method="POST"
             encType="multipart/form-data"
             style={{
@@ -415,4 +415,4 @@ class CustomerDashboard extends Component {
   }
 }
 
-export default CustomerDashboard;
+export default CustomerProfile;

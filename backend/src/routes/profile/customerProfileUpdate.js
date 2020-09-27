@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 // app.use("../../uploads", express.static(path.join(__dirname, "/uploads")));
-router.post("/updateProfilePic", upload.single("profilePic"), function (
+router.post("/updateCustomerProfilePic", upload.single("profilePic"), function (
   req,
   res
 ) {
@@ -53,12 +53,12 @@ router.get("/getCustomerProfile", (req, res) => {
     if (!flag) console.log("user not found");
     else {
       console.log("result ", result);
-      res.send({ profileData: result });
+      res.send({ success: true, profileData: result });
     }
   });
 });
 
-router.post("/updateProfile", (req, res) => {
+router.post("/updateCustomerProfile", (req, res) => {
   console.log("update profile req data ", req.body);
   let query =
     "update customer set name = ?, birthdate = ?, city = ?, state = ?, country = ?, nickname = ?, headline = ?, phone = ?, email = ?, blog = ?, yelpingsince = ?, thingsilove = ?, findmein = ? where id = ?";
@@ -83,7 +83,7 @@ router.post("/updateProfile", (req, res) => {
     if (!flag) console.log("user not found");
     else {
       console.log("result ", result);
-      res.send({ profileData: result });
+      res.send({ success: true, profileData: result });
     }
   });
 });
