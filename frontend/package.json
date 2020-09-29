@@ -18,6 +18,7 @@
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
+        "react-z-index": "^3.0.0",
         "url-loader": "^4.1.0"
     },
     "scripts": {

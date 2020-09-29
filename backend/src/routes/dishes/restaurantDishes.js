@@ -51,14 +51,14 @@ router.post(
     executeQuery(query, args, (flag, result) => {
       if (!flag) console.log("err", flag);
       else {
+        // res.redirect("http://localhost:3000/restaurant/dashboard");
         res.send({ success: true, restaurantDishAdd: result });
-        res.redirect("http://localhost:3000/restaurant/dashboard");
       }
     });
   }
 );
 
-//Get Dishes
+//Get All Dishes
 router.get("/getAllDishes", (req, res) => {
   console.log("req data ", req.query);
   let query = "select * from dishes where restaurantid = ?";

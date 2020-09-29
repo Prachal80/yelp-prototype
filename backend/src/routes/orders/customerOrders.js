@@ -76,3 +76,5 @@ router.post("/deleteOrderCustomers"),
       }
     });
   };
+
+module.exports = router;

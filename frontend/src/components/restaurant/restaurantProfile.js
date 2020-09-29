@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
+import { Card, ListGroup } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -128,235 +129,256 @@ class RestaurantProfile extends Component {
     return (
       <div>
         <div>
-          <div class="row" style={{ backgroundColor: "#e6e6e6" }}>
+          <div class="row" style={{ marginTop: "2%" }}>
             <div
               style={{
-                marginTop: "2%",
-                marginLeft: "3%",
+                marginLeft: "2%",
+                marginRight: "1%",
               }}
             >
-              <p>Name : {this.state.name}</p>
-              <p>Email : {this.state.email}</p>
-              <p>Contact : {this.state.contact}</p>
-              <p>Timings : {this.state.timings}</p>
-              <p>Description : {this.state.description}</p>
+              <Card style={{ width: "18rem" }}>
+                <Card.Header>Name : {this.state.name}</Card.Header>
+                <ListGroup variant="primary">
+                  <ListGroup.Item>Email : {this.state.email}</ListGroup.Item>
+                  <ListGroup.Item>
+                    Contact : {this.state.contact}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Timings : {this.state.timings}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Description : {this.state.description}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
             </div>
-            <img
-              src={this.state.restaurantprofilepic}
-              alt="Profile Pic"
-              style={{
-                width: "500px",
-                height: "300px",
-
-                marginLeft: "18%",
-                // marginRight: "auto",
-              }}
-            ></img>
             <div
               style={{
-                marginTop: "2%",
-                marginRight: "2%",
-                marginleft: "5%",
-                paddingLeft: "3%",
+                marginRight: "1%",
               }}
             >
-              <p>Location City : {this.state.location}</p>
-              <p>Address : {this.state.address}</p>
-              <p>State : {this.state.state}</p>
-              <p>Country : {this.state.country}</p>
+              <Card style={{ width: "18rem" }}>
+                <Card.Header>Location City : {this.state.location}</Card.Header>
+                <ListGroup variant="primary">
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item>
+                    Address : {this.state.address}
+                  </ListGroup.Item>
+                  <ListGroup.Item>State : {this.state.state}</ListGroup.Item>
+                  <ListGroup.Item>
+                    Country : {this.state.country}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </div>
+            <div>
+              <img
+                src={this.state.restaurantprofilepic}
+                alt="Profile Pic"
+                style={{
+                  width: "400px",
+                  height: "250px",
+
+                  // marginLeft: "18%",
+                }}
+              ></img>
+            </div>
+            <div style={{ paddingLeft: "10px" }}>
+              <Map
+                google={this.props.google}
+                zoom={16}
+                style={{ width: "400px", height: "250px" }}
+              >
+                <Marker
+                  onClick={this.state.address}
+                  name={"Current location"}
+                />
+
+                <InfoWindow onClose={this.onInfoWindowClose}>
+                  <div>
+                    <h1>{this.state.address}</h1>
+                  </div>
+                </InfoWindow>
+              </Map>
             </div>
           </div>
+
+          <hr />
           <br />
           <br />
 
-          <form
-            action="http://localhost:5001/restaurantProfile/updateRestaurantProfilePic"
-            method="POST"
-            encType="multipart/form-data"
-            style={{
-              position: "absolute",
-              width: "15%",
-              left: "2%",
-            }}
-          >
-            <input
-              type="text"
-              name="RID"
-              value={JSON.parse(localStorage.getItem("RID"))}
-              style={{ display: "none", width: "10px" }}
-            />
-            <input type="file" name="restaurantprofilePic" />
-            <br />
-
-            <button
-              type="submit"
-              class="btn "
+          <div class="row">
+            <div
               style={{
-                backgroundColor: "#D32323",
-                color: "#ffffff",
-                fontWeight: "bold",
-                borderBlockColor: "white",
-                border: "1px #D32323",
+                marginLeft: "2%",
+                border: "1px solid black",
+                padding: "10px",
               }}
             >
-              Update Picture
-            </button>
-
-            <br />
-          </form>
-
-          <div class="wrapper fadeInDown">
-            <br />
-
-            <div id="formContent">
               <form
-                onSubmit={this.submitUpdate}
-                style={{
-                  position: "absolute",
-                  background: "#ffe6e6",
-                  marginLeft: "0%",
-
-                  left: "2%",
-                  top: "65%",
-                  borderRadius: "2%",
-                }}
+                action="http://localhost:5001/restaurantProfile/updateRestaurantProfilePic"
+                method="POST"
+                encType="multipart/form-data"
               >
-                <Container>
-                  <p
-                    style={{
-                      textAlign: "center",
-                      fontWeight: "bold",
-                      marginTop: "2px",
-                    }}
-                  >
-                    Update your Details
-                  </p>
-                  <Row>
-                    <Col xs={4}>
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        class="form-control"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-
-                    <Col xs={8}>
-                      <input
-                        type="text"
-                        name="description"
-                        placeholder="Description"
-                        class="form-control"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                  </Row>
-                  <br />
-                  <Row>
-                    <Col xs={3}>
-                      <input
-                        type="text"
-                        name="location"
-                        class="form-control"
-                        placeholder="Loaction City"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                    <Col xs={3}>
-                      <input
-                        type="text"
-                        name="address"
-                        class="form-control"
-                        placeholder="Address"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                    <Col xs={3}>
-                      <input
-                        type="text"
-                        name="state"
-                        class="form-control"
-                        id="state"
-                        placeholder="State"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                    <Col xs={3}>
-                      <input
-                        type="text"
-                        name="country"
-                        class="form-control"
-                        placeholder="Country"
-                        id="country"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                  </Row>
-                  <br />
-                  <Row>
-                    <Col xs={4}>
-                      <input
-                        type="email"
-                        name="emailid"
-                        class="form-control"
-                        placeholder="Email"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                    <Col xs={4}>
-                      <input
-                        type="text"
-                        name="contact"
-                        class="form-control"
-                        placeholder="Contact"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                    <Col xs={4}>
-                      <input
-                        type="text"
-                        name="timings"
-                        class="form-control"
-                        placeholder="Timings"
-                        onChange={this.ChangeHandler}
-                      />
-                    </Col>
-                  </Row>
-                </Container>
+                <input
+                  type="text"
+                  name="RID"
+                  value={JSON.parse(localStorage.getItem("RID"))}
+                  style={{ display: "none", width: "10px" }}
+                />
+                <input type="file" name="restaurantprofilePic" />
+                <br />
                 <br />
                 <button
                   type="submit"
-                  class="btn btn-primary"
+                  class="btn "
                   style={{
-                    background: "#D32323",
+                    backgroundColor: "#D32323",
                     color: "#ffffff",
                     fontWeight: "bold",
                     borderBlockColor: "white",
-                    fontWeight: "bold",
                     border: "1px #D32323",
+                    width: "150px",
                   }}
                 >
-                  Submit
+                  Update Picture
                 </button>
-              </form>
-              <div style={{ marginLeft: "75%", width: "30px", height: "40px" }}>
-                <Map
-                  google={this.props.google}
-                  zoom={14}
-                  style={{ width: "300px", height: "400px" }}
-                >
-                  <Marker
-                    onClick={this.state.address}
-                    name={"Current location"}
-                  />
 
-                  <InfoWindow onClose={this.onInfoWindowClose}>
-                    <div>
-                      <h1>{this.state.address}</h1>
-                    </div>
-                  </InfoWindow>
-                </Map>
+                <br />
+              </form>
+            </div>
+            <div>
+              <div id="formContent">
+                <form
+                  onSubmit={this.submitUpdate}
+                  style={{
+                    background: "#ffe6e6",
+                    left: "2%",
+                    top: "65%",
+                    borderRadius: "2%",
+                    marginLeft: "2%",
+                    border: "1px solid black",
+                  }}
+                >
+                  <Container>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        marginTop: "2px",
+                      }}
+                    >
+                      Update Restaurant Details
+                    </p>
+                    <Row>
+                      <Col xs={4}>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Name"
+                          class="form-control"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+
+                      <Col xs={8}>
+                        <input
+                          type="text"
+                          name="description"
+                          placeholder="Description"
+                          class="form-control"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                      <Col xs={3}>
+                        <input
+                          type="text"
+                          name="location"
+                          class="form-control"
+                          placeholder="Loaction City"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={3}>
+                        <input
+                          type="text"
+                          name="address"
+                          class="form-control"
+                          placeholder="Address"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={3}>
+                        <input
+                          type="text"
+                          name="state"
+                          class="form-control"
+                          id="state"
+                          placeholder="State"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={3}>
+                        <input
+                          type="text"
+                          name="country"
+                          class="form-control"
+                          placeholder="Country"
+                          id="country"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                      <Col xs={4}>
+                        <input
+                          type="email"
+                          name="emailid"
+                          class="form-control"
+                          placeholder="Email"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={4}>
+                        <input
+                          type="text"
+                          name="contact"
+                          class="form-control"
+                          placeholder="Contact"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={4}>
+                        <input
+                          type="text"
+                          name="timings"
+                          class="form-control"
+                          placeholder="Timings"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                    </Row>
+                  </Container>
+                  <br />
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{
+                      background: "#D32323",
+                      color: "#ffffff",
+                      fontWeight: "bold",
+                      borderBlockColor: "white",
+                      fontWeight: "bold",
+                      border: "1px #D32323",
+                    }}
+                  >
+                    Submit
+                  </button>
+                </form>
               </div>
             </div>
           </div>
