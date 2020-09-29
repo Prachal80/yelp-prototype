@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import RestaurantDashboard from "./restaurantDashboard";
 
 class RestaurantProfile extends Component {
   constructor(props) {
@@ -109,6 +108,22 @@ class RestaurantProfile extends Component {
       });
   };
 
+  // componentDidMount() {
+  //   axios
+  //     .get("http://localhost:5001/getDishes", {
+  //       params: {
+  //         RID: localStorage.getItem("RID"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log("Received Dishes");
+  //       //update the state with the response data
+  //       this.setState({
+  //         dishes: this.state.dishes.concat(response.data),
+  //       });
+  //     });
+  // }
+
   render() {
     return (
       <div>
@@ -153,6 +168,7 @@ class RestaurantProfile extends Component {
           </div>
           <br />
           <br />
+
           <form
             action="http://localhost:5001/restaurantProfile/updateRestaurantProfilePic"
             method="POST"
@@ -199,6 +215,7 @@ class RestaurantProfile extends Component {
                   position: "absolute",
                   background: "#ffe6e6",
                   marginLeft: "0%",
+
                   left: "2%",
                   top: "65%",
                   borderRadius: "2%",
@@ -217,7 +234,7 @@ class RestaurantProfile extends Component {
                   <Row>
                     <Col xs={4}>
                       <input
-                        type="taxt"
+                        type="text"
                         name="name"
                         placeholder="Name"
                         class="form-control"

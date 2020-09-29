@@ -34,7 +34,7 @@ class CustomerProfile extends Component {
   }
   componentDidMount() {
     axios.defaults.withCredentials = true;
-    //make a post request with the user data
+    //make a get request for the user data
     let data = {
       CID: localStorage.getItem("CID"),
     };
@@ -74,7 +74,7 @@ class CustomerProfile extends Component {
   //submit Login handler to send a request to the node backend
   submitUpdate = (e) => {
     //prevent page from refresh
-    // e.preventDefault();
+    e.preventDefault();
     const data = {
       name: this.state.name,
       dob: this.state.dob,
@@ -250,7 +250,7 @@ class CustomerProfile extends Component {
                   <Row>
                     <Col xs={3}>
                       <input
-                        type="taxt"
+                        type="text"
                         name="name"
                         placeholder="Name"
                         class="form-control"

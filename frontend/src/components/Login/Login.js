@@ -81,13 +81,13 @@ class Login extends Component {
           localStorage.setItem("CID", response.data.res[0].id);
           localStorage.setItem("Cname", response.data.res[0].name);
           localStorage.setItem("Cemail", response.data.res[0].email);
-          window.location.assign("/customer/profile");
+          window.location.assign("/customer/dashboard");
         } else if (response.data.success && data.userType === "restaurant") {
           localStorage.setItem("user", "restaurant");
           localStorage.setItem("RID", response.data.res[0].id);
           localStorage.setItem("Rname", response.data.res[0].name);
           localStorage.setItem("Remail", response.data.res[0].email);
-          window.location.assign("/restaurant/profile");
+          window.location.assign("/restaurant/dashboard");
         }
       })
       .catch((response) => {
@@ -100,12 +100,12 @@ class Login extends Component {
 
   render() {
     //redirect based on successful login
-    let redirectVar = null;
-    if (localStorage.getItem("CID")) {
-      redirectVar = <Redirect to="/customer/dashboard" />;
-    } else if (localStorage.getItem("RID")) {
-      redirectVar = <Redirect to="/restaurant/dashboard" />;
-    }
+    // let redirectVar = null;
+    // if (localStorage.getItem("CID")) {
+    //   redirectVar = <Redirect to="/customer/dashboard" />;
+    // } else if (localStorage.getItem("RID")) {
+    //   redirectVar = <Redirect to="/restaurant/dashboard" />;
+    // }
 
     return (
       <div class="outer">

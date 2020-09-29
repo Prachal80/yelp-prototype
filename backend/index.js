@@ -26,10 +26,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-app.use(
-  "/uploads/restaurant",
-  express.static(path.join(__dirname, "/uploads/restaurant"))
-);
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 // //Allow Access Control
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -73,6 +70,9 @@ app.use("/customerProfile", cusotmerProfile);
 
 var restaurantProfile = require("./src/routes/profile/restaurantProfileUpdate");
 app.use("/restaurantProfile", restaurantProfile);
+
+var restaurantDishes = require("./src/routes/dishes/restaurantDishes");
+app.use("/restaurantDishes", restaurantDishes);
 
 exports.db = db;
 app.listen(5001);
