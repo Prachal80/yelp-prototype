@@ -8,13 +8,13 @@ import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { zIndex } from "react-z-index";
 import EachDish from "../dish/individualDish";
+import { BsStarFill } from "react-icons/all";
 
 class RestaurantDashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dishes: ["Sandwich", "Salad"],
       name: "",
       location: "",
       address: "",
@@ -24,6 +24,7 @@ class RestaurantDashboard extends Component {
       timings: "",
       email: "",
       contact: "",
+      ratings: "",
       ErrorMessage: "",
 
       showForm: false,
@@ -54,6 +55,7 @@ class RestaurantDashboard extends Component {
       description: this.state.description,
       category: this.state.category,
       RID: localStorage.getItem("RID"),
+      ratings: this.state.ratings,
     };
     console.log(data);
     //set the with credentials to true
@@ -100,6 +102,7 @@ class RestaurantDashboard extends Component {
         email: restaurantData.email,
         contact: restaurantData.contact,
         restaurantprofilepic: restaurantData.restaurantprofilepic,
+        ratings: restaurantData.ratings,
       });
     });
     //Get All dishes
@@ -111,17 +114,9 @@ class RestaurantDashboard extends Component {
       })
       .then((response) => {
         console.log("Received Dishes");
-        // console.log("Dish Array", response.data.restaurantDishGet[0]);
-        //update the state with the response data
-        //let restaurantDish = response.data.restaurantDishGet[0];
+
         this.setState({
           dishes: this.state.dishes.concat(response.data.restaurantDishGet),
-          //   dishname: restaurantDish.dishname,
-          //   ingredients: restaurantDish.ingredients,
-          //   image: restaurantDish.image,
-          //   price: restaurantDish.price,
-          //   description: restaurantDish.description,
-          //   category: restaurantDish.category,
         });
       });
   }
@@ -143,6 +138,7 @@ class RestaurantDashboard extends Component {
     );
     formData.append("price", this.state.price);
     formData.append("RID", localStorage.getItem("RID"));
+    formData.append("Rname", localStorage.getItem("Rname"));
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
@@ -314,14 +310,6 @@ class RestaurantDashboard extends Component {
     );
   }
   render() {
-    // let dishes = this.state.dishes.map((dish) => {
-    //   return (
-    //     <tr key="index">
-    //       <td>{dish}</td>
-    //     </tr>
-    //   );
-    // });
-
     let dishAll = this.state.dishes.map((dish) => {
       return <EachDish key={Math.random} data={dish}></EachDish>;
     });
@@ -366,6 +354,9 @@ class RestaurantDashboard extends Component {
                   <ListGroup.Item>State : {this.state.state}</ListGroup.Item>
                   <ListGroup.Item>
                     Country : {this.state.country}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Ratings : {this.state.ratings} <BsStarFill />
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

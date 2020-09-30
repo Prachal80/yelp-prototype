@@ -30,11 +30,12 @@ router.post(
     console.log("Dish Image File", req.file);
     console.log("Dish File Path req.file.path", req.file.path);
     console.log("RID", req.body.RID);
+    console.log("Restaurant Name", req.body.Rname);
     console.log("protocol ", req.protocol);
     console.log("%%%%%%%", req.body);
     var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
     console.log("imagepath ", imagepath);
-    let query = `insert into dishes (dishname, ingredients,image,price,description,category,restaurantid) values (?,?,?,?,?,?,?)`;
+    let query = `insert into dishes (dishname, ingredients,image,price,description,category,restaurantid,restaurantname) values (?,?,?,?,?,?,?,?)`;
 
     let args = [
       req.body.dishname,
@@ -44,6 +45,7 @@ router.post(
       req.body.description,
       req.body.category,
       req.body.RID,
+      req.body.Rname,
     ];
     console.log("**********", query);
     console.log(args);

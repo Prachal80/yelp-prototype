@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
-export default class individualDish extends Component {
+export default class individualOrderDish extends Component {
   render() {
     return (
       <div
@@ -70,7 +70,7 @@ export default class individualDish extends Component {
                         border: "1px #D32323",
                       }}
                     >
-                      Edit Dish
+                      Make Order
                     </button>
                     &nbsp;
                     <button

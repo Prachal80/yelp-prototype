@@ -74,6 +74,9 @@ app.use("/restaurantProfile", restaurantProfile);
 var restaurantDishes = require("./src/routes/dishes/restaurantDishes");
 app.use("/restaurantDishes", restaurantDishes);
 
+var customerDishes = require("./src/routes/dishes/customerDishes");
+app.use("/customerDishes", customerDishes);
+
 var restaurantOrders = require("./src/routes/orders/restaurantOrders");
 app.use("/restaurantOrders", restaurantOrders);
 

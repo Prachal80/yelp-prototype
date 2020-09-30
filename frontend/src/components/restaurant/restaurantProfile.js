@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { BsStarFill } from "react-icons/all";
 
 class RestaurantProfile extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class RestaurantProfile extends Component {
       timings: "",
       email: "",
       contact: "",
+      ratings: "",
       ErrorMessage: "",
     };
 
@@ -52,6 +54,7 @@ class RestaurantProfile extends Component {
         timings: restaurantData.timings,
         email: restaurantData.email,
         contact: restaurantData.contact,
+        ratings: restaurantData.ratings,
         restaurantprofilepic: restaurantData.restaurantprofilepic,
       });
     });
@@ -160,13 +163,15 @@ class RestaurantProfile extends Component {
               <Card style={{ width: "18rem" }}>
                 <Card.Header>Location City : {this.state.location}</Card.Header>
                 <ListGroup variant="primary">
-                  <ListGroup.Item></ListGroup.Item>
                   <ListGroup.Item>
                     Address : {this.state.address}
                   </ListGroup.Item>
                   <ListGroup.Item>State : {this.state.state}</ListGroup.Item>
                   <ListGroup.Item>
                     Country : {this.state.country}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Ratings : {this.state.ratings} <BsStarFill />
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
