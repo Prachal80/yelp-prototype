@@ -100,12 +100,11 @@ class CustomerProfile extends Component {
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
-        if (response.data.success) {
-          if (this.state.userType === "customer") {
-            window.location.assign("/customer/profile");
-          } else {
-            window.location.assign("/restaurant/profile");
-          }
+        if (
+          response.data.success &&
+          localStorage.getItem("user") === "customer"
+        ) {
+          window.location.assign("/customer/profile");
         }
       })
       .catch((response) => {

@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { BsStarFill } from "react-icons/all";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import OrderEachDish from "../individual/individualorderDish";
+import OrderEachDish from "../individual/individualOrderDish";
 
 class customerRestaurantView extends Component {
   constructor(props) {
@@ -73,7 +77,7 @@ class customerRestaurantView extends Component {
   }
 
   render() {
-    let dishAll = this.state.dishes.map((dish) => {
+    let orderDishAll = this.state.dishes.map((dish) => {
       return <OrderEachDish key={Math.random} data={dish}></OrderEachDish>;
     });
     return (
@@ -163,13 +167,47 @@ class customerRestaurantView extends Component {
           <hr />
           <br />
           <br />
-          <div class="formContent">
-            {this.state.showForm ? this.showForm() : null}
-          </div>
-          <div class="wrapper fadeInDown">
-            <br />
-
-            <div class="DishInfo">{dishAll}</div>
+          <div class="row">
+            <div
+              style={{
+                marginLeft: "10%",
+              }}
+              class="overflow-auto"
+              class="lefttdiv"
+            >
+              {orderDishAll}
+            </div>
+            <div class="rightdiv">
+              <div
+                style={{
+                  marginLeft: "70%",
+                  marginTop: "5%",
+                  border: "1px solid black",
+                  width: "90%",
+                  height: "15%",
+                  padding: "5%",
+                }}
+              >
+                <Form.Group>
+                  <Form.Row>
+                    <Form.Control
+                      placeholder="Ratings out of 5"
+                      style={{ width: "50%" }}
+                    />
+                    <br />
+                    <br />
+                    <Form.Control placeholder="Review" />
+                  </Form.Row>
+                  <br />
+                  <Button
+                    type="submit"
+                    style={{ background: "#D32323", border: "1px solid black" }}
+                  >
+                    Submit Review
+                  </Button>
+                </Form.Group>
+              </div>
+            </div>
           </div>
         </div>
       </div>

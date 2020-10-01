@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 
-export default class individualOrderDish extends Component {
+export default class individualPlacedOrder extends Component {
   constructor(props) {
     super(props);
 
@@ -14,13 +14,10 @@ export default class individualOrderDish extends Component {
       dishimage: "",
       price: "",
       category: "",
-      customerid: "",
-      restaurantid: "",
       restaurantname: "",
       status: "",
-      option: "",
+      orderid: "",
       time: "",
-      ErrorMessage: "",
     };
     this.ChangeHandler = this.ChangeHandler.bind(this);
   }
@@ -32,22 +29,20 @@ export default class individualOrderDish extends Component {
       [e.target.name]: e.target.value,
     });
   };
+
   //submit Login handler to send a request to the node backend
-  submitOrder = (e) => {
+  cancelOrder = (e) => {
     //prevent page from refresh
     e.preventDefault();
     const data = {
       dishname: this.props.data.dishname,
-      dishimage: this.props.data.image,
+      dishimage: this.props.data.dishimage,
       price: this.props.data.price,
       category: this.props.data.category,
-      customerid: localStorage.getItem("CID"),
-      restaurantid: this.props.data.restaurantid,
-      status: "Received",
-      option: this.state.option,
       restaurantname: this.props.data.restaurantname,
-      customername: localStorage.getItem("Cname"),
-      time: new Date().toISOString().slice(0, 19).replace("T", " "),
+      status: this.props.data.status,
+      orderid: this.props.data.orderid,
+      time: this.props.data.time,
     };
 
     //set the with credentials to true
@@ -59,18 +54,16 @@ export default class individualOrderDish extends Component {
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
-        if (
-          response.data.success &&
-          localStorage.getItem("user") === "customer"
-        ) {
-          window.location.assign("/customer/orders");
-        }
+        // if (
+        //   response.data.success &&
+        //   localStorage.getItem("user") === "customer"
+        // )
       })
       .catch((response) => {
         console.log("********** Catch", response);
         this.setState({
           authFlag: false,
-          ErrorMessage: "Something went wrong while placing the order",
+          ErrorMessage: "Invalid Login Credentials",
         });
       });
   };
@@ -99,7 +92,7 @@ export default class individualOrderDish extends Component {
                 <Row>
                   <Col>
                     <img
-                      src={this.props.data.image}
+                      src={this.props.data.dishimage}
                       alt="Dish Image"
                       style={{
                         width: "200px",
@@ -107,28 +100,28 @@ export default class individualOrderDish extends Component {
                       }}
                     />
                   </Col>
-                  <Col>
+                  <Col style={{ textAlign: "justify" }}>
                     <p style={{ marginBottom: "0px" }}>
                       Price : {this.props.data.price}
-                    </p>
-                    <p style={{ marginBottom: "0px" }}>
-                      Ingredients : {this.props.data.ingredients}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
                       Category : {this.props.data.category}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
-                      Description : {this.props.data.description}
+                      Restaurant : {this.props.data.restaurantname}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
-                      Restaurant : {this.props.data.restaurantname}
+                      Status : {this.props.data.status}
+                    </p>
+                    <p style={{ marginBottom: "0px" }}>
+                      Placed on : {this.props.data.time}
                     </p>
                   </Col>
                 </Row>
                 <br />
                 <Row>
                   <Col>
-                    <form onSubmit={this.submitOrder}>
+                    <form onSubmit={this.cancelOrder}>
                       <button
                         type="submit"
                         class="btn btn-primary"
@@ -141,23 +134,9 @@ export default class individualOrderDish extends Component {
                           border: "1px #D32323",
                         }}
                       >
-                        Place Order
+                        Cancel Order
                       </button>
                       &nbsp; &nbsp; &nbsp; &nbsp;
-                      <input
-                        type="radio"
-                        name="option"
-                        value="delivery"
-                        onChange={this.ChangeHandler}
-                      />
-                      Delivery &nbsp;
-                      <input
-                        type="radio"
-                        name="option"
-                        value="pickup"
-                        onChange={this.ChangeHandler}
-                      />
-                      Pickup
                     </form>
                   </Col>
                 </Row>

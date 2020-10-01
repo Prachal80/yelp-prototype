@@ -70,10 +70,10 @@ export default class individualDish extends Component {
                         border: "1px #D32323",
                       }}
                     >
-                      Edit Dish
+                      Place order
                     </button>
                     &nbsp;
-                    <button
+                    {/* <button
                       type="submit"
                       class="btn btn-primary"
                       style={{
@@ -85,8 +85,8 @@ export default class individualDish extends Component {
                         border: "1px #D32323",
                       }}
                     >
-                      Remove
-                    </button>
+                      Remove */}
+                    {/* </button> */}
                   </Col>
                 </Row>
               </Container>
