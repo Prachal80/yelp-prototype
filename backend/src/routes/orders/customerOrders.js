@@ -60,21 +60,20 @@ router.get("/getAllOrders", (req, res) => {
 });
 
 //Delete Order
-router.post("/deleteOrderCustomers"),
-  (req, res) => {
-    console.log("Inside changestatus Order Request");
-    console.log("Req Body : ", req.body);
+router.post("/deleteOrderCustomer", (req, res) => {
+  console.log("Inside changestatus Order Request");
+  console.log("Req Body : ", req.body);
 
-    let query = `delete from orders where orderid= ?`;
-    args = [req.body.orderid];
+  let query = `delete from orders where orderid= ?`;
+  args = [req.body.orderid];
 
-    executeQuery(query, args, (flag, result) => {
-      if (!flag) console.log("-------No orders found-------");
-      else {
-        console.log("result ", result);
-        res.send({ success: true, CustomerDeleteOrder: result });
-      }
-    });
-  };
+  executeQuery(query, args, (flag, result) => {
+    if (!flag) console.log("-------No orders found-------");
+    else {
+      console.log("result ", result);
+      res.send({ success: true, CustomerDeleteOrder: result });
+    }
+  });
+});
 
 module.exports = router;

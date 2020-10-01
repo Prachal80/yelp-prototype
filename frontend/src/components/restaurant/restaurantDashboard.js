@@ -1,13 +1,13 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
-
+import { Redirect } from "react-router";
 import { Card, ListGroup } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { zIndex } from "react-z-index";
-import EachDish from "../dish/individualDish";
+import EachDish from "../dish/individualRestaurantDish";
 import { BsStarFill } from "react-icons/all";
 
 class RestaurantDashboard extends Component {
@@ -174,12 +174,7 @@ class RestaurantDashboard extends Component {
     });
   };
 
-  //   onClick() {
-  //     // On click we change our state – this will trigger our `render` method
-  //     this.setState({ showForm: true });
-  //   }
-
-  showForm() {
+  showAddDishForm() {
     return (
       <form
         class="DishFrom"
@@ -309,13 +304,19 @@ class RestaurantDashboard extends Component {
       </form>
     );
   }
+
   render() {
+    let redirectVar = null;
+    if (!localStorage.getItem("user")) {
+      redirectVar = <Redirect to="/login" />;
+    }
     let dishAll = this.state.dishes.map((dish) => {
-      return <EachDish key={Math.random} data={dish}></EachDish>;
+      return <EachDish data={dish}></EachDish>;
     });
 
     return (
       <div>
+        {redirectVar}
         <div>
           <div class="row" style={{ marginTop: "2%" }}>
             <div
@@ -419,7 +420,7 @@ class RestaurantDashboard extends Component {
               Add New Dish
             </button>
 
-            {this.state.showForm ? this.showForm() : null}
+            {this.state.showForm ? this.showAddDishForm() : null}
           </div>
           <div class="wrapper fadeInDown">
             <br />

@@ -147,14 +147,14 @@ export default class individualOrderDish extends Component {
                       <input
                         type="radio"
                         name="option"
-                        value="delivery"
+                        value="Delivery"
                         onChange={this.ChangeHandler}
                       />
                       Delivery &nbsp;
                       <input
                         type="radio"
                         name="option"
-                        value="pickup"
+                        value="Delivery"
                         onChange={this.ChangeHandler}
                       />
                       Pickup

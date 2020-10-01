@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import EachDish from "../dish/individualDish";
+import EachDish from "../individual/individualOrderDish";
 import EachRestaurant from "../individual/individualRestaurants";
 
 class CustomerDashboard extends Component {
@@ -55,6 +55,11 @@ class CustomerDashboard extends Component {
   }
 
   render() {
+    let redirectVar = null;
+    if (!localStorage.getItem("user")) {
+      redirectVar = <Redirect to="/login" />;
+    }
+
     let dishAll = this.state.dishes.map((dish) => {
       return <EachDish key={Math.random} data={dish}></EachDish>;
     });
@@ -70,6 +75,7 @@ class CustomerDashboard extends Component {
 
     return (
       <div>
+        {redirectVar}
         <br />
 
         <h2 style={{ textAlign: "center" }}>

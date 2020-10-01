@@ -135,8 +135,6 @@ class customerRestaurantView extends Component {
                   width: "400px",
                   height: "250px",
                   border: "1px grey",
-
-                  // marginLeft: "18%",
                 }}
               ></img>
             </div>

@@ -18,8 +18,10 @@ export default class individualPlacedOrder extends Component {
       status: "",
       orderid: "",
       time: "",
+      ErrorMessage: "",
     };
     this.ChangeHandler = this.ChangeHandler.bind(this);
+    this.cancelOrder = this.cancelOrder.bind(this);
   }
 
   // change handlers to update state variable with the text entered by the user
@@ -30,19 +32,12 @@ export default class individualPlacedOrder extends Component {
     });
   };
 
-  //submit Login handler to send a request to the node backend
+  //submit cancelOrder handler to delete order
   cancelOrder = (e) => {
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      dishname: this.props.data.dishname,
-      dishimage: this.props.data.dishimage,
-      price: this.props.data.price,
-      category: this.props.data.category,
-      restaurantname: this.props.data.restaurantname,
-      status: this.props.data.status,
       orderid: this.props.data.orderid,
-      time: this.props.data.time,
     };
 
     //set the with credentials to true
@@ -50,20 +45,18 @@ export default class individualPlacedOrder extends Component {
     //make a post request with the user data
     console.log("#############", data);
     axios
-      .post("http://localhost:5001/customerOrders/makeOrderCustomer", data)
+      .post("http://localhost:5001/customerOrders/deleteOrderCustomer", data)
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
-        // if (
-        //   response.data.success &&
-        //   localStorage.getItem("user") === "customer"
-        // )
+        if (response.data.success) {
+          window.location.assign("/customer/orders");
+        }
       })
       .catch((response) => {
         console.log("********** Catch", response);
         this.setState({
-          authFlag: false,
-          ErrorMessage: "Invalid Login Credentials",
+          ErrorMessage: "Invalid delete request Credentials",
         });
       });
   };
@@ -72,9 +65,7 @@ export default class individualPlacedOrder extends Component {
     return (
       <div
         style={{
-          //   marginLeft: "5%",
           marginLeft: "5%",
-          //   border: "1px solid black",
           marginTop: "10px",
           marginBottom: "5px",
           padding: "10px",
@@ -104,6 +95,10 @@ export default class individualPlacedOrder extends Component {
                     <p style={{ marginBottom: "0px" }}>
                       Price : {this.props.data.price}
                     </p>
+                    <p style={{ marginBottom: "0px" }}>
+                      Order type: : {this.props.data.optiontype}
+                    </p>
+
                     <p style={{ marginBottom: "0px" }}>
                       Category : {this.props.data.category}
                     </p>
@@ -136,7 +131,6 @@ export default class individualPlacedOrder extends Component {
                       >
                         Cancel Order
                       </button>
-                      &nbsp; &nbsp; &nbsp; &nbsp;
                     </form>
                   </Col>
                 </Row>

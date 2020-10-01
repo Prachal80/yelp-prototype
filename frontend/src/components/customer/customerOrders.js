@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router";
 import EachOrderCustomer from "../individual/individualPlacedOrders";
 
 export class customerOrders extends Component {
@@ -15,6 +16,7 @@ export class customerOrders extends Component {
       orderpic: "",
       orderid: "",
       time: "",
+      optiontype: "",
       orders: [],
     };
   }
@@ -40,6 +42,10 @@ export class customerOrders extends Component {
   }
 
   render() {
+    let redirectVar = null;
+    if (!localStorage.getItem("user")) {
+      redirectVar = <Redirect to="/login" />;
+    }
     let orderDishAll = this.state.orders.map((order) => {
       return (
         <EachOrderCustomer
@@ -50,6 +56,7 @@ export class customerOrders extends Component {
 
     return (
       <div>
+        {redirectVar}
         <div>
           <br />
           <br />

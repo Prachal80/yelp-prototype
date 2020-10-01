@@ -70,23 +70,9 @@ export default class individualDish extends Component {
                         border: "1px #D32323",
                       }}
                     >
-                      Place order
+                      Edit Dish
                     </button>
                     &nbsp;
-                    {/* <button
-                      type="submit"
-                      class="btn btn-primary"
-                      style={{
-                        background: "#D32323",
-                        color: "#ffffff",
-                        fontWeight: "bold",
-                        borderBlockColor: "white",
-                        fontWeight: "bold",
-                        border: "1px #D32323",
-                      }}
-                    >
-                      Remove */}
-                    {/* </button> */}
                   </Col>
                 </Row>
               </Container>

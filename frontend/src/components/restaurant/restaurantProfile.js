@@ -129,8 +129,13 @@ class RestaurantProfile extends Component {
   // }
 
   render() {
+    let redirectVar = null;
+    if (!localStorage.getItem("user")) {
+      redirectVar = <Redirect to="/login" />;
+    }
     return (
       <div>
+        {redirectVar}
         <div>
           <div class="row" style={{ marginTop: "2%" }}>
             <div

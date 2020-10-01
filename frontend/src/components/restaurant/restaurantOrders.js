@@ -1,8 +1,17 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router";
 export class restaurantOrders extends Component {
   render() {
-    return <div>Restaurant Orders</div>;
+    let redirectVar = null;
+    if (!localStorage.getItem("user")) {
+      redirectVar = <Redirect to="/login" />;
+    }
+    return (
+      <div>
+        {redirectVar}
+        Restaurant Orders
+      </div>
+    );
   }
 }
 
