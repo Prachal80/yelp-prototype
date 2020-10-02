@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 
-export default class individualOrderDish extends Component {
+export default class individualPlacedOrder extends Component {
   constructor(props) {
     super(props);
 
@@ -14,74 +14,105 @@ export default class individualOrderDish extends Component {
       dishimage: "",
       price: "",
       category: "",
-      customerid: "",
-      restaurantid: "",
-      restaurantname: "",
+      cusotmername: "",
       status: "",
-      option: "",
+      orderid: "",
       time: "",
+      optiontype: "",
       ErrorMessage: "",
     };
     this.ChangeHandler = this.ChangeHandler.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
   }
 
   // change handlers to update state variable with the text entered by the user
   ChangeHandler = (e) => {
-    console.log("Inside option change handler", e.target.value);
+    console.log("Inside status change handler", e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
-  //submit Login handler to send a request to the node backend
-  submitOrder = (e) => {
+
+  //submit cancelOrder handler to delete order
+  changeOrder = (e) => {
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      dishname: this.props.data.dishname,
-      dishimage: this.props.data.image,
-      price: this.props.data.price,
-      category: this.props.data.category,
-      customerid: localStorage.getItem("CID"),
-      restaurantid: this.props.data.restaurantid,
-      status: "Order Received",
-      option: this.state.option,
-      restaurantname: this.props.data.restaurantname,
-      customername: localStorage.getItem("Cname"),
-      time: new Date().toISOString().slice(0, 19).replace("T", " "),
+      orderid: this.props.data.orderid,
+      status: this.state.status,
     };
 
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    console.log("#############", data);
+    console.log("************", data);
     axios
-      .post("http://localhost:5001/customerOrders/makeOrderCustomer", data)
+      .post(
+        "http://localhost:5001/restaurantOrders/changeOrderStatusRestaurant",
+        data
+      )
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
-        if (
-          response.data.success &&
-          localStorage.getItem("user") === "customer"
-        ) {
-          window.location.assign("/customer/orders");
+        if (response.data.success) {
+          window.location.assign("/restaurant/orders");
         }
       })
       .catch((response) => {
         console.log("********** Catch", response);
         this.setState({
-          authFlag: false,
-          ErrorMessage: "Something went wrong while placing the order",
+          ErrorMessage: "Error while making change request",
         });
       });
+  };
+
+  showOptions = () => {
+    if (this.props.data.optiontype == "Delivery") {
+      return (
+        <select
+          id="satus"
+          name="status"
+          class="form-control"
+          onChange={this.ChangeHandler}
+          value={this.state.value}
+          isSearchable
+          required
+        >
+          <option value="select" selected disabled>
+            Select Status
+          </option>
+          <option value="Preparing">Preparing</option>
+          <option value="On the way">On the way</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+      );
+    } else if (this.props.data.optiontype == "Pickup") {
+      return (
+        <select
+          id="satus"
+          name="status"
+          class="form-control"
+          onChange={this.ChangeHandler}
+          value={this.state.value}
+          isSearchable
+          required
+        >
+          <option value="select" selected disabled>
+            Select Status
+          </option>
+          <option value="Preparing">Preparing</option>
+          <option value="Ready for Pickup">Ready for Pickup</option>
+          <option value="Picked up">Picked up</option>
+        </select>
+      );
+    }
   };
 
   render() {
     return (
       <div
         style={{
-          //   marginLeft: "5%",
           marginLeft: "5%",
-          //   border: "1px solid black",
           marginTop: "10px",
           marginBottom: "5px",
           padding: "10px",
@@ -99,7 +130,7 @@ export default class individualOrderDish extends Component {
                 <Row>
                   <Col>
                     <img
-                      src={this.props.data.image}
+                      src={this.props.data.dishimage}
                       alt="Dish Image"
                       style={{
                         width: "200px",
@@ -107,28 +138,33 @@ export default class individualOrderDish extends Component {
                       }}
                     />
                   </Col>
-                  <Col>
+                  <Col style={{ textAlign: "justify" }}>
                     <p style={{ marginBottom: "0px" }}>
                       Price : {this.props.data.price}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
-                      Ingredients : {this.props.data.ingredients}
+                      Order type: : {this.props.data.optiontype}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
                       Category : {this.props.data.category}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
-                      Description : {this.props.data.description}
+                      Customer : {this.props.data.customername}
                     </p>
+                    {/* <p style={{ marginBottom: "0px" }}>
+                      Placed on : {this.props.data.time}
+                    </p> */}
                     <p style={{ marginBottom: "0px" }}>
-                      Restaurant : {this.props.data.restaurantname}
+                      Status : {this.props.data.status}
                     </p>
                   </Col>
                 </Row>
                 <br />
                 <Row>
                   <Col>
-                    <form onSubmit={this.submitOrder}>
+                    <form onSubmit={this.changeOrder}>
+                      {this.showOptions()}
+                      <br />
                       <button
                         type="submit"
                         class="btn btn-primary"
@@ -141,23 +177,8 @@ export default class individualOrderDish extends Component {
                           border: "1px #D32323",
                         }}
                       >
-                        Place Order
+                        Change Status
                       </button>
-                      &nbsp; &nbsp; &nbsp; &nbsp;
-                      <input
-                        type="radio"
-                        name="option"
-                        value="Delivery"
-                        onChange={this.ChangeHandler}
-                      />
-                      Delivery &nbsp;
-                      <input
-                        type="radio"
-                        name="option"
-                        value="Pickup"
-                        onChange={this.ChangeHandler}
-                      />
-                      Pickup
                     </form>
                   </Col>
                 </Row>

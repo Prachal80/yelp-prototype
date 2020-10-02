@@ -22,7 +22,6 @@ export class customerOrders extends Component {
   }
 
   componentDidMount() {
-    console.log("RID", this.state.restaurantid);
     axios.defaults.withCredentials = true;
 
     //Get All orders made by a customer
