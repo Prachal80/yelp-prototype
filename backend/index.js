@@ -83,6 +83,9 @@ app.use("/restaurantOrders", restaurantOrders);
 var customerOrders = require("./src/routes/orders/customerOrders");
 app.use("/customerOrders", customerOrders);
 
+var reviews = require("./src/routes/reviews/reviews");
+app.use("/reviews", reviews);
+
 exports.db = db;
 app.listen(5001);
 console.log("Server Listening on port 5001");

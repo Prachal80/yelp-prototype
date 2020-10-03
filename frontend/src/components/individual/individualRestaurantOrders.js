@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from "react";
 import Container from "react-bootstrap/Container";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 
-export default class individualPlacedOrder extends Component {
+export default class individualRestaurantOrders extends Component {
   constructor(props) {
     super(props);
 
@@ -15,6 +16,7 @@ export default class individualPlacedOrder extends Component {
       price: "",
       category: "",
       cusotmername: "",
+      customerid: "",
       status: "",
       orderid: "",
       time: "",
@@ -39,6 +41,7 @@ export default class individualPlacedOrder extends Component {
     e.preventDefault();
     const data = {
       orderid: this.props.data.orderid,
+
       status: this.state.status,
     };
 
@@ -148,12 +151,11 @@ export default class individualPlacedOrder extends Component {
                     <p style={{ marginBottom: "0px" }}>
                       Category : {this.props.data.category}
                     </p>
+
                     <p style={{ marginBottom: "0px" }}>
                       Customer : {this.props.data.customername}
                     </p>
-                    {/* <p style={{ marginBottom: "0px" }}>
-                      Placed on : {this.props.data.time}
-                    </p> */}
+
                     <p style={{ marginBottom: "0px" }}>
                       Status : {this.props.data.status}
                     </p>
@@ -180,6 +182,28 @@ export default class individualPlacedOrder extends Component {
                         Change Status
                       </button>
                     </form>
+                  </Col>
+                  <Col>
+                    <Link
+                      className="btn btn-primary"
+                      style={{
+                        background: "#D32323",
+                        color: "#ffffff",
+                        fontWeight: "bold",
+                        borderBlockColor: "white",
+                        fontWeight: "bold",
+                        border: "1px #D32323",
+                      }}
+                      to={{
+                        pathname: "/restaurant/restaurantcustomerview",
+                        state: {
+                          customerid: this.props.data.customerid,
+                          path: "/restaurant/dashboard",
+                        },
+                      }}
+                    >
+                      Customer Details
+                    </Link>
                   </Col>
                 </Row>
               </Container>

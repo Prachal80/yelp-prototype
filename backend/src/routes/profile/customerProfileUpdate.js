@@ -44,8 +44,9 @@ router.post("/updateCustomerProfilePic", upload.single("profilePic"), function (
   });
 });
 
+//Get Customer Profile
 router.get("/getCustomerProfile", (req, res) => {
-  console.log("req data ", req.query);
+  console.log("req data for get customer ", req.query);
   let query = "select * from customer where id = ?";
   let args = [req.query.CID];
 

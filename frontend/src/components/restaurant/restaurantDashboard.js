@@ -9,7 +9,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { zIndex } from "react-z-index";
 import EachDish from "../dish/individualRestaurantDish";
 import { BsStarFill } from "react-icons/all";
-
+import EachReview from "../individual/indivudalReview";
 class RestaurantDashboard extends Component {
   constructor(props) {
     super(props);
@@ -28,15 +28,8 @@ class RestaurantDashboard extends Component {
       ErrorMessage: "",
 
       showForm: false,
-      //Dish data
-      //   dishname: "",
-      //   ingredients: "",
-      //   image: "",
-      //   price: "",
-      //   description: "",
-      //   category: "",
-
       dishes: [],
+      reviews: [],
     };
 
     //Bind the handlers to this class
@@ -117,6 +110,28 @@ class RestaurantDashboard extends Component {
 
         this.setState({
           dishes: this.state.dishes.concat(response.data.restaurantDishGet),
+        });
+      });
+
+    //Get all reviews to restaurant
+    axios
+      .get("http://localhost:5001/reviews/getRestaurantReviews", {
+        params: {
+          RID: localStorage.getItem("RID"),
+        },
+      })
+      .then((response) => {
+        console.log("Received All reviews");
+
+        this.setState({
+          reviews: this.state.reviews.concat(response.data.restaurantReviews),
+        });
+        console.log(this.state.reviews);
+      })
+      .catch((response) => {
+        console.log("********** Catch", response);
+        this.setState({
+          ErrorMessage: "Something went wrong while getting all the reviews",
         });
       });
   }
@@ -306,6 +321,10 @@ class RestaurantDashboard extends Component {
   }
 
   render() {
+    let CustomerReview = this.state.reviews.map((review) => {
+      return <EachReview data={review}></EachReview>;
+    });
+
     let redirectVar = null;
     if (!localStorage.getItem("user")) {
       redirectVar = <Redirect to="/login" />;
@@ -425,7 +444,16 @@ class RestaurantDashboard extends Component {
           <div class="wrapper fadeInDown">
             <br />
 
-            <div class="DishInfo">{dishAll}</div>
+            <div class="DishInfo" class="row">
+              <div>{dishAll}</div>
+
+              <div style={{ marginLeft: "10%" }}>
+                <h3 style={{ textAlign: "center" }}>Reviews Received</h3>
+                <br />
+
+                {CustomerReview}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import { BsStarFill } from "react-icons/all";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import OrderEachDish from "../individual/individualOrderDish";
+import EachCustomerReview from "../individual/indivudalReview";
 
 class customerRestaurantView extends Component {
   constructor(props) {
@@ -28,8 +29,23 @@ class customerRestaurantView extends Component {
       ratings: "",
       restaurantprofilepic: "",
       dishes: [],
+      reviews: [],
+      //Review form
+
+      rating: "",
+      review: "",
+      reviewdate: "",
     };
+    this.ChangeHandler = this.ChangeHandler.bind(this);
   }
+
+  // change handlers to update state variable with the text entered by the user
+  ChangeHandler = (e) => {
+    console.log("Inside option change handler", e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   componentDidMount() {
     console.log("RID", this.state.restaurantid);
@@ -73,12 +89,80 @@ class customerRestaurantView extends Component {
         this.setState({
           dishes: this.state.dishes.concat(response.data.restaurantDishGet),
         });
+      })
+      .catch((response) => {
+        console.log("********** Catch", response);
+        this.setState({
+          ErrorMessage: "Something went wrong while getting all the dishes",
+        });
+      });
+    //Get all reviews customer
+    axios
+      .get("http://localhost:5001/reviews/getCustomerReviews", {
+        params: {
+          CID: localStorage.getItem("CID"),
+          RID: this.state.restaurantid,
+        },
+      })
+      .then((response) => {
+        console.log("Received All reviews");
+
+        this.setState({
+          reviews: this.state.reviews.concat(response.data.customerReviews),
+        });
+        console.log(this.state.reviews);
+      })
+      .catch((response) => {
+        console.log("********** Catch", response);
+        this.setState({
+          ErrorMessage: "Something went wrong while getting all the reviews",
+        });
       });
   }
 
+  //Post the review
+  submitReview = (e) => {
+    //prevent page from refresh
+    e.preventDefault();
+    const data = {
+      rating: this.state.rating,
+      review: this.state.review,
+      reviewdate: this.state.reviewdate,
+      RID: this.state.restaurantid,
+      restaurantname: this.state.name,
+      customername: localStorage.getItem("Cname"),
+      CID: localStorage.getItem("CID"),
+    };
+    console.log("Review Data", data);
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    //make a post request with the user data
+    axios
+      .post("http://localhost:5001/reviews/addReviewCustomer", data)
+      .then((response) => {
+        console.log("Status Code : ", response.status);
+        console.log("response, ", response.data.success);
+        if (
+          response.data.success &&
+          localStorage.getItem("user") === "customer"
+        ) {
+          window.location.assign("/customer/customerrestaurantview");
+        }
+      })
+      .catch((response) => {
+        this.setState({
+          ErrorMessage: "Review Post Error",
+        });
+      });
+  };
+
   render() {
+    let CustomerReview = this.state.reviews.map((review) => {
+      return <EachCustomerReview data={review}></EachCustomerReview>;
+    });
+
     let orderDishAll = this.state.dishes.map((dish) => {
-      return <OrderEachDish key={Math.random} data={dish}></OrderEachDish>;
+      return <OrderEachDish data={dish}></OrderEachDish>;
     });
     return (
       <div>
@@ -168,7 +252,7 @@ class customerRestaurantView extends Component {
           <div class="row">
             <div
               style={{
-                marginLeft: "10%",
+                marginLeft: "5%",
               }}
               class="overflow-auto"
               class="lefttdiv"
@@ -178,32 +262,107 @@ class customerRestaurantView extends Component {
             <div class="rightdiv">
               <div
                 style={{
-                  marginLeft: "70%",
+                  marginLeft: "45%",
                   marginTop: "5%",
                   border: "1px solid black",
-                  width: "90%",
-                  height: "15%",
-                  padding: "5%",
+                  width: "100%",
+                  height: "250px",
+                  padding: "2%",
+                  left: "80%",
                 }}
               >
-                <Form.Group>
-                  <Form.Row>
-                    <Form.Control
-                      placeholder="Ratings out of 5"
-                      style={{ width: "50%" }}
-                    />
-                    <br />
-                    <br />
-                    <Form.Control placeholder="Review" />
-                  </Form.Row>
-                  <br />
-                  <Button
-                    type="submit"
-                    style={{ background: "#D32323", border: "1px solid black" }}
-                  >
-                    Submit Review
-                  </Button>
-                </Form.Group>
+                <form
+                  class="Review"
+                  name="Review"
+                  onSubmit={this.submitReview}
+                  style={{
+                    marginLeft: "0%",
+                    zIndex: "100",
+                    right: "10%",
+                    top: "60%",
+                    width: "100%",
+                  }}
+                >
+                  <Container>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        marginTop: "2px",
+                        width: "100%",
+                      }}
+                    >
+                      Add Review for {this.state.name}, {this.state.location}
+                    </p>
+                    <hr />
+                    <Col>
+                      <Row xs={5}>
+                        <Col>
+                          <input
+                            type="text"
+                            name="rating"
+                            placeholder="Rating out of 5"
+                            class="form-control"
+                            onChange={this.ChangeHandler}
+                          />
+                        </Col>
+                        <Col>
+                          <input
+                            type="date"
+                            name="reviewdate"
+                            placeholder="date"
+                            class="form-control"
+                            onChange={this.ChangeHandler}
+                          />
+                        </Col>
+                      </Row>
+                      <br />
+                      <Row xs={15}>
+                        <input
+                          height="100px"
+                          type="text"
+                          name="review"
+                          placeholder="Review"
+                          class="form-control"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Row>
+                      <br />
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        style={{
+                          type: "button",
+                          background: "#D32323",
+                          color: "#ffffff",
+                          fontWeight: "bold",
+                          borderBlockColor: "white",
+                          fontWeight: "bold",
+                          border: "1px #D32323",
+                        }}
+                      >
+                        Post Review
+                      </button>
+                    </Col>
+                  </Container>
+                </form>
+                <br />
+                <br />
+                <h2> Reviews You Posted</h2>
+              </div>
+              <br />
+              <div
+                style={{
+                  marginLeft: "45%",
+
+                  width: "100%",
+                  padding: "2%",
+                  left: "80%",
+                }}
+              >
+                <br />
+                <br />
+                {CustomerReview}
               </div>
             </div>
           </div>

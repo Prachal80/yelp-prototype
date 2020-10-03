@@ -124,7 +124,7 @@ class CustomerProfile extends Component {
       <div>
         {redirectVar}
         <div>
-          <div class="row" style={{ backgroundColor: "#e6e6e6" }}>
+          <div class="row" style={{ backgroundColor: "" }}>
             <img
               src={this.state.imagePath}
               alt="Profile Pic"
@@ -155,7 +155,7 @@ class CustomerProfile extends Component {
               <p>{this.state.headline}</p>
             </div>
             <div
-              class="topHeadline"
+              class="card"
               style={{
                 position: "absolute",
                 width: "20%",
@@ -174,6 +174,7 @@ class CustomerProfile extends Component {
               <p>My blog: {this.state.blog}</p>
             </div>
           </div>
+          <hr />
           <br />
           <br />
           <form
@@ -222,6 +223,9 @@ class CustomerProfile extends Component {
                 left: "2%",
               }}
             >
+              <br />
+              <br />
+              <br />
               <br />
               <p>Name : {this.state.name}</p>
               <p>Nick Name : {this.state.nickname}</p>

@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { BsStarFill } from "react-icons/all";
 import axios from "axios";
 import { Router } from "react-router";
-import customerrestaurantview from "../customer/customerRestaurantView";
 import { Button } from "react-bootstrap";
 
 export default class individualRestaurant extends Component {
@@ -28,32 +27,9 @@ export default class individualRestaurant extends Component {
       ErrorMessage: "",
 
       showForm: false,
-      //Dish data
-      //   dishname: "",
-      //   ingredients: "",
-      //   image: "",
-      //   price: "",
-      //   description: "",
-      //   category: "",
     };
-
-    //Bind the handlers to this class
-    // this.ChangeHandler = this.ChangeHandler.bind(this);
-    // this.submitUpdate = this.submitUpdate.bind(this);
-    // // this.onClick = this.onClick.bind(this);
-    // this.viewRestaurant = this.viewRestaurant.bind(this);
   }
-  //   componentDidMount() {}
-  //   viewRestaurant = (e) => {
-  //     // e.preventDefault();
-  //     //window.location.assign("restaurant/events");
-  //     return (
-  //       <Link
-  //         to="/customer/customerrestaurantview"
-  //         params={{ testvalue: "hello" }}
-  //       ></Link>
-  //     );
-  //   };
+
   render() {
     return (
       <div
@@ -147,7 +123,7 @@ export default class individualRestaurant extends Component {
                         },
                       }}
                     >
-                      Details
+                      See Menu
                     </Link>
                     &nbsp;
                   </Col>

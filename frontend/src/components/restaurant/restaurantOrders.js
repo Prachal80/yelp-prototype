@@ -13,6 +13,7 @@ export default class restaurantOrders extends Component {
       price: "",
       category: "",
       cusotmername: "",
+      customerid: "",
       status: "",
       orderid: "",
       time: "",

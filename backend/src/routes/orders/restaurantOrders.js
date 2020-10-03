@@ -7,7 +7,7 @@ var executeQuery = require("../../database/mysql");
 //Get All orders
 router.get("/getAllOrdersRestaurant", (req, res) => {
   console.log("req data ", req.query);
-  let query = "select * from orders where restaurantid = ? order by time desc";
+  let query = "select * from orders where restaurantid = ? ";
   let args = [req.query.RID];
 
   executeQuery(query, args, (flag, result) => {
