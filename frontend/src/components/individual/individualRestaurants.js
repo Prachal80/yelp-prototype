@@ -90,21 +90,6 @@ export default class individualRestaurant extends Component {
                 <br />
                 <Row>
                   <Col>
-                    {/* <button
-                      type="submit"
-                      onClick={this.viewRestaurant}
-                      class="btn btn-primary"
-                      style={{
-                        background: "#D32323",
-                        color: "#ffffff",
-                        fontWeight: "bold",
-                        borderBlockColor: "white",
-                        fontWeight: "bold",
-                        border: "1px #D32323",
-                      }}
-                    >
-                      View Details
-                    </button> */}
                     <Link
                       className="btn btn-primary"
                       style={{

@@ -30,7 +30,6 @@ export default class individualDish extends Component {
                   <Col>
                     <img
                       src={this.props.data.image}
-                      alt="Dish Image"
                       style={{
                         width: "200px",
                         height: "150px",
@@ -66,7 +65,6 @@ export default class individualDish extends Component {
                         color: "#ffffff",
                         fontWeight: "bold",
                         borderBlockColor: "white",
-                        fontWeight: "bold",
                         border: "1px #D32323",
                       }}
                     >

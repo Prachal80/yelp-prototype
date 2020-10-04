@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
 import { Card, ListGroup } from "react-bootstrap";
@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import { zIndex } from "react-z-index";
 import EachDish from "../dish/individualRestaurantDish";
 import { BsStarFill } from "react-icons/all";
 import EachReview from "../individual/indivudalReview";
@@ -188,7 +187,7 @@ class RestaurantDashboard extends Component {
       [e.target.name]: e.target.value,
     });
   };
-
+  //Function to make the Dish form visible
   showAddDishForm() {
     return (
       <form
@@ -293,7 +292,7 @@ class RestaurantDashboard extends Component {
             color: "#ffffff",
             fontWeight: "bold",
             borderBlockColor: "white",
-            fontWeight: "bold",
+
             border: "1px #D32323",
           }}
         >
@@ -309,7 +308,6 @@ class RestaurantDashboard extends Component {
             color: "#ffffff",
             fontWeight: "bold",
             borderBlockColor: "white",
-            fontWeight: "bold",
             border: "1px #D32323",
             MarginLeft: "10px",
           }}
@@ -432,7 +430,6 @@ class RestaurantDashboard extends Component {
                 color: "#ffffff",
                 fontWeight: "bold",
                 borderBlockColor: "white",
-                fontWeight: "bold",
                 border: "1px #D32323",
               }}
             >

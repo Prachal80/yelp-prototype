@@ -177,43 +177,48 @@ class CustomerProfile extends Component {
           <hr />
           <br />
           <br />
-          <form
-            action="http://localhost:5001/customerProfile/updateCustomerProfilePic"
-            method="POST"
-            encType="multipart/form-data"
-            style={{
-              position: "absolute",
-              width: "15%",
-              marginLeft: "2%",
-            }}
-          >
-            <input
-              type="text"
-              name="CID"
-              value={JSON.parse(localStorage.getItem("CID"))}
-              style={{ display: "none", width: "10px" }}
-            />
-            <input type="file" name="profilePic" />
-            <br />
-            <br />
-            <div>
+          <div>
+            <form
+              action="http://localhost:5001/customerProfile/updateCustomerProfilePic"
+              method="POST"
+              encType="multipart/form-data"
+              style={{
+                position: "absolute",
+                width: "15%",
+                height: "15%",
+                marginLeft: "2%",
+                border: "1px solid black",
+              }}
+            >
+              <input
+                type="text"
+                name="CID"
+                value={JSON.parse(localStorage.getItem("CID"))}
+                style={{ display: "none", width: "10px" }}
+              />
+              <input type="file" name="profilePic" />
+              <br />
+              <br />
+
               <button
                 type="submit"
-                class="btn btn-primary"
+                class="btn "
                 style={{
                   backgroundColor: "#D32323",
                   color: "#ffffff",
                   fontWeight: "bold",
                   borderBlockColor: "white",
                   border: "1px #D32323",
+                  width: "150px",
                 }}
               >
                 Update Picture
               </button>
-            </div>
-            <br />
-            <br />
-          </form>
+
+              <br />
+              <br />
+            </form>
+          </div>
           <div class="wrapper fadeInDown">
             <div
               style={{

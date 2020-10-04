@@ -70,7 +70,7 @@ export default class individualRestaurantOrders extends Component {
   };
 
   showOptions = () => {
-    if (this.props.data.optiontype == "Delivery") {
+    if (this.props.data.optiontype === "Delivery") {
       return (
         <select
           id="satus"
@@ -89,7 +89,7 @@ export default class individualRestaurantOrders extends Component {
           <option value="Delivered">Delivered</option>
         </select>
       );
-    } else if (this.props.data.optiontype == "Pickup") {
+    } else if (this.props.data.optiontype === "Pickup") {
       return (
         <select
           id="satus"
