@@ -23,6 +23,7 @@ class RestaurantProfile extends Component {
       email: "",
       contact: "",
       ratings: "",
+      method: "",
       ErrorMessage: "",
     };
 
@@ -55,6 +56,7 @@ class RestaurantProfile extends Component {
         email: restaurantData.email,
         contact: restaurantData.contact,
         ratings: restaurantData.ratings,
+        method: restaurantData.method,
         restaurantprofilepic: restaurantData.restaurantprofilepic,
       });
     });
@@ -80,6 +82,7 @@ class RestaurantProfile extends Component {
       timings: this.state.timings,
       email: this.state.email,
       contact: this.state.contact,
+      method: this.state.method,
       restaurantprofilepic: this.state.restaurantprofilepic,
       RID: localStorage.getItem("RID"),
     };
@@ -111,22 +114,6 @@ class RestaurantProfile extends Component {
         });
       });
   };
-
-  // componentDidMount() {
-  //   axios
-  //     .get("http://localhost:5001/getDishes", {
-  //       params: {
-  //         RID: localStorage.getItem("RID"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log("Received Dishes");
-  //       //update the state with the response data
-  //       this.setState({
-  //         dishes: this.state.dishes.concat(response.data),
-  //       });
-  //     });
-  // }
 
   render() {
     let redirectVar = null;
@@ -216,7 +203,9 @@ class RestaurantProfile extends Component {
           <hr />
           <br />
           <br />
-
+          <h3 style={{ marginLeft: "20px" }}>
+            Delivery options: {this.state.method}
+          </h3>
           <div class="row">
             <div
               style={{
@@ -344,7 +333,7 @@ class RestaurantProfile extends Component {
                     </Row>
                     <br />
                     <Row>
-                      <Col xs={4}>
+                      <Col xs={3}>
                         <input
                           type="email"
                           name="emailid"
@@ -353,7 +342,7 @@ class RestaurantProfile extends Component {
                           onChange={this.ChangeHandler}
                         />
                       </Col>
-                      <Col xs={4}>
+                      <Col xs={3}>
                         <input
                           type="text"
                           name="contact"
@@ -362,12 +351,21 @@ class RestaurantProfile extends Component {
                           onChange={this.ChangeHandler}
                         />
                       </Col>
-                      <Col xs={4}>
+                      <Col xs={2}>
                         <input
                           type="text"
                           name="timings"
                           class="form-control"
                           placeholder="Timings"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={4}>
+                        <input
+                          type="text"
+                          name="method"
+                          class="form-control"
+                          placeholder="Service"
                           onChange={this.ChangeHandler}
                         />
                       </Col>

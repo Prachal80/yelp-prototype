@@ -90,12 +90,12 @@ export class CustomerEvents extends Component {
         </div>
 
         <div class="row">
-          <div style={{ width: "40%", marginLeft: "10%" }} class="leftdiv">
+          <div style={{ paddingLeft: "10%" }} class="col-6">
             <h2 style={{ marginLeft: "13%" }}>Upcoming Events</h2>
             {upcomingEvents}
           </div>
-          <div style={{ width: "50%", marginLeft: "50%" }} class="middlediv">
-            <h2>Registered Events</h2>
+          <div style={{ paddingLeft: "4%" }} class="col-6">
+            <h2 style={{ paddingLeft: "3%" }}>Registered Events</h2>
             {registeredEvents}
           </div>
           {/* <div

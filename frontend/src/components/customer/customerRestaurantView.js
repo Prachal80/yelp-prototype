@@ -255,7 +255,8 @@ class customerRestaurantView extends Component {
                 marginLeft: "5%",
               }}
               class="overflow-auto"
-              class="lefttdiv"
+              //class="lefttdiv"
+              class="col-4"
             >
               {orderDishAll}
             </div>

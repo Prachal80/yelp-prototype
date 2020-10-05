@@ -47,8 +47,9 @@ router.post(
 //Get All orders
 router.get("/getAllOrders", (req, res) => {
   console.log("req data ", req.query);
-  let query = "select * from orders where customerid = ? order by time desc";
-  let args = [req.query.CID];
+  let query =
+    "select * from orders where customerid = ? and status !=? order by time desc";
+  let args = [req.query.CID, "Cancelled"];
 
   executeQuery(query, args, (flag, result) => {
     if (!flag) console.log("-------No orders found-------");
@@ -59,13 +60,13 @@ router.get("/getAllOrders", (req, res) => {
   });
 });
 
-//Delete Order
+//Cancel Order Customer
 router.post("/deleteOrderCustomer", (req, res) => {
-  console.log("Inside changestatus Order Request");
+  console.log("Inside change status Order Request");
   console.log("Req Body : ", req.body);
 
-  let query = `delete from orders where orderid= ?`;
-  args = [req.body.orderid];
+  let query = `update orders set status= ? where orderid= ?`;
+  args = ["Cancelled", req.body.orderid];
 
   executeQuery(query, args, (flag, result) => {
     if (!flag) console.log("-------No orders found-------");

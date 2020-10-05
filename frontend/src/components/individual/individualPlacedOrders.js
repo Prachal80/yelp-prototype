@@ -71,7 +71,7 @@ export default class individualPlacedOrder extends Component {
           padding: "10px",
         }}
       >
-        <Card border="secondary" style={{ width: "32rem" }}>
+        <Card border="secondary" style={{}}>
           <Card.Header>
             <h3 style={{ textAlign: "center", alignContent: "center" }}>
               {this.props.data.dishname}
@@ -109,7 +109,8 @@ export default class individualPlacedOrder extends Component {
                       Status : {this.props.data.status}
                     </p>
                     <p style={{ marginBottom: "0px" }}>
-                      Placed on : {this.props.data.time}
+                      Placed on :
+                      {this.props.data.time.slice(0, 19).replace("T", " ")}
                     </p>
                   </Col>
                 </Row>

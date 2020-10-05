@@ -3,11 +3,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsStarFill } from "react-icons/all";
-import axios from "axios";
-import { Router } from "react-router";
-import { Button } from "react-bootstrap";
 
 export default class individualRestaurant extends Component {
   constructor(props) {
@@ -35,36 +32,36 @@ export default class individualRestaurant extends Component {
       <div
         style={{
           //   marginLeft: "5%",
-          marginLeft: "5%",
+          //   marginLeft: "5%",
           //   border: "1px solid black",
           marginTop: "10px",
           marginBottom: "5px",
-          padding: "10px",
+          paddingLeft: "40px",
           //   height: "300px",
           //   width: "600px",
         }}
       >
-        <Card border="secondary" style={{ width: "32rem" }}>
+        <Card border="secondary" style={{}}>
           <Card.Header>
             <h3 style={{ textAlign: "center", alignContent: "center" }}>
               {this.props.data.name}
             </h3>
           </Card.Header>
-          <Card.Body>
+          <Card.Body style={{ padding: "10px 5px 5px 5px" }}>
             <Fragment>
               <Container>
                 <Row>
-                  <Col>
+                  <Col xs={6}>
                     <img
                       src={this.props.data.restaurantprofilepic}
                       alt="Dish Image"
                       style={{
-                        width: "200px",
-                        height: "150px",
+                        width: "100%",
+                        height: "90%",
                       }}
                     />
                   </Col>
-                  <Col xs={6}>
+                  <Col xs={6} style={{ padding: "0px" }}>
                     <p style={{ marginBottom: "0px" }}>
                       {this.props.data.address}
                     </p>

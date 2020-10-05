@@ -18,8 +18,14 @@ export class customerOrders extends Component {
       time: "",
       optiontype: "",
       orders: [],
+      filter: "",
     };
   }
+  ChangeHandler = (e) => {
+    this.setState({
+      filter: e.target.value,
+    });
+  };
 
   componentDidMount() {
     axios.defaults.withCredentials = true;
@@ -45,12 +51,21 @@ export class customerOrders extends Component {
     if (!localStorage.getItem("user")) {
       redirectVar = <Redirect to="/login" />;
     }
+    // let orderDishAll = this.state.orders.map((order) => {
+    //   return (
+    //     <EachOrderCustomer
+    //       data={order}
+    //     ></EachOrderCustomer>
+    //   );
+    // });
     let orderDishAll = this.state.orders.map((order) => {
-      return (
-        <EachOrderCustomer
-          /*key={Math.random}*/ data={order}
-        ></EachOrderCustomer>
-      );
+      if (this.state.filter != "") {
+        if (order.status === this.state.filter) {
+          return <EachOrderCustomer data={order}></EachOrderCustomer>;
+        }
+      } else {
+        return <EachOrderCustomer data={order}></EachOrderCustomer>;
+      }
     });
 
     return (
@@ -59,25 +74,136 @@ export class customerOrders extends Component {
         <div>
           <br />
           <br />
-          <h2 style={{ textAlign: "center" }}>Your Orders</h2>
+          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+            Your Orders
+          </h2>
           <br />
-
+          <div
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              marginLeft: "5px",
+            }}
+          >
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#f0ab0c",
+                border: "1px solid #f0ab0c",
+              }}
+              className="btn btn-danger"
+              value="Order Received"
+              onClick={this.ChangeHandler}
+            >
+              Order Received
+            </button>
+            &nbsp;
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#f07a0c",
+                border: "1px solid #f07a0c",
+              }}
+              className="btn btn-danger"
+              value="Preparing"
+              onClick={this.ChangeHandler}
+            >
+              Preparing
+            </button>
+            &nbsp;
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#D23232",
+                border: "1px solid #D23232",
+              }}
+              className="btn btn-danger"
+              value="On the way"
+              onClick={this.ChangeHandler}
+            >
+              On the way
+            </button>
+            &nbsp;
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#D23232",
+                border: "1px solid #D23232",
+              }}
+              className="btn btn-danger"
+              value="Ready for Pickup"
+              onClick={this.ChangeHandler}
+            >
+              Ready for Pickup
+            </button>
+            &nbsp;
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#11ad17",
+                border: "1px solid #11ad17",
+              }}
+              className="btn btn-primary"
+              value="Picked up"
+              onClick={this.ChangeHandler}
+            >
+              Picked up
+            </button>
+            &nbsp;
+            <button
+              style={{
+                float: "left",
+                fontWeight: "bold",
+                marginLeft: "5px",
+                background: "#11ad17",
+                border: "1px solid #11ad17",
+              }}
+              className="btn btn-primary"
+              value="Delivered"
+              onClick={this.ChangeHandler}
+            >
+              Delivered
+            </button>
+            &nbsp;
+            <button
+              style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
+              className="btn btn-secondary"
+              value=""
+              onClick={this.ChangeHandler}
+            >
+              Clear
+            </button>
+            {/* <div> */}
+            {/* <SearchField
+              color="black"
+              placeholder="Search Restaurants, Dishes and more"
+              //   onChange={onChange}
+              searchText=""
+              classNames="test-class"
+            /> */}
+            {/* </div> */}
+          </div>
+          <br />
           <hr />
         </div>
 
         <div class="row">
-          <div class="overflow-auto" class="leftdiv">
-            <div class="DishInfo"></div>
+          <div style={{ width: "100%" }} class="col-6">
+            <h2 style={{ textAlign: "center" }}>All orders</h2>
+            <div style={{ overflowY: "scroll", height: "700px" }}>
+              {orderDishAll}
+            </div>
           </div>
-          <div
-            style={{ width: "100%" }}
-            class="overflow-auto"
-            class="middlediv"
-          >
-            <h2 style={{ marginLeft: "19%" }}>All orders</h2>
-            {orderDishAll}
-          </div>
-          <div class="overflow-auto" class="rightdiv"></div>
         </div>
       </div>
     );

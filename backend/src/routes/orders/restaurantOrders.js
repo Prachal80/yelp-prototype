@@ -7,7 +7,7 @@ var executeQuery = require("../../database/mysql");
 //Get All orders
 router.get("/getAllOrdersRestaurant", (req, res) => {
   console.log("req data ", req.query);
-  let query = "select * from orders where restaurantid = ? ";
+  let query = "select * from orders where restaurantid = ? order by time desc";
   let args = [req.query.RID];
 
   executeQuery(query, args, (flag, result) => {
@@ -30,7 +30,6 @@ router.post("/changeOrderStatusRestaurant", (req, res) => {
   if (
     status === "Order Received" ||
     status === "Preparing" ||
-    status === "Ready" ||
     status === "Delivered" ||
     status === "On the way" ||
     status === "Ready for Pickup" ||

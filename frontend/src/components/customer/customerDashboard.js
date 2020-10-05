@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
 import SearchField from "react-search-field";
-import { Card, ListGroup } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import EachDish from "../individual/individualOrderDish";
 import EachRestaurant from "../individual/individualRestaurants";
@@ -22,8 +18,14 @@ class CustomerDashboard extends Component {
       ErrorMessage: "",
       dishes: [],
       restaurants: [],
+      filter: "",
     };
   }
+  ChangeHandler = (e) => {
+    this.setState({
+      filter: e.target.value,
+    });
+  };
 
   componentDidMount() {
     axios.defaults.withCredentials = true;
@@ -59,29 +61,81 @@ class CustomerDashboard extends Component {
     if (!localStorage.getItem("user")) {
       redirectVar = <Redirect to="/login" />;
     }
-
+    console.log("filter ", this.state.filter);
     let dishAll = this.state.dishes.map((dish) => {
       return <EachDish key={Math.random} data={dish}></EachDish>;
     });
 
     let allRestaurants = this.state.restaurants.map((eachRestaurant) => {
-      return (
-        <EachRestaurant
-          key={Math.random}
-          data={eachRestaurant}
-        ></EachRestaurant>
-      );
+      if (this.state.filter != "") {
+        if (eachRestaurant.method === this.state.filter) {
+          return (
+            <EachRestaurant
+              // key={Math.random}
+              data={eachRestaurant}
+            ></EachRestaurant>
+          );
+        }
+      } else {
+        return (
+          <EachRestaurant
+            // key={Math.random}
+            data={eachRestaurant}
+          ></EachRestaurant>
+        );
+      }
     });
 
     return (
       <div>
         {redirectVar}
         <br />
-
-        <h2 style={{ textAlign: "center" }}>
+        <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
           Find Restaurants , Dishes and Place orders
         </h2>
-        <div style={{ textAlign: "center", color: "black" }}>
+        <div
+          style={{ textAlign: "center", fontWeight: "bold", marginLeft: "5px" }}
+        >
+          <button
+            style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
+            className="btn btn-danger"
+            name="option"
+            value="Delivery"
+            onClick={this.ChangeHandler}
+          >
+            Yelp Delivery
+          </button>
+          &nbsp;
+          <button
+            style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
+            className="btn btn-danger"
+            name="option"
+            value="Pickup"
+            onClick={this.ChangeHandler}
+          >
+            Curbside Pickup
+          </button>
+          &nbsp;
+          <button
+            style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
+            className="btn btn-danger"
+            name="option"
+            value="Pickup"
+            onClick={this.ChangeHandler}
+          >
+            Dine In
+          </button>
+          &nbsp;
+          <button
+            style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
+            className="btn btn-secondary"
+            name="option"
+            value=""
+            onClick={this.ChangeHandler}
+          >
+            Clear
+          </button>
+          {/* <div> */}
           <SearchField
             color="black"
             placeholder="Search Restaurants, Dishes and more"
@@ -89,40 +143,46 @@ class CustomerDashboard extends Component {
             searchText=""
             classNames="test-class"
           />
+          {/* </div> */}
         </div>
+
         <hr />
         <div class="row">
-          <div class="overflow-auto" class="leftdiv">
-            <div class="DishInfo">
-              <h2 style={{ marginLeft: "7em" }}>Restaurants</h2>
-              <div class="DishInfo">{allRestaurants}</div>
+          <div class="overflow-auto" style={{}} className="col-4">
+            <h2 style={{ textAlign: "center" }}>Restaurants</h2>
+            <div
+              class="DishInfo"
+              style={{ overflowY: "scroll", height: "700px" }}
+            >
+              {allRestaurants}
             </div>
           </div>
-          <div class="overflow-auto" class="middlediv">
-            <h2 style={{ marginLeft: "8em" }}>Dishes</h2>
-            {dishAll}
-          </div>
-          <div class="overflow-auto" class="rightdiv">
-            <h2 style={{ marginLeft: "5em" }}>Map</h2>
-            <div style={{ paddingLeft: "10px" }}>
-              <Map
-                google={this.props.google}
-                zoom={13.5}
-                style={{
-                  width: "300px",
-                  height: "700px",
-                  border: "1px solid grey",
-                  marginTop: "10px",
-                  marginLeft: "2%",
-                  borderRadius: "2%",
-                }}
-              >
-                <Marker
-                  onClick={this.state.address}
-                  name={"Current location"}
-                />
-              </Map>
+          <div class="overflow-auto" style={{}} className="col-4">
+            <h2 style={{ textAlign: "center" }}>Dishes</h2>
+            <div
+              class="DishInfo"
+              style={{ overflowY: "scroll", height: "700px" }}
+            >
+              {dishAll}
             </div>
+          </div>
+          <div className="col-4">
+            <h2 style={{ textAlign: "center" }}>Map</h2>
+
+            <Map
+              google={this.props.google}
+              zoom={13.5}
+              style={{
+                width: "80%",
+                height: "700px",
+                border: "1px solid grey",
+                marginTop: "10px",
+                // paddingRight: "0px",
+                borderRadius: "2%",
+              }}
+            >
+              <Marker onClick={this.state.address} name={"Current location"} />
+            </Map>
           </div>
         </div>
       </div>

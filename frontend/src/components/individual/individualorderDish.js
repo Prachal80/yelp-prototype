@@ -80,34 +80,34 @@ export default class individualOrderDish extends Component {
       <div
         style={{
           //   marginLeft: "5%",
-          marginLeft: "5%",
+          //   marginLeft: "5%",
           //   border: "1px solid black",
           marginTop: "10px",
           marginBottom: "5px",
           padding: "10px",
         }}
       >
-        <Card border="secondary" style={{ width: "32rem" }}>
+        <Card border="secondary" style={{}}>
           <Card.Header>
             <h3 style={{ textAlign: "center", alignContent: "center" }}>
               {this.props.data.dishname}
             </h3>
           </Card.Header>
-          <Card.Body>
+          <Card.Body style={{ padding: "10px 5px 5px 5px" }}>
             <Fragment>
               <Container>
                 <Row>
-                  <Col>
+                  <Col className="col-6">
                     <img
                       src={this.props.data.image}
                       alt="Order dish"
                       style={{
-                        width: "200px",
-                        height: "150px",
+                        width: "100%",
+                        height: "90%",
                       }}
                     />
                   </Col>
-                  <Col>
+                  <Col style={{ padding: "0px" }} className="col-6">
                     <p style={{ marginBottom: "0px" }}>
                       Price : {this.props.data.price}
                     </p>
