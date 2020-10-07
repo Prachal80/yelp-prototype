@@ -120,7 +120,7 @@ class RestaurantProfile extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
     return (
@@ -236,7 +236,7 @@ class RestaurantProfile extends Component {
                 <br />
                 <button
                   type="submit"
-                  class="btn "
+                  class="btn"
                   style={{
                     backgroundColor: "#D32323",
                     color: "#ffffff",

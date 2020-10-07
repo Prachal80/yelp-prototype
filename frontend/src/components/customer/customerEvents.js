@@ -70,7 +70,7 @@ export class CustomerEvents extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("CID")) {
       redirectVar = <Redirect to="/login" />;
     }
     let upcomingEvents = this.state.events.map((event) => {

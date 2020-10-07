@@ -95,29 +95,34 @@ class CustomerProfile extends Component {
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios
-      .post("http://localhost:5001/customerProfile/updateCustomerProfile", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (
-          response.data.success &&
-          localStorage.getItem("user") === "customer"
-        ) {
-          window.location.assign("/customer/profile");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          authFlag: false,
-          ErrorMessage: "Invalid Login Credentials",
+    if (data) {
+      axios
+        .post(
+          "http://localhost:5001/customerProfile/updateCustomerProfile",
+          data
+        )
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (
+            response.data.success &&
+            localStorage.getItem("user") === "customer"
+          ) {
+            window.location.assign("/customer/profile");
+          }
+        })
+        .catch((response) => {
+          this.setState({
+            authFlag: false,
+            ErrorMessage: "Invalid Login Credentials",
+          });
         });
-      });
+    }
   };
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("CID")) {
       redirectVar = <Redirect to="/login" />;
     }
     return (
@@ -202,7 +207,7 @@ class CustomerProfile extends Component {
 
               <button
                 type="submit"
-                class="btn "
+                class="btn"
                 style={{
                   backgroundColor: "#D32323",
                   color: "#ffffff",

@@ -49,24 +49,28 @@ export default class individualRestaurantOrders extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     console.log("************", data);
-    axios
-      .post(
-        "http://localhost:5001/restaurantOrders/changeOrderStatusRestaurant",
-        data
-      )
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (response.data.success) {
-          window.location.assign("/restaurant/orders");
-        }
-      })
-      .catch((response) => {
-        console.log("********** Catch", response);
-        this.setState({
-          ErrorMessage: "Error while making change request",
+    if (data.status) {
+      axios
+        .post(
+          "http://localhost:5001/restaurantOrders/changeOrderStatusRestaurant",
+          data
+        )
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (response.data.success) {
+            window.location.assign("/restaurant/orders");
+          }
+        })
+        .catch((response) => {
+          console.log("********** Catch", response);
+          this.setState({
+            ErrorMessage: "Error while making change request",
+          });
         });
-      });
+    } else {
+      alert("Please select the Order status");
+    }
   };
 
   showOptions = () => {

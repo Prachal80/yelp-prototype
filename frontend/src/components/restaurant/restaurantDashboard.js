@@ -25,7 +25,7 @@ class RestaurantDashboard extends Component {
       contact: "",
       ratings: "",
       ErrorMessage: "",
-
+      restaurantdescription: "",
       showForm: false,
       dishes: [],
       reviews: [],
@@ -89,7 +89,8 @@ class RestaurantDashboard extends Component {
         address: restaurantData.address,
         state: restaurantData.state,
         country: restaurantData.country,
-        description: restaurantData.description,
+        restaurantdescription: restaurantData.description,
+
         timings: restaurantData.timings,
         email: restaurantData.email,
         contact: restaurantData.contact,
@@ -156,29 +157,32 @@ class RestaurantDashboard extends Component {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-
-    axios
-      .post(
-        "http://localhost:5001/restaurantDishes/addRestaurantDishes",
-        formData,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (response.data.success) {
-          window.location.assign("/restaurant/dashboard");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          ErrorMessage: "Something went wrong while adding dish",
+    if (formData.get("category") != "undefined") {
+      axios
+        .post(
+          "http://localhost:5001/restaurantDishes/addRestaurantDishes",
+          formData,
+          {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (response.data.success) {
+            window.location.assign("/restaurant/dashboard");
+          }
+        })
+        .catch((response) => {
+          this.setState({
+            ErrorMessage: "Something went wrong while adding dish",
+          });
         });
-      });
+    } else {
+      alert("Please provide all the information");
+    }
   };
 
   // change handlers to update state variable with the text entered by the user
@@ -222,6 +226,7 @@ class RestaurantDashboard extends Component {
                 placeholder="Dish Name"
                 class="form-control"
                 onChange={this.ChangeHandler}
+                required
               />
             </Col>
             <Col xs={5}>
@@ -229,12 +234,12 @@ class RestaurantDashboard extends Component {
                 name="category"
                 class="form-control"
                 value={this.state.value}
+                required
                 onChange={this.ChangeHandler}
                 isSearchable
-                required
               >
                 <option value="select" selected disabled>
-                  Select
+                  Category
                 </option>
                 <option value="Appetizer">Appetizer </option>
                 <option value="Salads">Salads</option>
@@ -253,6 +258,7 @@ class RestaurantDashboard extends Component {
                 placeholder="Description"
                 class="form-control"
                 onChange={this.ChangeHandler}
+                required
               />
             </Col>
           </Row>
@@ -265,6 +271,7 @@ class RestaurantDashboard extends Component {
                 class="form-control"
                 placeholder="Ingredients"
                 onChange={this.ChangeHandler}
+                required
               />
             </Col>
             <Col xs={2}>
@@ -274,11 +281,11 @@ class RestaurantDashboard extends Component {
                 class="form-control"
                 placeholder="Price"
                 onChange={this.ChangeHandler}
+                required
               />
             </Col>
             <Col xs={2}>
-              <input type="file" name="restaurantDishImage" />
-              {/* <input type="file" name="image2" /> */}
+              <input type="file" name="restaurantDishImage" required />
             </Col>
           </Row>
         </Container>
@@ -324,7 +331,7 @@ class RestaurantDashboard extends Component {
     });
 
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
     let dishAll = this.state.dishes.map((dish) => {
@@ -353,7 +360,7 @@ class RestaurantDashboard extends Component {
                     Timings : {this.state.timings}
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    Description : {this.state.description}
+                    Description : {this.state.restaurantdescription}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

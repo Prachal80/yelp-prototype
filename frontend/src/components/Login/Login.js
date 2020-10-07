@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../../App.css";
 import axios from "axios";
+import { Redirect } from "react-router";
 import logo from "../../img/signup_illustration.png";
 import M from "materialize-css";
 
@@ -118,16 +119,17 @@ class Login extends Component {
   };
 
   render() {
-    //redirect based on successful login
-    // let redirectVar = null;
-    // if (localStorage.getItem("CID")) {
-    //   redirectVar = <Redirect to="/customer/dashboard" />;
-    // } else if (localStorage.getItem("RID")) {
-    //   redirectVar = <Redirect to="/restaurant/dashboard" />;
-    // }
+    // redirect based on successful login
+    let redirectVar = null;
+    if (localStorage.getItem("CID")) {
+      redirectVar = <Redirect to="/customer/dashboard" />;
+    } else if (localStorage.getItem("RID")) {
+      redirectVar = <Redirect to="/restaurant/dashboard" />;
+    }
 
     return (
       <div class="outer">
+        {redirectVar}
         <div className="container">
           <form
             id="myForm"

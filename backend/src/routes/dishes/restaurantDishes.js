@@ -60,6 +60,46 @@ router.post(
   }
 );
 
+//Update Dishes
+router.post(
+  "/updateRestaurantDishes",
+  upload.single("restaurantDishImage"),
+  function (req, res) {
+    console.log("Inside update Restaurant Upload Dish");
+    var host = req.hostname;
+    console.log("Hostname", host);
+    console.log("Dish Image File", req.file);
+    console.log("Dish File Path req.file.path", req.file.path);
+    console.log("RID", req.body.RID);
+    console.log("Restaurant Name", req.body.Rname);
+    console.log("protocol ", req.protocol);
+    console.log("%%%%%%%", req.body);
+    var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+    console.log("imagepath ", imagepath);
+    let query = `update dishes dishname = ?, ingredients=?,image=?,price=?,description=?,category=? where id = ?`;
+
+    let args = [
+      req.body.dishname,
+      req.body.ingredients,
+      imagepath,
+      req.body.price,
+      req.body.description,
+      req.body.category,
+      req.body.id,
+    ];
+    console.log("**********", query);
+    console.log(args);
+
+    executeQuery(query, args, (flag, result) => {
+      if (!flag) console.log("err", flag);
+      else {
+        // res.redirect("http://localhost:3000/restaurant/dashboard");
+        res.send({ success: true, restaurantDishUpdate: result });
+      }
+    });
+  }
+);
+
 //Get All Dishes
 router.get("/getAllDishes", (req, res) => {
   console.log("req data ", req.query);

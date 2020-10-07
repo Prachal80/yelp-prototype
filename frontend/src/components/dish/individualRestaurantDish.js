@@ -3,8 +3,227 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import axios from "axios";
 
 export default class individualDish extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      location: "",
+      address: "",
+      state: "",
+      country: "",
+      description: "",
+      timings: "",
+      email: "",
+      contact: "",
+      ratings: "",
+      id: "",
+      ErrorMessage: "",
+    };
+
+    //Bind the handlers to this class
+    this.ChangeHandler = this.ChangeHandler.bind(this);
+    this.submitUpdate = this.submitUpdate.bind(this);
+    // this.onClick = this.onClick.bind(this);
+  }
+
+  submitUpdate = (e) => {
+    e.preventDefault();
+    var formData = new FormData();
+
+    console.log(
+      "form data ",
+      document.getElementsByName("restaurantDishImage")[0].files[0]
+    );
+
+    formData.append("dishname", this.state.dishname);
+    formData.append("category", this.state.category);
+    formData.append("description", this.state.description);
+    formData.append("ingredients", this.state.ingredients);
+    formData.append(
+      "restaurantDishImage",
+      document.getElementsByName("restaurantDishImage")[0].files[0]
+    );
+    formData.append("price", this.state.price);
+    formData.append("RID", localStorage.getItem("RID"));
+    formData.append("Rname", localStorage.getItem("Rname"));
+    formData.append("id", this.props.data.id);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    axios
+      .post(
+        "http://localhost:5001/restaurantDishes/updateRestaurantDishes",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Status Code : ", response.status);
+        console.log("response, ", response.data.success);
+        if (response.data.success) {
+          window.location.assign("/restaurant/dashboard");
+        }
+      })
+      .catch((response) => {
+        this.setState({
+          ErrorMessage: "Something went wrong while adding dish",
+        });
+      });
+  };
+
+  // change handlers to update state variable with the text entered by the user
+  ChangeHandler = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  //Function to make the Dish form visible
+  showAddDishForm() {
+    return (
+      <form
+        class="DishFrom"
+        name="DishForm"
+        onSubmit={this.submitUpdate}
+        style={{
+          position: "absolute",
+          background: "#ffe6e6",
+          marginLeft: "0%",
+          zIndex: "100",
+          left: "20%",
+          top: "60%",
+          borderRadius: "2%",
+        }}
+      >
+        <Container>
+          <p
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              marginTop: "2px",
+            }}
+          >
+            Edit Dish
+          </p>
+          <Row>
+            <Col xs={5}>
+              <input
+                type="text"
+                name="dishname"
+                contentEditable
+                defaultValue={this.props.data.dishname}
+                placeholder="Dish Name"
+                class="form-control"
+                onChange={this.ChangeHandler}
+              />
+            </Col>
+            <Col xs={5}>
+              <select
+                name="category"
+                class="form-control"
+                contentEditable
+                defaultValue={this.props.data.category}
+                onChange={this.ChangeHandler}
+                isSearchable
+              >
+                <option value="select" selected disabled>
+                  Category
+                </option>
+                <option value="Appetizer">Appetizer </option>
+                <option value="Salads">Salads</option>
+                <option value="Main Course">Main Course</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Beverages">Beverages</option>
+              </select>
+            </Col>
+          </Row>
+          <br />
+          <Row>
+            <Col xs={10}>
+              <input
+                type="text"
+                name="description"
+                contentEditable
+                defaultValue={this.props.data.description}
+                placeholder="Description"
+                class="form-control"
+                onChange={this.ChangeHandler}
+              />
+            </Col>
+          </Row>
+          <br />
+          <Row>
+            <Col xs={4}>
+              <input
+                type="text"
+                name="ingredients"
+                contentEditable
+                defaultValue={this.props.data.ingredients}
+                class="form-control"
+                placeholder="Ingredients"
+                onChange={this.ChangeHandler}
+              />
+            </Col>
+            <Col xs={3}>
+              <input
+                type="text"
+                name="price"
+                contentEditable
+                defaultValue={this.props.data.price}
+                class="form-control"
+                placeholder="Price"
+                onChange={this.ChangeHandler}
+              />
+            </Col>
+            <Col xs={1}>
+              <input type="file" name="restaurantDishImage" />
+            </Col>
+          </Row>
+        </Container>
+        <br />
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style={{
+            type: "button",
+            background: "#D32323",
+            color: "#ffffff",
+            fontWeight: "bold",
+            borderBlockColor: "white",
+
+            border: "1px #D32323",
+          }}
+        >
+          Submit
+        </button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <button
+          onClick={() => this.setState({ showForm: false })}
+          type="submit"
+          class="btn btn-primary"
+          style={{
+            background: "#D32323",
+            color: "#ffffff",
+            fontWeight: "bold",
+            borderBlockColor: "white",
+            border: "1px #D32323",
+            MarginLeft: "10px",
+          }}
+        >
+          Close
+        </button>
+      </form>
+    );
+  }
+
   render() {
     return (
       <div
@@ -60,6 +279,7 @@ export default class individualDish extends Component {
                     <button
                       type="submit"
                       class="btn btn-primary"
+                      onClick={() => this.setState({ showForm: true })}
                       style={{
                         background: "#D32323",
                         color: "#ffffff",
@@ -70,6 +290,7 @@ export default class individualDish extends Component {
                     >
                       Edit Dish
                     </button>
+                    {this.state.showForm ? this.showAddDishForm() : null}
                     &nbsp;
                   </Col>
                 </Row>

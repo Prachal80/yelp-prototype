@@ -49,6 +49,24 @@ router.get("/getRegisteredEvents", (req, res) => {
   });
 });
 
+//Get customer registration from the registration table to check whether the customer is registered or not
+router.get("/getRegisteredCustomer", (req, res) => {
+  console.log("req data ", req.query);
+  let query = "select * from registrations where customerid = ? and eventid =?";
+  let args = [req.query.customerid, req.query.eventid];
+
+  executeQuery(query, args, (flag, result) => {
+    if (!flag)
+      console.log(
+        "-------Customer Registrations not found for an event-------"
+      );
+    else {
+      console.log("result ", result);
+      res.send({ success: true, getRegisteredCustomer: result });
+    }
+  });
+});
+
 //Register for event
 router.post("/registerEventCustomer", (req, res) => {
   console.log("Register event data ", req.body);

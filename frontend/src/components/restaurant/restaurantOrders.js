@@ -49,7 +49,7 @@ export default class restaurantOrders extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
     // let orderDishAll = this.state.orders.map((order) => {
@@ -136,24 +136,12 @@ export default class restaurantOrders extends Component {
             >
               Clear
             </button>
-            {/* <div> */}
-            {/* <SearchField
-              color="black"
-              placeholder="Search Restaurants, Dishes and more"
-              //   onChange={onChange}
-              searchText=""
-              classNames="test-class"
-            /> */}
-            {/* </div> */}
           </div>
           <br />
           <hr />
         </div>
 
         <div class="row">
-          {/* <div class="overflow-auto" class="leftdiv">
-            <div class="DishInfo"></div>
-          </div> */}
           <div
             class="col-6"
             style={{ width: "100%", overflowY: "scroll", height: "700px" }}

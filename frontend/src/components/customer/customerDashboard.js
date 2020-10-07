@@ -74,7 +74,7 @@ class CustomerDashboard extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("CID")) {
       redirectVar = <Redirect to="/login" />;
     }
     let dishAll = this.state.dishes.map((dish) => {

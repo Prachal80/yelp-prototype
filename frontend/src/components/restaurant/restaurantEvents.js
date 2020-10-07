@@ -105,7 +105,7 @@ export class restaurantEvents extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
     let upcomingEvents = this.state.events.map((event) => {
@@ -176,6 +176,7 @@ export class restaurantEvents extends Component {
                         name="eventname"
                         placeholder="Event Name"
                         class="form-control"
+                        required
                         onChange={this.ChangeHandler}
                       />
                     </Col>
@@ -185,6 +186,7 @@ export class restaurantEvents extends Component {
                         name="eventdate"
                         class="form-control"
                         placeholder="DOB"
+                        required
                         onChange={this.ChangeHandler}
                       />
                     </Col>
@@ -197,6 +199,7 @@ export class restaurantEvents extends Component {
                         name="eventtime"
                         placeholder="Time"
                         class="form-control"
+                        required
                         onChange={this.ChangeHandler}
                       />
                     </Col>
@@ -206,6 +209,7 @@ export class restaurantEvents extends Component {
                         name="eventlocation"
                         class="form-control"
                         placeholder="Location"
+                        required
                         onChange={this.ChangeHandler}
                       />
                     </Col>
@@ -217,6 +221,7 @@ export class restaurantEvents extends Component {
                         name="eventdescription"
                         class="form-control"
                         id="state"
+                        required
                         placeholder="Details"
                         onChange={this.ChangeHandler}
                       />
@@ -229,6 +234,7 @@ export class restaurantEvents extends Component {
                         name="hashtags"
                         class="form-control"
                         placeholder="Hashtags"
+                        required
                         onChange={this.ChangeHandler}
                       />
                     </Col>

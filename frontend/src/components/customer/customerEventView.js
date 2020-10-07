@@ -9,6 +9,7 @@ class customerEventView extends Component {
     super(props);
 
     this.state = {
+      eventid: "",
       eventname: "",
       eventdescription: "",
       eventtime: "",
@@ -20,6 +21,7 @@ class customerEventView extends Component {
       restaurantid: "",
       customerid: "",
       ErrorMessage: "",
+      registered: false,
     };
   }
 
@@ -39,24 +41,31 @@ class customerEventView extends Component {
       customername: localStorage.getItem("Cname"),
       customerid: localStorage.getItem("CID"),
     };
-    console.log("Review Data", data);
+    console.log("Event regisstration customer Data", data);
     //set the with credentials to true
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
-    axios
-      .post("http://localhost:5001/customerEvents/registerEventCustomer", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (response.data.success) {
-          window.location.assign("/customer/events");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          ErrorMessage: "Event Register Error",
+    if (!this.state.registered) {
+      axios.defaults.withCredentials = true;
+      //make a post request with the user data
+      axios
+        .post(
+          "http://localhost:5001/customerEvents/registerEventCustomer",
+          data
+        )
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (response.data.success) {
+            window.location.assign("/customer/events");
+          }
+        })
+        .catch((response) => {
+          this.setState({
+            ErrorMessage: "Event Register Error",
+          });
         });
-      });
+    } else {
+      alert("Already Registered for this event");
+    }
   };
 
   componentDidMount() {
@@ -75,6 +84,7 @@ class customerEventView extends Component {
       // console.log("profile details", response.data.profileData[0]);
       let EventData = response.data.customerEventDetails[0];
       this.setState({
+        eventid: EventData.eventid,
         eventname: EventData.eventname,
         eventdescription: EventData.eventdescription,
         eventtime: EventData.eventtime,
@@ -85,11 +95,33 @@ class customerEventView extends Component {
         restaurantid: EventData.restaurantid,
       });
     });
+
+    //make a get request for the customer event registration data
+    let data1 = {
+      customerid: localStorage.getItem("CID"),
+      eventid: this.props.location.state.eventid,
+    };
+    console.log("########### Getting Event deatails", data1);
+    axios({
+      url: "http://localhost:5001/customerEvents/getRegisteredCustomer",
+      method: "GET",
+      params: data1,
+    }).then((response) => {
+      // console.log("profile details", response.data.profileData[0]);
+      let EventCustomer = response.data.getRegisteredCustomer[0];
+
+      if (EventCustomer) {
+        console.log("Has registered");
+        this.setState({
+          registered: true,
+        });
+      }
+    });
   }
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("CID")) {
       redirectVar = <Redirect to="/login" />;
     }
     return (

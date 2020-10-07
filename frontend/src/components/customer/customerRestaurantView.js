@@ -3,8 +3,7 @@ import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Redirect } from "react-router";
 import Container from "react-bootstrap/Container";
 import { BsStarFill } from "react-icons/all";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
@@ -137,26 +136,34 @@ class customerRestaurantView extends Component {
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios
-      .post("http://localhost:5001/reviews/addReviewCustomer", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (
-          response.data.success &&
-          localStorage.getItem("user") === "customer"
-        ) {
-          window.location.assign("/customer/customerrestaurantview");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          ErrorMessage: "Review Post Error",
+    if (data.rating && data.review && data.reviewdate) {
+      axios
+        .post("http://localhost:5001/reviews/addReviewCustomer", data)
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (
+            response.data.success &&
+            localStorage.getItem("user") === "customer"
+          ) {
+            window.location.assign("/customer/customerrestaurantview");
+          }
+        })
+        .catch((response) => {
+          this.setState({
+            ErrorMessage: "Review Post Error",
+          });
         });
-      });
+    } else {
+      alert("Please add all the review fields");
+    }
   };
 
   render() {
+    let redirectVar = null;
+    if (!localStorage.getItem("CID")) {
+      redirectVar = <Redirect to="/login" />;
+    }
     let CustomerReview = this.state.reviews.map((review) => {
       return <EachCustomerReview data={review}></EachCustomerReview>;
     });
@@ -166,6 +173,7 @@ class customerRestaurantView extends Component {
     });
     return (
       <div>
+        {redirectVar}
         <div>
           <div class="row" style={{ marginTop: "2%" }}>
             <div

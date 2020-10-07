@@ -66,7 +66,7 @@ class restaurantCustomerView extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
     return (

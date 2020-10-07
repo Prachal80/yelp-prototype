@@ -48,16 +48,10 @@ export class customerOrders extends Component {
 
   render() {
     let redirectVar = null;
-    if (!localStorage.getItem("user")) {
+    if (!localStorage.getItem("CID")) {
       redirectVar = <Redirect to="/login" />;
     }
-    // let orderDishAll = this.state.orders.map((order) => {
-    //   return (
-    //     <EachOrderCustomer
-    //       data={order}
-    //     ></EachOrderCustomer>
-    //   );
-    // });
+
     let orderDishAll = this.state.orders.map((order) => {
       if (this.state.filter !== "") {
         if (order.status === this.state.filter) {
