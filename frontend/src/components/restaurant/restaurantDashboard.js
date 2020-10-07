@@ -442,9 +442,22 @@ class RestaurantDashboard extends Component {
             <br />
 
             <div class="DishInfo" class="row">
-              <div>{dishAll}</div>
+              <div
+                style={{ overflowY: "scroll", height: "700px" }}
+                class="col-6"
+              >
+                <h3 style={{ textAlign: "center" }}> Dishes</h3>
+                {dishAll}
+              </div>
 
-              <div style={{ marginLeft: "10%" }}>
+              <div
+                style={{
+                  marginLeft: "10%",
+                  overflowY: "scroll",
+                  height: "700px",
+                }}
+                class="col-4"
+              >
                 <h3 style={{ textAlign: "center" }}>Reviews Received</h3>
                 <br />
 

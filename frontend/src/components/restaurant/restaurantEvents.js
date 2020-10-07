@@ -132,28 +132,27 @@ export class restaurantEvents extends Component {
         </div>
 
         <div class="row">
-          <div style={{ width: "100%" }} class="overflow-auto" class="leftdiv">
-            <div class="DishInfo"></div>
-          </div>
           <div
-            style={{ width: "100%", marginLeft: "10%" }}
-            class="overflow-auto"
-            class="middlediv"
+            style={{
+              width: "100%",
+              overflowY: "scroll",
+              height: "700px",
+            }}
+            class="col-6"
           >
             <h2>Registered Customers</h2>
             {registeredCustomers}
           </div>
           <div
-            style={{ width: "100%", marginLeft: "59%" }}
+            style={{ width: "100%", marginLeft: "" }}
             class="row"
             class="overflow-auto"
-            class="rightdiv"
+            class="col-6"
           >
-            <div class="column" style={{ marginLeft: "10%" }}>
+            <div style={{}}>
               <form
                 onSubmit={this.addEvent}
                 style={{
-                  position: "absolute",
                   background: "#ffe6e6",
                   border: "1px solid black",
                   marginLeft: "0%",
@@ -253,14 +252,12 @@ export class restaurantEvents extends Component {
                   Add Event
                 </button>
               </form>
+              <div style={{ marginTop: "10%", marginLeft: "10%" }}>
+                <h2 style={{ marginLeft: "10%" }}>All Upcoming Events</h2>
+                {upcomingEvents}
+              </div>
             </div>
             <br />
-            <div class="column">
-              <h2 style={{ marginLeft: "10%", marginTop: "47%" }}>
-                All Upcoming Events
-              </h2>
-              {upcomingEvents}
-            </div>
           </div>
         </div>
       </div>

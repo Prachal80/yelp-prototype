@@ -24,6 +24,7 @@ class RestaurantProfile extends Component {
       contact: "",
       ratings: "",
       method: "",
+      cuisine: "",
       ErrorMessage: "",
     };
 
@@ -57,6 +58,7 @@ class RestaurantProfile extends Component {
         contact: restaurantData.contact,
         ratings: restaurantData.ratings,
         method: restaurantData.method,
+        cuisine: restaurantData.cuisine,
         restaurantprofilepic: restaurantData.restaurantprofilepic,
       });
     });
@@ -84,6 +86,7 @@ class RestaurantProfile extends Component {
       contact: this.state.contact,
       method: this.state.method,
       restaurantprofilepic: this.state.restaurantprofilepic,
+      cusisine: this.state.cuisine,
       RID: localStorage.getItem("RID"),
     };
 
@@ -202,10 +205,13 @@ class RestaurantProfile extends Component {
 
           <hr />
           <br />
-          <br />
+
           <h3 style={{ marginLeft: "20px" }}>
             Delivery options: {this.state.method}
+            &nbsp; &nbsp; Cuisine: {this.state.cuisine}
           </h3>
+
+          <br />
           <div class="row">
             <div
               style={{
@@ -270,7 +276,7 @@ class RestaurantProfile extends Component {
                       Update Restaurant Details
                     </p>
                     <Row>
-                      <Col xs={4}>
+                      <Col xs={3}>
                         <input
                           type="text"
                           name="name"
@@ -279,8 +285,16 @@ class RestaurantProfile extends Component {
                           onChange={this.ChangeHandler}
                         />
                       </Col>
-
-                      <Col xs={8}>
+                      <Col xs={2}>
+                        <input
+                          type="text"
+                          name="cuisine"
+                          placeholder="Cuisine"
+                          class="form-control"
+                          onChange={this.ChangeHandler}
+                        />
+                      </Col>
+                      <Col xs={7}>
                         <input
                           type="text"
                           name="description"

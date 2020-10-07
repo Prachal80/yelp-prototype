@@ -1,16 +1,8 @@
 import React, { Component } from "react";
 import "../../App.css";
 import axios from "axios";
-// import cookie from "react-cookies";
-
 import logo from "../../img/signup_illustration.png";
-
-import { Redirect } from "react-router";
-
-const options = [
-  { label: "customer", value: "customer" },
-  { label: "restaurant", value: "restaurant" },
-];
+import M from "materialize-css";
 
 //Define a Login Component
 class Login extends Component {
@@ -68,34 +60,61 @@ class Login extends Component {
       userType: this.state.userType,
     };
     console.log(data);
+
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios
-      .post("http://localhost:5001/login", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data);
-        if (response.data.success && data.userType === "customer") {
-          localStorage.setItem("user", "customer");
-          localStorage.setItem("CID", response.data.res[0].id);
-          localStorage.setItem("Cname", response.data.res[0].name);
-          localStorage.setItem("Cemail", response.data.res[0].email);
-          window.location.assign("/customer/dashboard");
-        } else if (response.data.success && data.userType === "restaurant") {
-          localStorage.setItem("user", "restaurant");
-          localStorage.setItem("RID", response.data.res[0].id);
-          localStorage.setItem("Rname", response.data.res[0].name);
-          localStorage.setItem("Remail", response.data.res[0].email);
-          window.location.assign("/restaurant/dashboard");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          authFlag: false,
-          ErrorMessage: "Invalid Login Credentials",
-        });
+    if (data.username !== "" && data.password !== "" && data.userType !== "") {
+      if (
+        !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          data.username
+        )
+      ) {
+        M.toast({ html: "Invalid email", classes: "#fc2837 red darken-3" });
+      } else {
+        axios
+          .post("http://localhost:5001/login", data)
+          .then((response) => {
+            console.log("Status Code : ", response.status);
+            console.log("response, ", response.data);
+            if (response.data.success && data.userType === "customer") {
+              localStorage.setItem("user", "customer");
+              localStorage.setItem("CID", response.data.res[0].id);
+              localStorage.setItem("Cname", response.data.res[0].name);
+              localStorage.setItem("Cemail", response.data.res[0].email);
+              window.location.assign("/customer/dashboard");
+              M.toast({
+                html: "Signup success",
+                classes: "green darken-1",
+              });
+            } else if (
+              response.data.success &&
+              data.userType === "restaurant"
+            ) {
+              localStorage.setItem("user", "restaurant");
+              localStorage.setItem("RID", response.data.res[0].id);
+              localStorage.setItem("Rname", response.data.res[0].name);
+              localStorage.setItem("Remail", response.data.res[0].email);
+              window.location.assign("/restaurant/dashboard");
+              M.toast({
+                html: "Signup success",
+                classes: "green darken-1",
+              });
+            }
+          })
+          .catch((response) => {
+            this.setState({
+              authFlag: false,
+              ErrorMessage: "Invalid Login Credentials",
+            });
+          });
+      }
+    } else {
+      M.toast({
+        html: "Please Provide all the details",
+        classes: "red darken-1",
       });
+    }
   };
 
   render() {
@@ -157,8 +176,8 @@ class Login extends Component {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
+                required
                 onChange={this.usernameChangeHandler}
-                required="required"
               />
             </div>
             <div class="form-group">
@@ -167,8 +186,8 @@ class Login extends Component {
                 type="password"
                 class="form-control"
                 id="exampleInputPassword1"
-                onChange={this.passwordChangeHandler}
                 required
+                onChange={this.passwordChangeHandler}
               />
             </div>
             <div class="form-group">
@@ -178,8 +197,8 @@ class Login extends Component {
                 class="form-control"
                 onChange={this.userTypeChangeHandler}
                 value={this.state.value}
-                isSearchable
                 required
+                isSearchable
               >
                 <option value="select" selected disabled>
                   Select

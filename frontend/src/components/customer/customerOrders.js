@@ -59,7 +59,7 @@ export class customerOrders extends Component {
     //   );
     // });
     let orderDishAll = this.state.orders.map((order) => {
-      if (this.state.filter != "") {
+      if (this.state.filter !== "") {
         if (order.status === this.state.filter) {
           return <EachOrderCustomer data={order}></EachOrderCustomer>;
         }

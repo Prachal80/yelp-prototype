@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
+import M from "materialize-css";
 
 export default class individualOrderDish extends Component {
   constructor(props) {
@@ -54,25 +55,32 @@ export default class individualOrderDish extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     console.log("#############", data);
-    axios
-      .post("http://localhost:5001/customerOrders/makeOrderCustomer", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (
-          response.data.success &&
-          localStorage.getItem("user") === "customer"
-        ) {
-          window.location.assign("/customer/orders");
-        }
-      })
-      .catch((response) => {
-        console.log("********** Catch", response);
-        this.setState({
-          authFlag: false,
-          ErrorMessage: "Something went wrong while placing the order",
+    if (data.option) {
+      axios
+        .post("http://localhost:5001/customerOrders/makeOrderCustomer", data)
+        .then((response) => {
+          console.log("Status Code : ", response.status);
+          console.log("response, ", response.data.success);
+          if (
+            response.data.success &&
+            localStorage.getItem("user") === "customer"
+          ) {
+            window.location.assign("/customer/orders");
+          }
+        })
+        .catch((response) => {
+          console.log("********** Catch", response);
+          this.setState({
+            authFlag: false,
+            ErrorMessage: "Something went wrong while placing the order",
+          });
         });
+    } else {
+      M.toast({
+        html: "Please select 1 option",
+        classes: "red darken-1",
       });
+    }
   };
 
   render() {

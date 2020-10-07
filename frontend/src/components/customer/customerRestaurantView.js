@@ -253,6 +253,8 @@ class customerRestaurantView extends Component {
             <div
               style={{
                 marginLeft: "5%",
+                overflowY: "scroll",
+                height: "700px",
               }}
               class="overflow-auto"
               //class="lefttdiv"
@@ -355,7 +357,8 @@ class customerRestaurantView extends Component {
               <div
                 style={{
                   marginLeft: "45%",
-
+                  overflowY: "scroll",
+                  height: "700px",
                   width: "100%",
                   padding: "2%",
                   left: "80%",

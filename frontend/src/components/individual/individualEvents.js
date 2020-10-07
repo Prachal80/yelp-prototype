@@ -4,7 +4,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 export default class individualEvents extends Component {
   constructor(props) {
@@ -51,7 +50,7 @@ export default class individualEvents extends Component {
                       color: "#ffffff",
                       fontWeight: "bold",
                       borderBlockColor: "white",
-                      fontWeight: "bold",
+
                       border: "1px #D32323",
                     }}
                     to={{

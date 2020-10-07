@@ -21,9 +21,17 @@ export class CustomerEvents extends Component {
       customerid: "",
       events: [],
       registered_events: [],
+      pattern: "",
     };
   }
 
+  eventSearch = (e) => {
+    this.setState({
+      pattern: e.target.value,
+    });
+  };
+
+  eventSearch;
   componentDidMount() {
     axios.defaults.withCredentials = true;
 
@@ -66,7 +74,13 @@ export class CustomerEvents extends Component {
       redirectVar = <Redirect to="/login" />;
     }
     let upcomingEvents = this.state.events.map((event) => {
-      return <EachEventCustomer data={event}></EachEventCustomer>;
+      if (this.state.pattern != "") {
+        if (event.eventname.toLowerCase().includes(this.state.pattern)) {
+          return <EachEventCustomer data={event}></EachEventCustomer>;
+        }
+      } else {
+        return <EachEventCustomer data={event}></EachEventCustomer>;
+      }
     });
 
     let registeredEvents = this.state.registered_events.map(
@@ -80,32 +94,55 @@ export class CustomerEvents extends Component {
     return (
       <div>
         {redirectVar}
-        <div>
+        <div className="top">
           <br />
           <br />
           <h2 style={{ textAlign: "center" }}> Events</h2>
           <br />
-
+          &nbsp;
+          <div className="form-group ">
+            <input
+              style={{ marginLeft: "43%" }}
+              type="text"
+              placeholder="Search Events"
+              onChange={this.eventSearch}
+              classNames="test-class"
+            />
+          </div>
           <hr />
         </div>
 
         <div class="row">
           <div style={{ paddingLeft: "10%" }} class="col-6">
-            <h2 style={{ marginLeft: "13%" }}>Upcoming Events</h2>
-            {upcomingEvents}
+            <h2
+              style={{
+                marginLeft: "23%",
+              }}
+            >
+              Upcoming Events
+            </h2>
+            <div
+              style={{
+                marginLeft: "13%",
+                overflowY: "scroll",
+                height: "700px",
+              }}
+            >
+              {upcomingEvents}
+            </div>
           </div>
           <div style={{ paddingLeft: "4%" }} class="col-6">
-            <h2 style={{ paddingLeft: "3%" }}>Registered Events</h2>
-            {registeredEvents}
+            <h2 style={{ paddingLeft: "19%" }}>Registered Events</h2>
+            <div
+              style={{
+                marginLeft: "13%",
+                overflowY: "scroll",
+                height: "700px",
+              }}
+            >
+              {registeredEvents}
+            </div>
           </div>
-          {/* <div
-            style={{ width: "50%", marginLeft: "59%" }}
-            class="rightdiv"
-            class="col"
-          >
-            <h2>Registered Events</h2>
-            {registeredEvents}
-          </div> */}
         </div>
       </div>
     );

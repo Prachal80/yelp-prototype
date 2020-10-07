@@ -19,11 +19,27 @@ class CustomerDashboard extends Component {
       dishes: [],
       restaurants: [],
       filter: "",
+      pattern: "",
+      searchCriteria: "dishes",
     };
   }
   ChangeHandler = (e) => {
     this.setState({
       filter: e.target.value,
+      searchCriteria: "",
+    });
+  };
+
+  restaurantSearch = (e) => {
+    this.setState({
+      pattern: e.target.value,
+    });
+  };
+
+  selectSearchCriteria = (e) => {
+    this.setState({
+      searchCriteria: e.target.value,
+      filter: "",
     });
   };
 
@@ -61,7 +77,6 @@ class CustomerDashboard extends Component {
     if (!localStorage.getItem("user")) {
       redirectVar = <Redirect to="/login" />;
     }
-    console.log("filter ", this.state.filter);
     let dishAll = this.state.dishes.map((dish) => {
       return <EachDish key={Math.random} data={dish}></EachDish>;
     });
@@ -69,6 +84,19 @@ class CustomerDashboard extends Component {
     let allRestaurants = this.state.restaurants.map((eachRestaurant) => {
       if (this.state.filter != "") {
         if (eachRestaurant.method === this.state.filter) {
+          return (
+            <EachRestaurant
+              // key={Math.random}
+              data={eachRestaurant}
+            ></EachRestaurant>
+          );
+        }
+      } else if (this.state.pattern != "") {
+        if (
+          eachRestaurant[this.state.searchCriteria]
+            .toLowerCase()
+            .includes(this.state.pattern)
+        ) {
           return (
             <EachRestaurant
               // key={Math.random}
@@ -93,9 +121,8 @@ class CustomerDashboard extends Component {
         <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
           Find Restaurants , Dishes and Place orders
         </h2>
-        <div
-          style={{ textAlign: "center", fontWeight: "bold", marginLeft: "5px" }}
-        >
+        <br />
+        <div className="row" style={{ textAlign: "center", marginLeft: "5px" }}>
           <button
             style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
             className="btn btn-danger"
@@ -120,7 +147,7 @@ class CustomerDashboard extends Component {
             style={{ float: "left", fontWeight: "bold", marginLeft: "5px" }}
             className="btn btn-danger"
             name="option"
-            value="Pickup"
+            value="Dinein"
             onClick={this.ChangeHandler}
           >
             Dine In
@@ -135,15 +162,32 @@ class CustomerDashboard extends Component {
           >
             Clear
           </button>
-          {/* <div> */}
-          <SearchField
-            color="black"
-            placeholder="Search Restaurants, Dishes and more"
-            //   onChange={onChange}
-            searchText=""
-            classNames="test-class"
-          />
-          {/* </div> */}
+          &nbsp; &nbsp;
+          <form>
+            <div className="form-row">
+              <div class="form-group " style={{}}>
+                <select
+                  id="inputState"
+                  class="form-control"
+                  onChange={this.selectSearchCriteria}
+                >
+                  <option value="dishes">Dish names</option>
+                  <option value="cuisine">Cuisines</option>
+                  <option value="location">Location</option>
+                  <option value="method">Mode of Delivery</option>
+                </select>
+              </div>
+              &nbsp;
+              <div className="form-group ">
+                <input
+                  type="text"
+                  placeholder="Search Restaurants, Dishes and more"
+                  onChange={this.restaurantSearch}
+                  classNames="test-class"
+                />
+              </div>
+            </div>
+          </form>
         </div>
 
         <hr />
@@ -177,8 +221,8 @@ class CustomerDashboard extends Component {
                 height: "700px",
                 border: "1px solid grey",
                 marginTop: "10px",
-                // paddingRight: "0px",
-                borderRadius: "2%",
+
+                // borderRadius: "2%",
               }}
             >
               <Marker onClick={this.state.address} name={"Current location"} />

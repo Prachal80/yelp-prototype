@@ -23,7 +23,8 @@ router.get("/getAllDishes", (req, res) => {
 
 router.get("/getAllRestaurants", (req, res) => {
   console.log("req data ", req.query);
-  let query = "select * from restaurant";
+  let query =
+    "select restaurant.id, restaurant.name, restaurant.email, restaurant.location, restaurant.description, restaurant.contact, restaurant.restaurantprofilepic, restaurant.country, restaurant.state, restaurant.ratings,restaurant.address,restaurant.method, restaurant.cuisine, group_concat(dishes.dishname) as dishes from restaurant inner join dishes on restaurant.id = dishes.restaurantid group by restaurant.id";
   let args = [];
 
   executeQuery(query, args, (flag, result) => {

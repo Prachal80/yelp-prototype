@@ -64,7 +64,7 @@ router.get("/getRestaurantProfile", (req, res) => {
 router.post("/updateRestaurantProfile", (req, res) => {
   console.log("update profile req data ", req.body);
   let query =
-    "update restaurant set name = ? , location = ? , address = ? , state = ? , country = ?, description = ? , timings = ? , email = ? , contact = ? , method = ? where id = ?";
+    "update restaurant set name = ? , location = ? , address = ? , state = ? , country = ?, description = ? , timings = ? , email = ? , contact = ? , method = ?, cuisine = ? where id = ?";
   let args = [
     req.body.name,
     req.body.location,
@@ -76,6 +76,7 @@ router.post("/updateRestaurantProfile", (req, res) => {
     req.body.email,
     req.body.contact,
     req.body.method,
+    req.body.cuisine,
     req.body.RID,
   ];
 

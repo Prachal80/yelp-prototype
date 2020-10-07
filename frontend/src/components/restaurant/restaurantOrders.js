@@ -57,7 +57,7 @@ export default class restaurantOrders extends Component {
     // });
 
     let orderDishAll = this.state.orders.map((order) => {
-      if (this.state.filter != "") {
+      if (this.state.filter !== "") {
         if (order.status === this.state.filter) {
           return <EachOrderRestaurant data={order}></EachOrderRestaurant>;
         }
@@ -155,15 +155,13 @@ export default class restaurantOrders extends Component {
             <div class="DishInfo"></div>
           </div> */}
           <div
-            style={{ width: "100%" }}
-            class="overflow-auto"
             class="col-6"
-            style={{ overflowY: "scroll", height: "700px" }}
+            style={{ width: "100%", overflowY: "scroll", height: "700px" }}
           >
             <h2 style={{ textAlign: "center" }}>All orders</h2>
             {orderDishAll}
           </div>
-          <div class="overflow-auto" class="rightdiv"></div>
+          <div class="rightdiv"></div>
         </div>
       </div>
     );
