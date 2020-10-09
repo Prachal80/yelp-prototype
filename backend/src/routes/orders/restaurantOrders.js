@@ -35,17 +35,16 @@ router.post("/changeOrderStatusRestaurant", (req, res) => {
     status === "Ready for Pickup" ||
     status === "Picked up"
   ) {
-    query = "update orders set status= ? where orderid=?";
-    args = [status, orderid];
+    var query = "update orders set status= ? where orderid=?";
+    var args = [status, orderid];
     console.log(query, "%%%%%%%%%%%", args);
   }
-  //   else if (status === "Cancel") {
-  //     query = `delete from orders where orderid=?`;
-  //     args = [req.body.orderid];
-  //   }
+
   executeQuery(query, args, (flag, result) => {
-    if (!flag) console.log("-------No orders found-------");
-    else {
+    if (!flag) {
+      console.log("-------No orders found-------");
+      res.status(404).send({ success: false, RestaurantUpdateOrder: null });
+    } else {
       console.log("result ", result);
       res.status(200).send({ success: true, RestaurantUpdateOrder: result });
     }

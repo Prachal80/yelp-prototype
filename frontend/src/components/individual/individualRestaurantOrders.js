@@ -41,7 +41,6 @@ export default class individualRestaurantOrders extends Component {
     e.preventDefault();
     const data = {
       orderid: this.props.data.orderid,
-
       status: this.state.status,
     };
 
@@ -179,7 +178,6 @@ export default class individualRestaurantOrders extends Component {
                           color: "#ffffff",
                           fontWeight: "bold",
                           borderBlockColor: "white",
-                          fontWeight: "bold",
                           border: "1px #D32323",
                         }}
                       >
@@ -195,7 +193,6 @@ export default class individualRestaurantOrders extends Component {
                         color: "#ffffff",
                         fontWeight: "bold",
                         borderBlockColor: "white",
-                        fontWeight: "bold",
                         border: "1px #D32323",
                       }}
                       to={{

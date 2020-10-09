@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
-import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -229,7 +228,7 @@ class CustomerProfile extends Component {
               style={{
                 position: "absolute",
                 width: "30%",
-                top: "55%",
+                top: "63%",
                 left: "2%",
               }}
             >
@@ -416,7 +415,6 @@ class CustomerProfile extends Component {
                     color: "#ffffff",
                     fontWeight: "bold",
                     borderBlockColor: "white",
-                    fontWeight: "bold",
                     border: "1px #D32323",
                     alignContent: "center",
                     alignItems: "center",

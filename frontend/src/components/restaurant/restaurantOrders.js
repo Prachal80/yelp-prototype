@@ -52,9 +52,6 @@ export default class restaurantOrders extends Component {
     if (!localStorage.getItem("RID")) {
       redirectVar = <Redirect to="/login" />;
     }
-    // let orderDishAll = this.state.orders.map((order) => {
-    //   return <EachOrderRestaurant data={order}></EachOrderRestaurant>;
-    // });
 
     let orderDishAll = this.state.orders.map((order) => {
       if (this.state.filter !== "") {

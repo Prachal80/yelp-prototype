@@ -111,6 +111,10 @@ class Login extends Component {
           });
       }
     } else {
+      this.setState({
+        authFlag: false,
+        ErrorMessage: "Please Provide all the details",
+      });
       M.toast({
         html: "Please Provide all the details",
         classes: "red darken-1",
@@ -208,8 +212,6 @@ class Login extends Component {
                 <option value="customer">Customer</option>
                 <option value="restaurant">Restaurant</option>
               </select>
-              {/* Select <i className="text-danger">required</i> */}
-              {/* <select options={options} required /> */}
             </div>
             <button
               onClick={this.submitLogin}
@@ -225,7 +227,18 @@ class Login extends Component {
               Sign In
             </button>
             <br />
-            {/* <p>{this.state.ErrorMessage}</p> */}
+            <br />
+            <p
+              style={{
+                color: "#ffffff",
+                fontWeight: "bold",
+                backgroundColor: "#D32323",
+                textAlign: "center",
+                borderRadius: "4%",
+              }}
+            >
+              {this.state.ErrorMessage}
+            </p>
           </form>
           <img
             className="image-work"

@@ -26,10 +26,12 @@ router.get("/getSingleEvent", (req, res) => {
   let args = [req.query.eventid];
 
   executeQuery(query, args, (flag, result) => {
-    if (!flag) console.log("-------Events not found-------");
-    else {
+    if (!flag) {
+      console.log("-------Events not found-------");
+      res.status(404).send({ success: false, customerEventDetails: null });
+    } else {
       console.log("result ", result);
-      res.send({ success: true, customerEventDetails: result });
+      res.status(200).send({ success: true, customerEventDetails: result });
     }
   });
 });

@@ -11,9 +11,11 @@ router.get("/getCustomerReviews", (req, res) => {
   let args = [req.query.CID, req.query.RID];
 
   executeQuery(query, args, (flag, result) => {
-    if (!flag) console.log("-------Restaurant Reviews not found-------");
-    else {
-      res.send({ success: true, customerReviews: result });
+    if (!flag) {
+      console.log("-------Restaurant Reviews not found-------");
+      res.status(404).send({ success: false, customerReviews: null });
+    } else {
+      res.status(200).send({ success: true, customerReviews: result });
     }
   });
 });
