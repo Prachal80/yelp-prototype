@@ -20,6 +20,9 @@ class CustomerDashboard extends Component {
       filter: "",
       pattern: "",
       searchCriteria: "dishes",
+      cuisine: "",
+      location: "",
+      method: "",
     };
   }
   ChangeHandler = (e) => {
@@ -93,7 +96,7 @@ class CustomerDashboard extends Component {
     });
 
     let allRestaurants = this.state.restaurants.map((eachRestaurant) => {
-      if (this.state.filter != "") {
+      if (this.state.filter !== "") {
         if (eachRestaurant.method === this.state.filter) {
           return (
             <EachRestaurant
@@ -102,7 +105,7 @@ class CustomerDashboard extends Component {
             ></EachRestaurant>
           );
         }
-      } else if (this.state.pattern != "") {
+      } else if (this.state.pattern !== "") {
         if (
           eachRestaurant[this.state.searchCriteria]
             .toLowerCase()

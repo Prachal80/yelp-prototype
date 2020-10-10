@@ -3,9 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import { BsStarFill } from "react-icons/all";
-import axios from "axios";
 
 export default class individualReview extends Component {
   constructor(props) {
@@ -57,6 +55,10 @@ export default class individualReview extends Component {
 
                     <p style={{ marginBottom: "0px" }}>
                       Review: {this.props.data.review}
+                    </p>
+
+                    <p style={{ marginBottom: "0px" }}>
+                      Date: {this.props.data.reviewdate.slice(0, 10)}
                     </p>
                   </Col>
                 </Row>

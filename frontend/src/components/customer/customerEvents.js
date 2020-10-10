@@ -31,7 +31,6 @@ export class CustomerEvents extends Component {
     });
   };
 
-  eventSearch;
   componentDidMount() {
     axios.defaults.withCredentials = true;
 
