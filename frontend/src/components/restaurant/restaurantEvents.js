@@ -53,7 +53,10 @@ export class restaurantEvents extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post("http://localhost:5001/restaurantEvents/addRestaurantEvents", data)
+      .post(
+        "http://52.43.207.234:3001/restaurantEvents/addRestaurantEvents",
+        data
+      )
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);
@@ -72,7 +75,7 @@ export class restaurantEvents extends Component {
 
     //Get All unregistered events
     axios
-      .get("http://localhost:5001/restaurantEvents/getAllEvents", {
+      .get("http://52.43.207.234:3001/restaurantEvents/getAllEvents", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -87,11 +90,14 @@ export class restaurantEvents extends Component {
 
     //Get All registered customers
     axios
-      .get("http://localhost:5001/restaurantEvents/getRegisteredCustomers", {
-        params: {
-          RID: localStorage.getItem("RID"),
-        },
-      })
+      .get(
+        "http://52.43.207.234:3001/restaurantEvents/getRegisteredCustomers",
+        {
+          params: {
+            RID: localStorage.getItem("RID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received all registered Events");
 

@@ -38,7 +38,7 @@ class restaurantCustomerView extends Component {
     };
     console.log("########### Getting customer deatails", data);
     axios({
-      url: "http://localhost:5001/customerProfile/getCustomerProfile",
+      url: "http://52.43.207.234:3001/customerProfile/getCustomerProfile",
       method: "GET",
       params: data,
     }).then((response) => {

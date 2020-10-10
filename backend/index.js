@@ -29,7 +29,10 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 // //Allow Access Control
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "http://" + process.env.ip + ":3000"
+  );
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -44,20 +47,21 @@ app.use(function (req, res, next) {
 });
 
 // Establish mysql connection
-const db = mysql.createConnection({
+const db = mysql.createPool({
+  connectionLimit: 100,
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
 });
 
-db.connect((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Connected to Mysql");
-  }
-});
+// db.connect((error) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Connected to Mysql");
+//   }
+// });
 
 var loginBasePath = require("./src/routes/login/account");
 app.use("/login", loginBasePath);
@@ -93,5 +97,5 @@ var restaurantEvents = require("./src/routes/events/restaurantEvents");
 app.use("/restaurantEvents", restaurantEvents);
 
 exports.db = db;
-app.listen(5001);
-console.log("Server Listening on port 5001");
+app.listen(3001);
+console.log("Server Listening on port 3001");

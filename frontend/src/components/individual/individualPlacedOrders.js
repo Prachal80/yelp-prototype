@@ -45,7 +45,10 @@ export default class individualPlacedOrder extends Component {
     //make a post request with the user data
     console.log("#############", data);
     axios
-      .post("http://localhost:5001/customerOrders/deleteOrderCustomer", data)
+      .post(
+        "http://52.43.207.234:3001/customerOrders/deleteOrderCustomer",
+        data
+      )
       .then((response) => {
         console.log("Status Code : ", response.status);
         console.log("response, ", response.data.success);

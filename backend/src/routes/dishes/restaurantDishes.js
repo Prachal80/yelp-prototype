@@ -76,7 +76,8 @@ router.post(
     console.log("%%%%%%%", req.body);
     var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
     console.log("imagepath ", imagepath);
-    let query = `update dishes dishname = ?, ingredients=?,image=?,price=?,description=?,category=? where id = ?`;
+    let query =
+      "update dishes set dishname = ?, ingredients=?,image=?,price=?,description=?,category=? where id = ?";
 
     let args = [
       req.body.dishname,

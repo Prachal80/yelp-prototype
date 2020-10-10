@@ -48,7 +48,7 @@ class CustomerDashboard extends Component {
 
     //Get All dishes
     axios
-      .get("http://localhost:5001/customerDishes/getAllDishes", {
+      .get("http://52.43.207.234:3001/customerDishes/getAllDishes", {
         params: {},
       })
       .then((response) => {
@@ -59,7 +59,7 @@ class CustomerDashboard extends Component {
       });
 
     axios
-      .get("http://localhost:5001/customerDishes/getAllRestaurants", {
+      .get("http://52.43.207.234:3001/customerDishes/getAllRestaurants", {
         params: {},
       })
       .then((response) => {

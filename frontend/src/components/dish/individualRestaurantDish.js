@@ -57,7 +57,7 @@ export default class individualDish extends Component {
 
     axios
       .post(
-        "http://localhost:5001/restaurantDishes/updateRestaurantDishes",
+        "http://52.43.207.234:3001/restaurantDishes/updateRestaurantDishes",
         formData,
         {
           headers: {

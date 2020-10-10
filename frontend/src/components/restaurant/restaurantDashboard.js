@@ -9,6 +9,10 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import EachDish from "../dish/individualRestaurantDish";
 import { BsStarFill } from "react-icons/all";
 import EachReview from "../individual/indivudalReview";
+var dotenv = require("dotenv").config({
+  path: "../../../../.env",
+});
+
 class RestaurantDashboard extends Component {
   constructor(props) {
     super(props);
@@ -37,38 +41,6 @@ class RestaurantDashboard extends Component {
     // this.onClick = this.onClick.bind(this);
   }
 
-  submitUpdate = (e) => {
-    e.preventDefault();
-    const data = {
-      dishname: this.state.dishname,
-      ingredients: this.state.ingredients,
-      image: this.state.image,
-      price: this.state.price,
-      description: this.state.description,
-      category: this.state.category,
-      RID: localStorage.getItem("RID"),
-      ratings: this.state.ratings,
-    };
-    console.log(data);
-    //set the with credentials to true
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
-    axios
-      .post("http://localhost:5001/restaurantDishes/addRestaurantDishes", data)
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        console.log("response, ", response.data.success);
-        if (response.data.success) {
-          window.location.assign("/restaurant/dashboard");
-        }
-      })
-      .catch((response) => {
-        this.setState({
-          authFlag: false,
-          ErrorMessage: "Something went wrong on dish adding",
-        });
-      });
-  };
   componentDidMount() {
     axios.defaults.withCredentials = true;
     //make a post request with the Restaurant data
@@ -76,7 +48,7 @@ class RestaurantDashboard extends Component {
       RID: localStorage.getItem("RID"),
     };
     axios({
-      url: "http://localhost:5001/restaurantProfile/getRestaurantProfile",
+      url: "http://52.43.207.234:3001/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -100,7 +72,7 @@ class RestaurantDashboard extends Component {
     });
     //Get All dishes
     axios
-      .get("http://localhost:5001/restaurantDishes/getAllDishes", {
+      .get("http://52.43.207.234:3001/restaurantDishes/getAllDishes", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -115,7 +87,7 @@ class RestaurantDashboard extends Component {
 
     //Get all reviews to restaurant
     axios
-      .get("http://localhost:5001/reviews/getRestaurantReviews", {
+      .get("http://52.43.207.234:3001/reviews/getRestaurantReviews", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -160,7 +132,7 @@ class RestaurantDashboard extends Component {
     if (formData.get("category") != "undefined") {
       axios
         .post(
-          "http://localhost:5001/restaurantDishes/addRestaurantDishes",
+          "http://52.43.207.234:3001/restaurantDishes/addRestaurantDishes",
           formData,
           {
             headers: {

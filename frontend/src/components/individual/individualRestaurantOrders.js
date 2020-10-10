@@ -51,7 +51,7 @@ export default class individualRestaurantOrders extends Component {
     if (data.status) {
       axios
         .post(
-          "http://localhost:5001/restaurantOrders/changeOrderStatusRestaurant",
+          "http://52.43.207.234:3001/restaurantOrders/changeOrderStatusRestaurant",
           data
         )
         .then((response) => {

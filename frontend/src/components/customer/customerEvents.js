@@ -37,7 +37,7 @@ export class CustomerEvents extends Component {
 
     //Get All unregistered events
     axios
-      .get("http://localhost:5001/customerEvents/getAllEvents", {
+      .get("http://52.43.207.234:3001/customerEvents/getAllEvents", {
         params: {
           CID: localStorage.getItem("CID"),
         },
@@ -52,7 +52,7 @@ export class CustomerEvents extends Component {
 
     //Get All registered events
     axios
-      .get("http://localhost:5001/customerEvents/getRegisteredEvents", {
+      .get("http://52.43.207.234:3001/customerEvents/getRegisteredEvents", {
         params: {
           CID: localStorage.getItem("CID"),
         },

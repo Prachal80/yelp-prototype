@@ -57,7 +57,10 @@ export default class individualOrderDish extends Component {
     console.log("#############", data);
     if (data.option) {
       axios
-        .post("http://localhost:5001/customerOrders/makeOrderCustomer", data)
+        .post(
+          "http://52.43.207.234:3001/customerOrders/makeOrderCustomer",
+          data
+        )
         .then((response) => {
           console.log("Status Code : ", response.status);
           console.log("response, ", response.data.success);

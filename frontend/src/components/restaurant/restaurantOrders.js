@@ -33,11 +33,14 @@ export default class restaurantOrders extends Component {
     console.log("mounting");
     //Get All orders made by customers to the restaurant
     axios
-      .get("http://localhost:5001/restaurantOrders/getAllOrdersRestaurant", {
-        params: {
-          RID: localStorage.getItem("RID"),
-        },
-      })
+      .get(
+        "http://52.43.207.234:3001/restaurantOrders/getAllOrdersRestaurant",
+        {
+          params: {
+            RID: localStorage.getItem("RID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received all Orders");
 

@@ -66,7 +66,7 @@ router.post("/deleteOrderCustomer", (req, res) => {
   console.log("Req Body : ", req.body);
 
   let query = `update orders set status= ? where orderid= ?`;
-  args = ["Cancelled", req.body.orderid];
+  let args = ["Cancelled", req.body.orderid];
 
   executeQuery(query, args, (flag, result) => {
     if (!flag) console.log("-------No orders found-------");

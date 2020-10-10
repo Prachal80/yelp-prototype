@@ -38,7 +38,7 @@ class CustomerProfile extends Component {
       CID: localStorage.getItem("CID"),
     };
     axios({
-      url: "http://localhost:5001/customerProfile/getCustomerProfile",
+      url: "http://52.43.207.234:3001/customerProfile/getCustomerProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -97,7 +97,7 @@ class CustomerProfile extends Component {
     if (data) {
       axios
         .post(
-          "http://localhost:5001/customerProfile/updateCustomerProfile",
+          "http://52.43.207.234:3001/customerProfile/updateCustomerProfile",
           data
         )
         .then((response) => {
@@ -183,7 +183,7 @@ class CustomerProfile extends Component {
           <br />
           <div>
             <form
-              action="http://localhost:5001/customerProfile/updateCustomerProfilePic"
+              action="http://52.43.207.234:3001/customerProfile/updateCustomerProfilePic"
               method="POST"
               encType="multipart/form-data"
               style={{

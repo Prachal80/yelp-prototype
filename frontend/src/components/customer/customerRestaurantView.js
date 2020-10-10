@@ -9,6 +9,9 @@ import { BsStarFill } from "react-icons/all";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import OrderEachDish from "../individual/individualOrderDish";
 import EachCustomerReview from "../individual/indivudalReview";
+var dotenv = require("dotenv").config({
+  path: "../.env",
+});
 
 class customerRestaurantView extends Component {
   constructor(props) {
@@ -54,7 +57,7 @@ class customerRestaurantView extends Component {
       RID: this.state.restaurantid,
     };
     axios({
-      url: "http://localhost:5001/restaurantProfile/getRestaurantProfile",
+      url: "http://52.43.207.234:3001/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -77,7 +80,7 @@ class customerRestaurantView extends Component {
     });
     //Get All dishes
     axios
-      .get("http://localhost:5001/restaurantDishes/getAllDishes", {
+      .get("http://52.43.207.234:3001/restaurantDishes/getAllDishes", {
         params: {
           RID: this.state.restaurantid,
         },
@@ -97,7 +100,7 @@ class customerRestaurantView extends Component {
       });
     //Get all reviews customer
     axios
-      .get("http://localhost:5001/reviews/getCustomerReviews", {
+      .get("http://52.43.207.234:3001/reviews/getCustomerReviews", {
         params: {
           CID: localStorage.getItem("CID"),
           RID: this.state.restaurantid,
@@ -138,7 +141,7 @@ class customerRestaurantView extends Component {
     //make a post request with the user data
     if (data.rating && data.review && data.reviewdate) {
       axios
-        .post("http://localhost:5001/reviews/addReviewCustomer", data)
+        .post("http://52.43.207.234:3001/reviews/addReviewCustomer", data)
         .then((response) => {
           console.log("Status Code : ", response.status);
           console.log("response, ", response.data.success);
@@ -384,5 +387,5 @@ class customerRestaurantView extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyBIRmVN1sk9HHlXxIAg-3_H5oRb2j-TyC4",
+  apiKey: "process.env.API_KEY",
 })(customerRestaurantView);
