@@ -32,7 +32,7 @@ export class customerOrders extends Component {
 
     //Get All orders made by a customer
     axios
-      .get("http://52.43.207.234:3001/customerOrders/getAllOrders", {
+      .get("http://34.221.204.181:3001/customerOrders/getAllOrders", {
         params: {
           CID: localStorage.getItem("CID"),
         },

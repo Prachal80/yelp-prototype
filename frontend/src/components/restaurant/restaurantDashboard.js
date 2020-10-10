@@ -48,7 +48,7 @@ class RestaurantDashboard extends Component {
       RID: localStorage.getItem("RID"),
     };
     axios({
-      url: "http://52.43.207.234:3001/restaurantProfile/getRestaurantProfile",
+      url: "http://34.221.204.181:3001/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -72,7 +72,7 @@ class RestaurantDashboard extends Component {
     });
     //Get All dishes
     axios
-      .get("http://52.43.207.234:3001/restaurantDishes/getAllDishes", {
+      .get("http://34.221.204.181:3001/restaurantDishes/getAllDishes", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -87,7 +87,7 @@ class RestaurantDashboard extends Component {
 
     //Get all reviews to restaurant
     axios
-      .get("http://52.43.207.234:3001/reviews/getRestaurantReviews", {
+      .get("http://34.221.204.181:3001/reviews/getRestaurantReviews", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -132,7 +132,7 @@ class RestaurantDashboard extends Component {
     if (formData.get("category") != "undefined") {
       axios
         .post(
-          "http://52.43.207.234:3001/restaurantDishes/addRestaurantDishes",
+          "http://34.221.204.181:3001/restaurantDishes/addRestaurantDishes",
           formData,
           {
             headers: {

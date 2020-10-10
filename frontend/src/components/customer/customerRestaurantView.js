@@ -57,7 +57,7 @@ class customerRestaurantView extends Component {
       RID: this.state.restaurantid,
     };
     axios({
-      url: "http://52.43.207.234:3001/restaurantProfile/getRestaurantProfile",
+      url: "http://34.221.204.181:3001/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -80,7 +80,7 @@ class customerRestaurantView extends Component {
     });
     //Get All dishes
     axios
-      .get("http://52.43.207.234:3001/restaurantDishes/getAllDishes", {
+      .get("http://34.221.204.181:3001/restaurantDishes/getAllDishes", {
         params: {
           RID: this.state.restaurantid,
         },
@@ -100,7 +100,7 @@ class customerRestaurantView extends Component {
       });
     //Get all reviews customer
     axios
-      .get("http://52.43.207.234:3001/reviews/getCustomerReviews", {
+      .get("http://34.221.204.181:3001/reviews/getCustomerReviews", {
         params: {
           CID: localStorage.getItem("CID"),
           RID: this.state.restaurantid,
@@ -141,7 +141,7 @@ class customerRestaurantView extends Component {
     //make a post request with the user data
     if (data.rating && data.review && data.reviewdate) {
       axios
-        .post("http://52.43.207.234:3001/reviews/addReviewCustomer", data)
+        .post("http://34.221.204.181:3001/reviews/addReviewCustomer", data)
         .then((response) => {
           console.log("Status Code : ", response.status);
           console.log("response, ", response.data.success);

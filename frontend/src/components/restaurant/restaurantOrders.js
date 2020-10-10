@@ -34,7 +34,7 @@ export default class restaurantOrders extends Component {
     //Get All orders made by customers to the restaurant
     axios
       .get(
-        "http://52.43.207.234:3001/restaurantOrders/getAllOrdersRestaurant",
+        "http://34.221.204.181:3001/restaurantOrders/getAllOrdersRestaurant",
         {
           params: {
             RID: localStorage.getItem("RID"),

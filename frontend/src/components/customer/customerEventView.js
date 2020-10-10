@@ -48,7 +48,7 @@ class customerEventView extends Component {
       //make a post request with the user data
       axios
         .post(
-          "http://52.43.207.234:3001/customerEvents/registerEventCustomer",
+          "http://34.221.204.181:3001/customerEvents/registerEventCustomer",
           data
         )
         .then((response) => {
@@ -77,7 +77,7 @@ class customerEventView extends Component {
     };
     console.log("########### Getting Event deatails", data);
     axios({
-      url: "http://52.43.207.234:3001/customerEvents/getSingleEvent",
+      url: "http://34.221.204.181:3001/customerEvents/getSingleEvent",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -103,7 +103,7 @@ class customerEventView extends Component {
     };
     console.log("########### Getting Event deatails", data1);
     axios({
-      url: "http://52.43.207.234:3001/customerEvents/getRegisteredCustomer",
+      url: "http://34.221.204.181:3001/customerEvents/getRegisteredCustomer",
       method: "GET",
       params: data1,
     }).then((response) => {

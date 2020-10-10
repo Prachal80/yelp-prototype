@@ -54,7 +54,7 @@ export class restaurantEvents extends Component {
     //make a post request with the user data
     axios
       .post(
-        "http://52.43.207.234:3001/restaurantEvents/addRestaurantEvents",
+        "http://34.221.204.181:3001/restaurantEvents/addRestaurantEvents",
         data
       )
       .then((response) => {
@@ -75,7 +75,7 @@ export class restaurantEvents extends Component {
 
     //Get All unregistered events
     axios
-      .get("http://52.43.207.234:3001/restaurantEvents/getAllEvents", {
+      .get("http://34.221.204.181:3001/restaurantEvents/getAllEvents", {
         params: {
           RID: localStorage.getItem("RID"),
         },
@@ -91,7 +91,7 @@ export class restaurantEvents extends Component {
     //Get All registered customers
     axios
       .get(
-        "http://52.43.207.234:3001/restaurantEvents/getRegisteredCustomers",
+        "http://34.221.204.181:3001/restaurantEvents/getRegisteredCustomers",
         {
           params: {
             RID: localStorage.getItem("RID"),

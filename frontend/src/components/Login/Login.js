@@ -74,7 +74,7 @@ class Login extends Component {
         M.toast({ html: "Invalid email", classes: "#fc2837 red darken-3" });
       } else {
         axios
-          .post("http://52.43.207.234:3001/login", data)
+          .post("http://34.221.204.181:3001/login", data)
           .then((response) => {
             console.log("Status Code : ", response.status);
             console.log("response, ", response.data);

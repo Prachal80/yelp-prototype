@@ -58,7 +58,7 @@ export default class individualOrderDish extends Component {
     if (data.option) {
       axios
         .post(
-          "http://52.43.207.234:3001/customerOrders/makeOrderCustomer",
+          "http://34.221.204.181:3001/customerOrders/makeOrderCustomer",
           data
         )
         .then((response) => {

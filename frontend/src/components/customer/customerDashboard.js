@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
-import SearchField from "react-search-field";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import EachDish from "../individual/individualOrderDish";
 import EachRestaurant from "../individual/individualRestaurants";
 
@@ -48,7 +47,7 @@ class CustomerDashboard extends Component {
 
     //Get All dishes
     axios
-      .get("http://52.43.207.234:3001/customerDishes/getAllDishes", {
+      .get("http://34.221.204.181:3001/customerDishes/getAllDishes", {
         params: {},
       })
       .then((response) => {
@@ -59,7 +58,7 @@ class CustomerDashboard extends Component {
       });
 
     axios
-      .get("http://52.43.207.234:3001/customerDishes/getAllRestaurants", {
+      .get("http://34.221.204.181:3001/customerDishes/getAllRestaurants", {
         params: {},
       })
       .then((response) => {

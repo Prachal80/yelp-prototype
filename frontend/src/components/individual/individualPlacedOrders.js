@@ -46,7 +46,7 @@ export default class individualPlacedOrder extends Component {
     console.log("#############", data);
     axios
       .post(
-        "http://52.43.207.234:3001/customerOrders/deleteOrderCustomer",
+        "http://34.221.204.181:3001/customerOrders/deleteOrderCustomer",
         data
       )
       .then((response) => {

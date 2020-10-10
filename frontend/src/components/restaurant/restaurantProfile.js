@@ -39,7 +39,7 @@ class RestaurantProfile extends Component {
       RID: localStorage.getItem("RID"),
     };
     axios({
-      url: "http://52.43.207.234:3001/restaurantProfile/getRestaurantProfile",
+      url: "http://34.221.204.181:3001/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -96,7 +96,7 @@ class RestaurantProfile extends Component {
     console.log("#############", data);
     axios
       .post(
-        "http://52.43.207.234:3001/restaurantProfile/updateRestaurantProfile",
+        "http://34.221.204.181:3001/restaurantProfile/updateRestaurantProfile",
         data
       )
       .then((response) => {
@@ -221,7 +221,7 @@ class RestaurantProfile extends Component {
               }}
             >
               <form
-                action="http://52.43.207.234:3001/restaurantProfile/updateRestaurantProfilePic"
+                action="http://34.221.204.181:3001/restaurantProfile/updateRestaurantProfilePic"
                 method="POST"
                 encType="multipart/form-data"
               >
