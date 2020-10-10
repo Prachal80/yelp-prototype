@@ -32,7 +32,7 @@ router.post("/updateCustomerProfilePic", upload.single("profilePic"), function (
     console.log("req.file.path", req.file.path);
     console.log("CID", req.body.CID);
     console.log("protocol ", req.protocol);
-    var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+    var imagepath = req.file.path;
     console.log("imagepath ", imagepath);
     let query = "update customer set profilepic = ? where id = ?";
     let args = [imagepath, req.body.CID];
@@ -40,7 +40,9 @@ router.post("/updateCustomerProfilePic", upload.single("profilePic"), function (
       // console.log(flag, result);
       if (!flag) console.log("err", flag);
       else {
-        res.redirect("http://localhost:3000/customer/profile");
+        res.redirect(
+          "http://" + process.env.ip + ":3000" + "/customer/profile"
+        );
       }
     });
   }

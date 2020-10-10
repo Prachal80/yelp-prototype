@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
 import { Card, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 class customerEventView extends Component {
   constructor(props) {
@@ -48,7 +47,10 @@ class customerEventView extends Component {
       //make a post request with the user data
       axios
         .post(
-          "http://34.221.204.181:3001/customerEvents/registerEventCustomer",
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/customerEvents/registerEventCustomer",
           data
         )
         .then((response) => {
@@ -77,7 +79,11 @@ class customerEventView extends Component {
     };
     console.log("########### Getting Event deatails", data);
     axios({
-      url: "http://34.221.204.181:3001/customerEvents/getSingleEvent",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/customerEvents/getSingleEvent",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -103,7 +109,11 @@ class customerEventView extends Component {
     };
     console.log("########### Getting Event deatails", data1);
     axios({
-      url: "http://34.221.204.181:3001/customerEvents/getRegisteredCustomer",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/customerEvents/getRegisteredCustomer",
       method: "GET",
       params: data1,
     }).then((response) => {
@@ -171,7 +181,6 @@ class customerEventView extends Component {
                         color: "#ffffff",
                         fontWeight: "bold",
                         borderBlockColor: "white",
-                        fontWeight: "bold",
                         border: "1px #D32323",
                       }}
                       onClick={this.registerEvent}

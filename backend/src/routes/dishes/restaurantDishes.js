@@ -33,7 +33,7 @@ router.post(
     console.log("Restaurant Name", req.body.Rname);
     console.log("protocol ", req.protocol);
     console.log("%%%%%%%", req.body);
-    var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+    var imagepath = req.file.path;
     console.log("imagepath ", imagepath);
     let query = `insert into dishes (dishname, ingredients,image,price,description,category,restaurantid,restaurantname) values (?,?,?,?,?,?,?,?)`;
 
@@ -53,7 +53,7 @@ router.post(
     executeQuery(query, args, (flag, result) => {
       if (!flag) console.log("err", flag);
       else {
-        // res.redirect("http://localhost:3000/restaurant/dashboard");
+        // res.redirect("http://"+process.env.ip+":3001"+"/restaurant/dashboard");
         res.send({ success: true, restaurantDishAdd: result });
       }
     });
@@ -74,7 +74,7 @@ router.post(
     console.log("Restaurant Name", req.body.Rname);
     console.log("protocol ", req.protocol);
     console.log("%%%%%%%", req.body);
-    var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+    var imagepath = req.file.path;
     console.log("imagepath ", imagepath);
     let query =
       "update dishes set dishname = ?, ingredients=?,image=?,price=?,description=?,category=? where id = ?";
@@ -94,7 +94,7 @@ router.post(
     executeQuery(query, args, (flag, result) => {
       if (!flag) console.log("err", flag);
       else {
-        // res.redirect("http://localhost:3000/restaurant/dashboard");
+        // res.redirect("http://"+process.env.ip+":300"+"/restaurant/dashboard");
         res.send({ success: true, restaurantDishUpdate: result });
       }
     });
@@ -127,7 +127,7 @@ router.post("/updateDishe", (req, res) => {
   console.log("RID", req.body.RID);
   console.log("protocol ", req.protocol);
   console.log("%%%%%%%", req.body);
-  var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+  var imagepath = req.file.path;
   console.log("imagepath ", imagepath);
 
   let query =

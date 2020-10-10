@@ -37,11 +37,17 @@ export class CustomerEvents extends Component {
 
     //Get All unregistered events
     axios
-      .get("http://34.221.204.181:3001/customerEvents/getAllEvents", {
-        params: {
-          CID: localStorage.getItem("CID"),
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/customerEvents/getAllEvents",
+        {
+          params: {
+            CID: localStorage.getItem("CID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received all unregistered Events");
 
@@ -52,11 +58,17 @@ export class CustomerEvents extends Component {
 
     //Get All registered events
     axios
-      .get("http://34.221.204.181:3001/customerEvents/getRegisteredEvents", {
-        params: {
-          CID: localStorage.getItem("CID"),
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/customerEvents/getRegisteredEvents",
+        {
+          params: {
+            CID: localStorage.getItem("CID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received all registered Events");
 

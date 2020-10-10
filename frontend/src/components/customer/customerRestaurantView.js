@@ -57,7 +57,11 @@ class customerRestaurantView extends Component {
       RID: this.state.restaurantid,
     };
     axios({
-      url: "http://34.221.204.181:3001/restaurantProfile/getRestaurantProfile",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -80,11 +84,17 @@ class customerRestaurantView extends Component {
     });
     //Get All dishes
     axios
-      .get("http://34.221.204.181:3001/restaurantDishes/getAllDishes", {
-        params: {
-          RID: this.state.restaurantid,
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/restaurantDishes/getAllDishes",
+        {
+          params: {
+            RID: this.state.restaurantid,
+          },
+        }
+      )
       .then((response) => {
         console.log("Received Dishes");
 
@@ -100,12 +110,18 @@ class customerRestaurantView extends Component {
       });
     //Get all reviews customer
     axios
-      .get("http://34.221.204.181:3001/reviews/getCustomerReviews", {
-        params: {
-          CID: localStorage.getItem("CID"),
-          RID: this.state.restaurantid,
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/reviews/getCustomerReviews",
+        {
+          params: {
+            CID: localStorage.getItem("CID"),
+            RID: this.state.restaurantid,
+          },
+        }
+      )
       .then((response) => {
         console.log("Received All reviews");
 
@@ -141,7 +157,13 @@ class customerRestaurantView extends Component {
     //make a post request with the user data
     if (data.rating && data.review && data.reviewdate) {
       axios
-        .post("http://34.221.204.181:3001/reviews/addReviewCustomer", data)
+        .post(
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/reviews/addReviewCustomer",
+          data
+        )
         .then((response) => {
           console.log("Status Code : ", response.status);
           console.log("response, ", response.data.success);
@@ -224,7 +246,12 @@ class customerRestaurantView extends Component {
             </div>
             <div>
               <img
-                src={this.state.restaurantprofilepic}
+                src={
+                  "http://" +
+                  process.env.REACT_APP_IP +
+                  ":3001/" +
+                  this.state.restaurantprofilepic
+                }
                 alt="Profile Pic"
                 style={{
                   width: "400px",

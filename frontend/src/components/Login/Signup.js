@@ -111,7 +111,10 @@ class Signup extends Component {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
         axios
-          .post("http://34.221.204.181:3001/signup", data)
+          .post(
+            "http://" + process.env.REACT_APP_IP + ":3001" + "/signup",
+            data
+          )
           .then((response) => {
             console.log("Status Code : ", response.status);
             console.log("response, ", response.data.success);

@@ -38,7 +38,7 @@ router.post(
       if (!flag) console.log("err", flag);
       else {
         res.send({ success: true, CustomerMakeOrder: result });
-        // res.redirect("http://localhost:3000/customer/orders");
+        // res.redirect("http://"+process.env.ip+":300"+"/customer/orders");
       }
     });
   }

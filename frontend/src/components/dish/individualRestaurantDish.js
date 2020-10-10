@@ -10,18 +10,20 @@ export default class individualDish extends Component {
     super(props);
 
     this.state = {
-      name: "",
       location: "",
       address: "",
       state: "",
       country: "",
-      description: "",
       timings: "",
       email: "",
       contact: "",
       ratings: "",
       id: "",
-      ErrorMessage: "",
+      dishname: this.props.data.dishname,
+      description: this.props.data.description,
+      category: this.props.data.category,
+      ingredients: this.props.data.ingredients,
+      price: this.props.data.price,
     };
 
     //Bind the handlers to this class
@@ -57,7 +59,10 @@ export default class individualDish extends Component {
 
     axios
       .post(
-        "http://34.221.204.181:3001/restaurantDishes/updateRestaurantDishes",
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/restaurantDishes/updateRestaurantDishes",
         formData,
         {
           headers: {
@@ -118,8 +123,8 @@ export default class individualDish extends Component {
               <input
                 type="text"
                 name="dishname"
+                value={this.state.dishname}
                 contentEditable
-                defaultValue={this.props.data.dishname}
                 placeholder="Dish Name"
                 class="form-control"
                 onChange={this.ChangeHandler}
@@ -130,7 +135,7 @@ export default class individualDish extends Component {
                 name="category"
                 class="form-control"
                 contentEditable
-                defaultValue={this.props.data.category}
+                value={this.state.category}
                 onChange={this.ChangeHandler}
                 isSearchable
               >
@@ -151,8 +156,7 @@ export default class individualDish extends Component {
               <input
                 type="text"
                 name="description"
-                contentEditable
-                defaultValue={this.props.data.description}
+                value={this.state.description}
                 placeholder="Description"
                 class="form-control"
                 onChange={this.ChangeHandler}
@@ -165,8 +169,7 @@ export default class individualDish extends Component {
               <input
                 type="text"
                 name="ingredients"
-                contentEditable
-                defaultValue={this.props.data.ingredients}
+                value={this.state.ingredients}
                 class="form-control"
                 placeholder="Ingredients"
                 onChange={this.ChangeHandler}
@@ -176,8 +179,7 @@ export default class individualDish extends Component {
               <input
                 type="text"
                 name="price"
-                contentEditable
-                defaultValue={this.props.data.price}
+                value={this.state.price}
                 class="form-control"
                 placeholder="Price"
                 onChange={this.ChangeHandler}
@@ -248,7 +250,12 @@ export default class individualDish extends Component {
                 <Row>
                   <Col>
                     <img
-                      src={this.props.data.image}
+                      src={
+                        "http://" +
+                        process.env.REACT_APP_IP +
+                        ":3001/" +
+                        this.props.data.image
+                      }
                       style={{
                         width: "200px",
                         height: "150px",

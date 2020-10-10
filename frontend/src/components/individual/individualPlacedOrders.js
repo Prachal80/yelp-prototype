@@ -46,7 +46,10 @@ export default class individualPlacedOrder extends Component {
     console.log("#############", data);
     axios
       .post(
-        "http://34.221.204.181:3001/customerOrders/deleteOrderCustomer",
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/customerOrders/deleteOrderCustomer",
         data
       )
       .then((response) => {
@@ -86,7 +89,12 @@ export default class individualPlacedOrder extends Component {
                 <Row>
                   <Col>
                     <img
-                      src={this.props.data.dishimage}
+                      src={
+                        "http://" +
+                        process.env.REACT_APP_IP +
+                        ":3001/" +
+                        this.props.data.dishimage
+                      }
                       alt="Dish Image"
                       style={{
                         width: "200px",
@@ -129,7 +137,6 @@ export default class individualPlacedOrder extends Component {
                           color: "#ffffff",
                           fontWeight: "bold",
                           borderBlockColor: "white",
-                          fontWeight: "bold",
                           border: "1px #D32323",
                         }}
                       >

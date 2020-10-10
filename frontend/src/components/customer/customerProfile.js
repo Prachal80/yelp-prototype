@@ -4,6 +4,9 @@ import { Redirect } from "react-router";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+var dotenv = require("dotenv").config({
+  path: "../.env",
+});
 
 class CustomerProfile extends Component {
   constructor(props) {
@@ -38,7 +41,11 @@ class CustomerProfile extends Component {
       CID: localStorage.getItem("CID"),
     };
     axios({
-      url: "http://34.221.204.181:3001/customerProfile/getCustomerProfile",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/customerProfile/getCustomerProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -97,7 +104,10 @@ class CustomerProfile extends Component {
     if (data) {
       axios
         .post(
-          "http://34.221.204.181:3001/customerProfile/updateCustomerProfile",
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/customerProfile/updateCustomerProfile",
           data
         )
         .then((response) => {
@@ -130,7 +140,12 @@ class CustomerProfile extends Component {
         <div>
           <div class="row" style={{ backgroundColor: "" }}>
             <img
-              src={this.state.imagePath}
+              src={
+                "http://" +
+                process.env.REACT_APP_IP +
+                ":3001/" +
+                this.state.imagePath
+              }
               alt="Profile Pic"
               style={{
                 width: "200px",
@@ -183,7 +198,7 @@ class CustomerProfile extends Component {
           <br />
           <div>
             <form
-              action="http://34.221.204.181:3001/customerProfile/updateCustomerProfilePic"
+              action="http://localhost:3001/customerProfile/updateCustomerProfilePic"
               method="POST"
               encType="multipart/form-data"
               style={{

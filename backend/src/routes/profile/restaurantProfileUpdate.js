@@ -30,7 +30,7 @@ router.post(
     console.log("req.file.path", req.file.path);
     console.log("RID", req.body.RID);
     console.log("protocol ", req.protocol);
-    var imagepath = req.protocol + "://" + host + ":5001/" + req.file.path;
+    var imagepath = req.file.path;
     console.log("imagepath ", imagepath);
 
     let query = "update restaurant set restaurantprofilepic = ? where id = ?";
@@ -41,7 +41,9 @@ router.post(
     executeQuery(query, args, (flag, result) => {
       if (!flag) console.log("err", flag);
       else {
-        res.redirect("http://localhost:3000/restaurant/profile");
+        res.redirect(
+          "http://" + process.env.ip + ":3000" + "/restaurant/profile"
+        );
       }
     });
   }

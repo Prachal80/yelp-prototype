@@ -2,7 +2,7 @@ var assert = require("assert");
 var supertest = require("supertest");
 var should = require("should");
 
-var server = supertest.agent("http://localhost:5001");
+var server = supertest.agent("http://localhost:3001");
 
 //Unit Test begin
 describe("MochaTest", function () {

@@ -53,7 +53,12 @@ export default class individualRestaurant extends Component {
                 <Row>
                   <Col xs={6}>
                     <img
-                      src={this.props.data.restaurantprofilepic}
+                      src={
+                        "http://" +
+                        process.env.REACT_APP_IP +
+                        ":3001/" +
+                        this.props.data.restaurantprofilepic
+                      }
                       alt="Dish Image"
                       style={{
                         width: "100%",
@@ -94,7 +99,6 @@ export default class individualRestaurant extends Component {
                         color: "#ffffff",
                         fontWeight: "bold",
                         borderBlockColor: "white",
-                        fontWeight: "bold",
                         border: "1px #D32323",
                       }}
                       to={{

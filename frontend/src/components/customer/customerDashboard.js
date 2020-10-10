@@ -47,9 +47,15 @@ class CustomerDashboard extends Component {
 
     //Get All dishes
     axios
-      .get("http://34.221.204.181:3001/customerDishes/getAllDishes", {
-        params: {},
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/customerDishes/getAllDishes",
+        {
+          params: {},
+        }
+      )
       .then((response) => {
         console.log("Received Dishes");
         this.setState({
@@ -58,9 +64,15 @@ class CustomerDashboard extends Component {
       });
 
     axios
-      .get("http://34.221.204.181:3001/customerDishes/getAllRestaurants", {
-        params: {},
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/customerDishes/getAllRestaurants",
+        {
+          params: {},
+        }
+      )
       .then((response) => {
         console.log("Received All restaurants");
         this.setState({

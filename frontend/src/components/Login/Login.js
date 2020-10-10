@@ -27,6 +27,7 @@ class Login extends Component {
   }
   //Call the Will Mount to set the auth Flag to false
   componentWillMount() {
+    console.log("*********", process.env);
     this.setState({
       authFlag: false,
     });
@@ -74,7 +75,7 @@ class Login extends Component {
         M.toast({ html: "Invalid email", classes: "#fc2837 red darken-3" });
       } else {
         axios
-          .post("http://34.221.204.181:3001/login", data)
+          .post("http://" + process.env.REACT_APP_IP + ":3001" + "/login", data)
           .then((response) => {
             console.log("Status Code : ", response.status);
             console.log("response, ", response.data);

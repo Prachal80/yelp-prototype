@@ -5,6 +5,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
+var dotenv = require("dotenv").config({
+  path: "../.env",
+});
 
 export default class individualRestaurantOrders extends Component {
   constructor(props) {
@@ -51,7 +54,10 @@ export default class individualRestaurantOrders extends Component {
     if (data.status) {
       axios
         .post(
-          "http://34.221.204.181:3001/restaurantOrders/changeOrderStatusRestaurant",
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/restaurantOrders/changeOrderStatusRestaurant",
           data
         )
         .then((response) => {
@@ -136,7 +142,12 @@ export default class individualRestaurantOrders extends Component {
                 <Row>
                   <Col>
                     <img
-                      src={this.props.data.dishimage}
+                      src={
+                        "http://" +
+                        process.env.REACT_APP_IP +
+                        ":3001/" +
+                        this.props.data.dishimage
+                      }
                       alt="Dish Image"
                       style={{
                         width: "200px",

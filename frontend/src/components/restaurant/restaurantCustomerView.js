@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
-import Image from "react-bootstrap/Image";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 class restaurantCustomerView extends Component {
   constructor(props) {
@@ -38,7 +34,11 @@ class restaurantCustomerView extends Component {
     };
     console.log("########### Getting customer deatails", data);
     axios({
-      url: "http://34.221.204.181:3001/customerProfile/getCustomerProfile",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/customerProfile/getCustomerProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -75,7 +75,12 @@ class restaurantCustomerView extends Component {
         <div>
           <div class="row" style={{ backgroundColor: "" }}>
             <img
-              src={this.state.imagePath}
+              src={
+                "http://" +
+                process.env.REACT_APP_IP +
+                ":3001/" +
+                this.state.imagePath
+              }
               alt="Profile Pic"
               style={{
                 width: "200px",

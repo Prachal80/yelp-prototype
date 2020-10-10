@@ -17,7 +17,9 @@ var session = require("express-session");
 // var cookieParser = require("cookie-parser");
 
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({ origin: "http://" + process.env.ip + ":3000" + "", credentials: true })
+);
 // app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(
   bodyParser.urlencoded({
@@ -99,3 +101,5 @@ app.use("/restaurantEvents", restaurantEvents);
 exports.db = db;
 app.listen(3001);
 console.log("Server Listening on port 3001");
+
+console.log(process.env.ip);

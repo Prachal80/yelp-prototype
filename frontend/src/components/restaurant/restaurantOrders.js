@@ -34,7 +34,10 @@ export default class restaurantOrders extends Component {
     //Get All orders made by customers to the restaurant
     axios
       .get(
-        "http://34.221.204.181:3001/restaurantOrders/getAllOrdersRestaurant",
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/restaurantOrders/getAllOrdersRestaurant",
         {
           params: {
             RID: localStorage.getItem("RID"),

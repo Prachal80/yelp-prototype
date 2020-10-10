@@ -48,7 +48,11 @@ class RestaurantDashboard extends Component {
       RID: localStorage.getItem("RID"),
     };
     axios({
-      url: "http://34.221.204.181:3001/restaurantProfile/getRestaurantProfile",
+      url:
+        "http://" +
+        process.env.REACT_APP_IP +
+        ":3001" +
+        "/restaurantProfile/getRestaurantProfile",
       method: "GET",
       params: data,
     }).then((response) => {
@@ -72,11 +76,17 @@ class RestaurantDashboard extends Component {
     });
     //Get All dishes
     axios
-      .get("http://34.221.204.181:3001/restaurantDishes/getAllDishes", {
-        params: {
-          RID: localStorage.getItem("RID"),
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/restaurantDishes/getAllDishes",
+        {
+          params: {
+            RID: localStorage.getItem("RID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received Dishes");
 
@@ -87,11 +97,17 @@ class RestaurantDashboard extends Component {
 
     //Get all reviews to restaurant
     axios
-      .get("http://34.221.204.181:3001/reviews/getRestaurantReviews", {
-        params: {
-          RID: localStorage.getItem("RID"),
-        },
-      })
+      .get(
+        "http://" +
+          process.env.REACT_APP_IP +
+          ":3001" +
+          "/reviews/getRestaurantReviews",
+        {
+          params: {
+            RID: localStorage.getItem("RID"),
+          },
+        }
+      )
       .then((response) => {
         console.log("Received All reviews");
 
@@ -132,7 +148,10 @@ class RestaurantDashboard extends Component {
     if (formData.get("category") != "undefined") {
       axios
         .post(
-          "http://34.221.204.181:3001/restaurantDishes/addRestaurantDishes",
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/restaurantDishes/addRestaurantDishes",
           formData,
           {
             headers: {
@@ -360,7 +379,12 @@ class RestaurantDashboard extends Component {
             </div>
             <div>
               <img
-                src={this.state.restaurantprofilepic}
+                src={
+                  "http://" +
+                  process.env.REACT_APP_IP +
+                  ":3001/" +
+                  this.state.restaurantprofilepic
+                }
                 alt="Profile Pic"
                 style={{
                   width: "400px",

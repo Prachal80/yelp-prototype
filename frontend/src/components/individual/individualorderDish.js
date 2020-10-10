@@ -58,7 +58,10 @@ export default class individualOrderDish extends Component {
     if (data.option) {
       axios
         .post(
-          "http://34.221.204.181:3001/customerOrders/makeOrderCustomer",
+          "http://" +
+            process.env.REACT_APP_IP +
+            ":3001" +
+            "/customerOrders/makeOrderCustomer",
           data
         )
         .then((response) => {
@@ -110,7 +113,12 @@ export default class individualOrderDish extends Component {
                 <Row>
                   <Col className="col-6">
                     <img
-                      src={this.props.data.image}
+                      src={
+                        "http://" +
+                        process.env.REACT_APP_IP +
+                        ":3001/" +
+                        this.props.data.image
+                      }
                       alt="Order dish"
                       style={{
                         width: "100%",
