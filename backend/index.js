@@ -49,21 +49,21 @@ app.use(function (req, res, next) {
 });
 
 // Establish mysql connection
-const db = mysql.createPool({
-  connectionLimit: 100,
+const db = mysql.createConnection({
+  // connectionLimit: 100,
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
 });
 
-// db.connect((error) => {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log("Connected to Mysql");
-//   }
-// });
+db.connect((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected to Mysql");
+  }
+});
 
 var loginBasePath = require("./src/routes/login/account");
 app.use("/login", loginBasePath);

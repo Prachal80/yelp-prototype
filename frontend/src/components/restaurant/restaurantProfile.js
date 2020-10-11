@@ -90,7 +90,7 @@ class RestaurantProfile extends Component {
       contact: this.state.contact,
       method: this.state.method,
       restaurantprofilepic: this.state.restaurantprofilepic,
-      cusisine: this.state.cuisine,
+      cuisine: this.state.cuisine,
       RID: localStorage.getItem("RID"),
     };
 

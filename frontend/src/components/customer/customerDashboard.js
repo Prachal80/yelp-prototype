@@ -23,6 +23,15 @@ class CustomerDashboard extends Component {
       cuisine: "",
       location: "",
       method: "",
+      markers: [
+        { latitude: 37.335845, longitude: -121.885866 },
+        { latitude: 37.332818, longitude: -121.885144 },
+        { latitude: 37.332074, longitude: -121.886889 },
+        { latitude: 37.331105, longitude: -121.882943 },
+        { latitude: 37.334246, longitude: -121.876356 },
+        { latitude: 37.324849, longitude: -121.879581 },
+        { latitude: 37.324545, longitude: -121.881218 },
+      ],
     };
   }
   ChangeHandler = (e) => {
@@ -97,7 +106,11 @@ class CustomerDashboard extends Component {
 
     let allRestaurants = this.state.restaurants.map((eachRestaurant) => {
       if (this.state.filter !== "") {
-        if (eachRestaurant.method === this.state.filter) {
+        if (
+          eachRestaurant.method
+            .toLowerCase()
+            .includes(this.state.filter.toLowerCase())
+        ) {
           return (
             <EachRestaurant
               // key={Math.random}
@@ -109,7 +122,7 @@ class CustomerDashboard extends Component {
         if (
           eachRestaurant[this.state.searchCriteria]
             .toLowerCase()
-            .includes(this.state.pattern)
+            .includes(this.state.pattern.toLowerCase())
         ) {
           return (
             <EachRestaurant
@@ -189,6 +202,7 @@ class CustomerDashboard extends Component {
                   <option value="cuisine">Cuisines</option>
                   <option value="location">Location</option>
                   <option value="method">Mode of Delivery</option>
+                  <option value="name">Restaurant Name</option>
                 </select>
               </div>
               &nbsp;
@@ -229,17 +243,20 @@ class CustomerDashboard extends Component {
 
             <Map
               google={this.props.google}
-              zoom={13.5}
+              zoom={15}
+              center={{ lat: 37.331605, lng: -121.882843 }}
               style={{
                 width: "80%",
                 height: "700px",
                 border: "1px solid grey",
                 marginTop: "10px",
-
-                // borderRadius: "2%",
               }}
             >
-              <Marker onClick={this.state.address} name={"Current location"} />
+              {this.state.markers.map((marker) => (
+                <Marker
+                  position={{ lat: marker.latitude, lng: marker.longitude }}
+                />
+              ))}
             </Map>
           </div>
         </div>
