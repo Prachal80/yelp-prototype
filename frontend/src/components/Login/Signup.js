@@ -84,7 +84,7 @@ class Signup extends Component {
   submitSignup = (e) => {
     var headers = new Headers();
     //prevent page from refresh
-    e.preventDefault();
+    //e.preventDefault();
     const data = {
       name: this.state.name,
       email: this.state.email,
@@ -110,7 +110,7 @@ class Signup extends Component {
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios
+        return axios
           .post(
             "http://" + process.env.REACT_APP_IP + ":3001" + "/signup",
             data
@@ -119,7 +119,7 @@ class Signup extends Component {
             console.log("Status Code : ", response.status);
             console.log("response, ", response.data.success);
             if (response.data.success) {
-              window.location.assign("/login");
+            //   window.location.assign("/login");
               M.toast({
                 html: "Signup success",
                 classes: "green darken-1",
@@ -142,9 +142,9 @@ class Signup extends Component {
   };
 
   UserRestaurant = () => {
-    console.log("Res location");
+    // console.log("Res location");
     if (this.state.isRestaurant) {
-      console.log("Res location");
+    //   console.log("Res location");
       return (
         <div class="form-group">
           <input
@@ -159,7 +159,7 @@ class Signup extends Component {
         </div>
       );
     } else {
-      console.log("In else");
+    //   console.log("In else");
     }
   };
 

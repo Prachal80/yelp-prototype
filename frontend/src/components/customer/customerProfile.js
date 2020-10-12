@@ -40,7 +40,7 @@ class CustomerProfile extends Component {
     let data = {
       CID: localStorage.getItem("CID"),
     };
-    axios({
+    return axios({
       url:
         "http://" +
         process.env.REACT_APP_IP +

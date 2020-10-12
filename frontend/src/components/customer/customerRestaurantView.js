@@ -51,65 +51,8 @@ class customerRestaurantView extends Component {
 
   componentDidMount() {
     console.log("RID", this.state.restaurantid);
-    axios.defaults.withCredentials = true;
-    //make a get request with the Restaurant data
-    let data = {
-      RID: this.state.restaurantid,
-    };
-    axios({
-      url:
-        "http://" +
-        process.env.REACT_APP_IP +
-        ":3001" +
-        "/restaurantProfile/getRestaurantProfile",
-      method: "GET",
-      params: data,
-    }).then((response) => {
-      console.log("profile details", response.data.restaurantProfileData[0]);
-
-      let restaurantData = response.data.restaurantProfileData[0];
-      this.setState({
-        name: restaurantData.name,
-        location: restaurantData.location,
-        address: restaurantData.address,
-        state: restaurantData.state,
-        country: restaurantData.country,
-        description: restaurantData.description,
-        timings: restaurantData.timings,
-        email: restaurantData.email,
-        contact: restaurantData.contact,
-        restaurantprofilepic: restaurantData.restaurantprofilepic,
-        ratings: restaurantData.ratings,
-      });
-    });
-    //Get All dishes
-    axios
-      .get(
-        "http://" +
-          process.env.REACT_APP_IP +
-          ":3001" +
-          "/restaurantDishes/getAllDishes",
-        {
-          params: {
-            RID: this.state.restaurantid,
-          },
-        }
-      )
-      .then((response) => {
-        console.log("Received Dishes");
-
-        this.setState({
-          dishes: this.state.dishes.concat(response.data.restaurantDishGet),
-        });
-      })
-      .catch((response) => {
-        console.log("********** Catch", response);
-        this.setState({
-          ErrorMessage: "Something went wrong while getting all the dishes",
-        });
-      });
-    //Get all reviews customer
-    axios
+   
+    return axios
       .get(
         "http://" +
           process.env.REACT_APP_IP +
